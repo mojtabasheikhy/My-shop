@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+ <ScrollView
+     android:layout_width="match_parent"
+     android:background="#F4F4F4"
+     android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        tools:context=".View.activity.Settings">
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/settings_frame"
+            android:background="@drawable/main_background">
+        </FrameLayout>
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+
+            android:scaleX="1.3"
+            android:scaleY="1.18"
+
+            android:layout_above="@+id/settings_iv_profile"
+            android:layout_below="@id/settings_toolabr"
+            android:layout_centerHorizontal="true"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/profile_user_card"
+            app:lottie_repeatCount="5"
+            app:tint="@color/white" />
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_alignParentStart="true"
+                app:titleTextColor="@color/white"
+                app:navigationIconTint="@color/white"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/main_background"
+                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:id="@+id/settings_toolabr" />
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/settings_iv_profile"
+            android:elevation="10dp"
+            android:layout_width="190dp"
+            android:layout_height="200dp"
+            android:layout_below="@id/settings_frame"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-100dp"
+            android:src="@drawable/ic_placeholder"
+            app:civ_border_color="#B3B3B3"
+            app:civ_border_width=".5dp"
+            app:civ_circle_background_color="@color/text_color" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/settings_btn_edit"
+           android:backgroundTint="@color/white"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/settings_iv_profile"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="60dp"
+           android:layout_marginStart="60dp"
+            android:fontFamily="@font/iranyekanwebbold"
+            android:insetBottom="0dp"
+            android:text="@string/edit"
+            android:textColor="@color/black"
+            app:cornerRadius="10dp"
+            app:icon="@drawable/ic_edit"
+            app:iconSize="16dp"
+            app:iconTint="@color/black"
+            app:rippleColor="@color/black" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/settings_Btn_logout"
+            android:backgroundTint="@null"
+            android:background="@drawable/button_background"
+            android:layout_marginStart="20dp"
+            android:padding="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:drawableEnd="@drawable/ic_exit"
+            android:drawableTint="@color/white"
+            android:fontFamily="@font/iranyekanwebbold"
+            app:cornerRadius="10dp"
+            android:drawablePadding="3dp"
+            android:layout_height="wrap_content"
+             android:elevation="8dp"
+            android:layout_below="@id/settings_mat"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/logout"
+          />
+
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="match_parent"
+          android:layout_marginStart="20dp"
+          android:layout_marginEnd="20dp"
+          app:cardCornerRadius="10dp"
+          android:layout_marginTop="15dp"
+          app:cardElevation="5dp"
+
+          app:strokeWidth=".5dp"
+          android:id="@+id/settings_mat"
+          app:strokeColor="@color/text_color"
+          android:layout_below="@id/settings_btn_edit"
+          android:layout_height="wrap_content">
+
+          <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+              <View
+                  android:id="@+id/settings_devider_below_name"
+                  android:layout_width="match_parent"
+                  android:layout_height=".5dp"
+                  android:layout_below="@id/settings_iv_gender"
+                  android:layout_marginStart="40dp"
+                  android:layout_marginTop="10dp"
+                  android:layout_marginEnd="40dp"
+                  android:background="@color/second_text_color" />
+
+              <View
+                  android:id="@+id/settings_devider_below_email"
+                  android:layout_width="match_parent"
+                  android:layout_height=".5dp"
+                  android:layout_below="@id/settings_iv_email"
+                  android:layout_marginStart="40dp"
+                  android:layout_marginTop="10dp"
+                  android:layout_marginEnd="40dp"
+                  android:background="@color/second_text_color" />
+
+              <ImageView
+                  android:id="@+id/settings_iv_gender"
+                  android:layout_width="40dp"
+                  android:layout_height="38dp"
+
+                  android:layout_alignParentStart="true"
+                  android:layout_alignParentTop="true"
+                  android:layout_marginStart="20dp"
+                  android:layout_marginTop="15dp"
+                  android:src="@drawable/ic_man" />
+
+              <TextView
+                  android:id="@+id/settings_tv_name"
+                  style="@style/viewParent.headerText"
+                  android:layout_width="wrap_content"
+
+                  android:layout_height="wrap_content"
+                  android:layout_alignTop="@+id/settings_iv_gender"
+                  android:layout_alignBottom="@+id/settings_iv_gender"
+                  android:layout_marginStart="14dp"
+                  android:layout_marginTop="9dp"
+                  android:layout_marginBottom="10dp"
+                  android:layout_toEndOf="@+id/settings_iv_gender"
+                  android:ellipsize="end"
+                  android:lines="1"
+                  android:text="Loading"
+                  android:textAlignment="center"
+                  android:textSize="14sp" />
+
+              <ImageView
+                  android:id="@+id/settings_iv_email"
+                  android:layout_width="40dp"
+                  android:layout_height="38dp"
+                  android:layout_below="@id/settings_devider_below_name"
+                  android:layout_alignParentStart="true"
+
+                  android:layout_marginStart="20dp"
+                  android:layout_marginTop="15dp"
+                  android:src="@drawable/ic_circle_icons_mail" />
+
+              <TextView
+                  android:id="@+id/settings_tv_email"
+                  style="@style/viewParent.headerText"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+
+                  android:layout_alignTop="@+id/settings_iv_email"
+                  android:layout_alignBottom="@+id/settings_iv_email"
+                  android:layout_marginStart="12dp"
+                  android:layout_marginTop="9dp"
+                  android:layout_marginBottom="10dp"
+                  android:layout_toEndOf="@+id/settings_iv_gender"
+                  android:ellipsize="end"
+                  android:maxLines="1"
+                  android:text="Loading"
+                  android:textAlignment="center"
+                  android:textSize="14sp" />
+
+              <ImageView
+                  android:id="@+id/settings_iv_phone"
+                  android:layout_width="40dp"
+                  android:layout_height="38dp"
+                  android:layout_below="@id/settings_devider_below_email"
+                  android:layout_alignParentStart="true"
+                  android:layout_marginStart="20dp"
+                  android:layout_marginTop="15dp"
+                  android:src="@drawable/ic_phone" />
+
+              <TextView
+                  android:id="@+id/settings_tv_phone"
+                  style="@style/viewParent.headerText"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignTop="@+id/settings_iv_phone"
+                  android:layout_alignBottom="@+id/settings_iv_phone"
+                  android:layout_marginStart="12dp"
+                  android:layout_marginTop="9dp"
+                  android:layout_marginBottom="10dp"
+                  android:layout_toEndOf="@+id/settings_iv_gender"
+                  android:ellipsize="end"
+                  android:lines="1"
+                  android:maxLines="1"
+                  android:text="Loading"
+                  android:textAlignment="center"
+                  android:textSize="14sp" />
+
+              <com.google.android.material.textfield.TextInputLayout
+                  android:id="@+id/settings_Edt_add_textlayout"
+                  style="@style/parent"
+                  android:layout_below="@id/settings_iv_phone"
+                  android:layout_marginStart="20dp"
+                  android:layout_marginEnd="20dp"
+                  android:layout_marginBottom="15dp">
+
+                  <com.google.android.material.textfield.TextInputEditText
+                      android:id="@+id/settings_Edt_address"
+                      style="@style/modifiedEditText"
+                      android:drawableEnd="@drawable/ic_location"
+                      android:hint="@string/address"
+                      android:inputType="textPersonName"
+                      android:maxLines="1" />
+              </com.google.android.material.textfield.TextInputLayout>
+          </RelativeLayout>
+      </com.google.android.material.card.MaterialCardView>
+
+
+    </RelativeLayout>
+ </ScrollView>
+</layout>

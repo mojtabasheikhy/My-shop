@@ -1,0 +1,250 @@
+package com.example.myshop.FireStore
+
+import android.app.Activity
+import android.net.Uri
+import androidx.fragment.app.Fragment
+import com.example.myshop.model.ProductDataClass
+import com.example.myshop.model.user
+import com.example.myshop.R
+import com.example.myshop.Utils.ConstVal
+import com.example.myshop.View.activity.*
+import com.example.myshop.View.fragment.Dashbord
+import com.example.myshop.View.fragment.ProductFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.storage.FirebaseStorage
+
+class FireStore {
+    var myFirestore = FirebaseFirestore.getInstance()
+    fun RegisterUserToFireStore(activity: Register, userinfo: user) {
+        myFirestore.collection(ConstVal.Collection_Users)
+            .document(userinfo.id)
+            .set(userinfo, SetOptions.merge())
+            .addOnCompleteListener {
+                it.addOnSuccessListener {
+                    activity.RegisterSuccess()
+                }
+            }
+            .addOnFailureListener {
+                activity.RegisterFailed()
+            }
+    }
+
+    fun GetCurrentUserID(): String {
+        var CurrentUser = FirebaseAuth.getInstance().currentUser
+        var CurrentUserID = ""
+        if (CurrentUser != null) {
+            CurrentUserID = CurrentUser.uid
+        }
+        return CurrentUserID
+    }
+
+
+    fun GetUserDetailFromFireStore(activity: Activity) {
+        myFirestore.collection(ConstVal.Collection_Users)
+            .document(GetCurrentUserID())
+            .get()
+            .addOnCompleteListener {
+                it.addOnSuccessListener {
+                    val user = it.toObject(user::class.java)
+
+
+                    when (activity) {
+                        is Login -> {
+                            if (user != null) {
+                                activity.UserLoginSuccess(user)
+                            }
+                        }
+                        is Settings -> {
+                            if (user != null) {
+                                activity.GetUserDetailSettingsSuccess(user)
+                            }
+                        }
+                    }
+                }
+            }
+            .addOnFailureListener {
+                when (activity) {
+                    is Login -> {
+                        activity.HideDialog()
+                        activity.ShowSnackbar(it.message.toString(), false)
+                    }
+                    is Settings -> {
+                        activity.HideDialog()
+                        activity.ShowSnackbar(it.message.toString(), false)
+                    }
+                }
+            }
+    }
+
+    fun Update_User_Detail(activity: Activity, UserHashMap: HashMap<String, Any>) {
+        myFirestore
+            .collection(ConstVal.Collection_Users)
+            .document(GetCurrentUserID())
+            .update(UserHashMap)
+            .addOnCompleteListener {
+                it.addOnSuccessListener {
+                    when (activity) {
+                        is CompleteProfile -> {
+
+                            activity.UpdateUserDetailSuccessfully()
+                        }
+
+                    }
+
+                }
+            }
+            .addOnFailureListener {
+                when (activity) {
+                    is CompleteProfile -> {
+                        activity.HideDialog()
+                        activity.ShowSnackbar(
+                            activity.resources.getString(R.string.errorWhenUpadteData),
+                            false
+                        )
+                    }
+
+                }
+            }
+    }
+
+    fun UploadImageToCloudStore(activity: Activity, imageExtension: Uri, ImageType: String) {
+
+        var sref = FirebaseStorage.getInstance().reference.child(
+            ImageType + System.currentTimeMillis() + "." + ConstVal.GetFileExtention(
+                activity,
+                imageExtension
+            )
+        )
+        sref.putFile(imageExtension)
+
+            .addOnSuccessListener {
+                it.metadata!!.reference!!.downloadUrl.addOnSuccessListener { uri ->
+                    when (activity) {
+                        is CompleteProfile -> {
+                            /**گرفتن ادرس عکس اپلود شده و ارسال دوباره ان به دیتا بیس*/
+
+                            activity.UploadImageSuccess(uri)
+
+                        }
+                        is AddProduct -> {
+                            activity.UploadImageSuccess(uri)
+                        }
+                    }
+                }
+            }
+            .addOnFailureListener {
+                when (activity) {
+                    is CompleteProfile -> {
+                        activity.HideDialog()
+                    }
+                    is AddProduct -> {
+                        activity.HideDialog()
+                    }
+                }
+            }
+    }
+
+    fun addproductToFireStore(activity: AddProduct, productDataClass: ProductDataClass) {
+        myFirestore.collection(ConstVal.Collection_addproduct)
+            .document()
+            .set(productDataClass, SetOptions.merge())
+            .addOnCompleteListener {
+                it.addOnSuccessListener {
+                    activity.successAddproduct()
+                }
+            }
+            .addOnFailureListener {
+                activity.failedAddproduct()
+            }
+    }
+
+    fun GetMYProduct(fragment: Fragment) {
+        myFirestore.collection(ConstVal.Collection_addproduct)
+            .whereEqualTo(ConstVal.UserId, GetCurrentUserID())
+            .get()
+            .addOnCompleteListener {
+                it.addOnSuccessListener { Products ->
+                    val MyProductList: ArrayList<ProductDataClass> = ArrayList()
+                    for (i in Products.documents) {
+                        var Myproduct = i.toObject(ProductDataClass::class.java)
+                        Myproduct?.product_id = i.id
+                        MyProductList.add(Myproduct!!)
+                    }
+                    when (fragment) {
+                        is ProductFragment -> {
+                            fragment.successGetMyProductFromFireStore(MyProductList)
+                        }
+                    }
+
+                }
+            }
+            .addOnFailureListener {
+                //TODO show snackbar failed
+            }
+    }
+
+    fun GetAllProduct(fragment: Fragment) {
+        myFirestore.collection(ConstVal.Collection_addproduct)
+            .get()
+            .addOnCompleteListener {
+                it.addOnSuccessListener { Products ->
+                    val allProductList: ArrayList<ProductDataClass> = ArrayList()
+                    for (i in Products.documents) {
+                        var Allproduct = i.toObject(ProductDataClass::class.java)
+                        Allproduct?.product_id = i.id
+                        if (allProductList.size==0)
+                        {
+                           when(fragment) {
+                               is Dashbord ->{
+                                   fragment.NoDatarecived()
+                               }
+                           }
+                        }
+                        allProductList.add(Allproduct!!)
+                    }
+                    when (fragment) {
+                        is Dashbord -> {
+                            fragment.successGetAllProductFromFireStore(allProductList)
+                        }
+                    }
+
+                }
+            }
+            .addOnFailureListener {
+                //TODO show snackbar failed
+            }
+    }
+
+    fun deleteMyProduct(fragment: ProductFragment, productId: String) {
+        myFirestore.collection(ConstVal.Collection_addproduct)
+            .document(productId)
+            .delete()
+            .addOnSuccessListener {
+                fragment.SuccessDeleteMyProduct()
+            }
+            .addOnFailureListener {
+                fragment.failedDeleteMyProduct()
+            }
+    }
+
+    fun GetDetailProduct(activity: DetailProduct, productId: String) {
+        myFirestore.collection(ConstVal.Collection_addproduct)
+            .document(productId)
+            .get()
+            .addOnSuccessListener {
+                val product = it.toObject(ProductDataClass::class.java)
+                activity.successGetDetailProduct(product!!)
+            }
+            .addOnFailureListener {
+                activity.FailedGetDetailProduct()
+            }
+    }
+}
+
+
+
+
+
+

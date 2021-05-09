@@ -1,0 +1,81 @@
+<resources>
+    <string name="app_name">My Shop</string>
+
+
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Password</string>
+    <string name="already">Already\nHave\nan acount</string>
+    <string name="first_step">Here’s\nyour first\nstep with \nus!</string>
+    <string name="name">Name</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="register">Register</string>
+    <string name="already_have_an_account">Already have an account ? </string>
+    <string name="use_other_methods">Use other Methods</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login">Login</string>
+    <string name="newyouser">New user ? </string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="condition">I Agree To the Terms &amp; Condition</string>
+    <string name="Enter_Name">Please Enter Your Name</string>
+    <string name="Enter_Email">Please Enter Your Email</string>
+    <string name="Enter_phone">Please Enter your PhoneNumber</string>
+    <string name="Enter_passwrod">Please Enter your PassWord</string>
+    <string name="Enter_confirm">Please Enter your Confirm PassWord</string>
+    <string name="Enter_terms">Please Agree TO The Term</string>
+    <string name="Enter_match_password">Password &amp; Confirm Password Does Not Match</string>
+    <string name="wait">Please Wait</string>
+    <string name="success_register">Your registration was successful</string>
+    <string name="success_login">Your login was successful</string>
+    <string name="forgot_password_screen">forgot password screen</string>
+    <string name="forgot_password_detail">Enter your email address!!we will send you an email to reset your password</string>
+    <string name="send">Send</string>
+    <string name="send_forgot_password_email">Email Sent Successfully To Reset Your Password!!</string>
+    <string name="sending">Sending</string>
+    <string name="LastName">LastName</string>
+    <string name="faildSelectedImage">The selected photo does not fit</string>
+    <string name="save">Save</string>
+    <string name="Enter_lastname">Please Enter your lastName To Complete setup</string>
+    <string name="WaitToUpadte">Please Wait To Updating Data</string>
+    <string name="WaitToUpadteAndSendPic">Please Wait To Updating Data And Uploading your Profile Image</string>
+    <string name="errorWhenUpadteData">Error In Update Please Try Again</string>
+    <string name="SuccessWhenUpadteData">Data Updated Successfully</string>
+    <string name="title_activity_dashboard">MY Shop</string>
+    <string name="title_home">Dashboard</string>
+    <string name="title_dashboard">Product</string>
+    <string name="title_notifications">Order</string>
+    <string name="pleaseAllowPermision">Please allow access to the app in the settings</string>
+    <string name="alerttouploadpic">Uploading the image may take a few seconds</string>
+    <string name="ErrorInregister">An error occurred while registering. Please try again</string>
+    <string name="backtoExit">Please click again to exit</string>
+    <string name="settings">Settings</string>
+    <string name="edit">Edit</string>
+    <string name="logout">Logout</string>
+    <string name="address">Address</string>
+    <string name="Compeleteprofile">Complete Profile </string>
+    <string name="welcome">Welcome</string>
+    <string name="add_product">Add Product</string>
+    <string name="Product_title">Product Title</string>
+    <string name="price">Product Price</string>
+    <string name="product_desc">Product Description</string>
+    <string name="product_quantity">Product Quantity</string>
+    <string name="AddTitleProduct">Please Add title Your Product</string>
+    <string name="AddPriceProduct">Please Add Price Your Product</string>
+    <string name="AddQuantityProduct">Please Add Quantity Your Product</string>
+    <string name="AddDescProduct">Please Add Description Your Product</string>
+    <string name="success_addProduct">Your Product Add success</string>
+    <string name="failed_addProduct">Your Product filed to Add</string>
+    <string name="No_product_Add">No Products Added Yet</string>
+    <string name="loading">Loading</string>
+    <string name="deletedSuccessFully">Your Product Deleted Successfully</string>
+    <string name="deletedfailed">Error in deleting item !!</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Are_you_sure">Are you sure you want to delete?</string>
+    <string name="deleteitem">Delete Item</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="detail" >Detail</string>
+    <string name="addtocart" >Add To Cart</string>
+
+
+</resources>

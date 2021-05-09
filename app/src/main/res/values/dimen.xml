@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+ <dimen name="corner_radius">10dp</dimen>
+ <dimen name="margintop_statusbar">8dp</dimen>
+ <dimen name="margin_left">8dp</dimen>
+ <dimen name="margin_right">8dp</dimen>
+ <dimen name="margin_bottom">8dp</dimen>
+
+ <dimen name="headerTextSize">25sp</dimen>
+ <dimen name="newsMoreTextSize">13sp</dimen>
+ <dimen name="loginViewsMargin">13dp</dimen>
+
+
+</resources>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".View.activity.CompleteProfile">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="250dp">
+
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/main_background"
+                android:theme="@style/Theme.MaterialComponents"
+                app:contentScrim="@color/pink"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/Complete_Iv_userprofile"
+                    android:layout_width="150dp"
+                    android:layout_height="200dp"
+
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:src="@drawable/ic_placeholder"
+                    app:layout_collapseMode="parallax" />
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/compelete_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:titleTextColor="@color/white" />
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="10dp"
+                app:strokeColor="@color/text_color"
+                app:strokeWidth=".5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/complete_textInputName"
+                        style="@style/parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/Complete_Edt_Name"
+                            style="@style/modifiedEditText"
+                            android:drawableEnd="@drawable/ic_volunteer"
+                            android:hint="@string/name"
+                            android:inputType="textPersonName"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/complete_textInputLastName"
+                        style="@style/parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/complete_Edt_LastName"
+                            style="@style/modifiedEditText"
+                            android:drawableEnd="@drawable/ic_volunteer"
+                            android:hint="@string/LastName"
+                            android:inputType="textPersonName" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/complete_textInputEmail"
+                        style="@style/parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/complete_Edt_Email"
+                            style="@style/modifiedEditText"
+                            android:drawableEnd="@drawable/ic_email"
+                            android:hint="@string/login_email_hint"
+                            android:inputType="textPersonName"
+                            android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/complete_textInputPhoneNumber"
+                        style="@style/parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/complete_Edt_phoneNumber"
+                            style="@style/modifiedEditText"
+                            android:drawableEnd="@drawable/ic_calling"
+                            android:hint="@string/mobile_number"
+                            android:inputType="textPersonName" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <RadioGroup
+                        android:id="@+id/Complete_gender_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:padding="6dp">
+
+                        <RadioButton
+                            android:id="@+id/Complete_rd_gender_male"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/gender_selector"
+                            android:button="@null"
+                            android:fontFamily="@font/iranyekanwebbold"
+                            android:text="Male"
+                            android:textAlignment="center"
+                            android:textColor="@color/gender_selector_text_color" />
+
+                        <RadioButton
+                            android:id="@+id/Complete_rd_gender_Female"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/gender_selector"
+                            android:button="@null"
+                            android:fontFamily="@font/iranyekanwebbold"
+                            android:text="Female"
+                            android:textAlignment="center"
+                            android:textColor="@color/gender_selector_text_color" />
+                    </RadioGroup>
+
+                    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                        android:id="@+id/Complete_Btn_save"
+                        style="@style/loginButton"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/save"
+                        app:initialCornerAngle="27dp"
+                        app:spinning_bar_color="#FFF"
+                        app:spinning_bar_padding="6dp"
+                        app:spinning_bar_width="4dp" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </androidx.core.widget.NestedScrollView>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -1,0 +1,81 @@
+package com.example.myshop.Utils
+
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.provider.MediaStore
+import android.util.Log
+import android.webkit.MimeTypeMap
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.example.myshop.R
+import com.example.myshop.View.activity.AddProduct
+import de.hdodenhof.circleimageview.CircleImageView
+import java.lang.reflect.Executable
+
+object ConstVal {
+    const val Collection_Users = "Users"
+    const val MySharePref = "MYSharePref"
+    const val UserNameKeyPref = "username"
+    const val putExtra_UserDetail = "Userdetail"
+    const val RequestCode_Gallery = 1002
+    const val RequestCode_Permission = 1003
+    const val Male = "Male"
+    const val phonenumber = "mobile"
+    const val name = "firstName"
+    const val Female = "Female"
+    const val gender = "gender"
+    const val Lastname = "lastName"
+    const val UserProfileImage = "User_Profile_Image"
+    const val AddProductImage = "Add_Product_Image"
+    const val imageColumn: String = "image"
+    const val usercompelete = "profile_Compelete"
+    const val Collection_addproduct = "product"
+    const val UserId = "id"
+    const val putExtera_detail_product = "detail"
+    const val PutExtera_detail_userid = "userid"
+    const val cart_quantity = "1"
+
+
+    fun ChoseImageFromGallery(activity: Activity) {
+        val GalleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        activity.startActivityForResult(GalleryIntent, RequestCode_Gallery)
+    }
+
+    fun LoadPicByGlide(context: Context, ImageUri: Any, imageView: CircleImageView) {
+        try {
+            Log.e("pic", "5")
+            Glide.with(context)
+                .load(ImageUri)
+                .placeholder(R.drawable.ic_placeholder)
+                .centerCrop()
+
+
+                .into(imageView)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun LoadPicByGlide_noCircle(context: Context, ImageUri: Any, imageView: ImageView) {
+        try {
+            Log.e("pic", "5")
+            Glide.with(context)
+                .load(ImageUri)
+                .placeholder(R.drawable.ic_placeholder)
+                .centerCrop()
+                .into(imageView)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    //knows what is your file type jpg png or svg
+    fun GetFileExtention(activity: Activity, uri: Uri?): String {
+        return MimeTypeMap.getSingleton()
+            .getExtensionFromMimeType(uri?.let { activity.contentResolver.getType(it) })!!
+    }
+
+
+}
