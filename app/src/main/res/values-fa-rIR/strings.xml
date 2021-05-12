@@ -74,6 +74,8 @@
     <string name="no">خیر</string>
     <string name="detail">جزئیات</string>
     <string name="addtocart" >اضافه کردن</string>
+    <string name="price_value" >تومان</string>
+    <string name="gotocart" >رفتن به کارت</string>
 
 
 </resources>

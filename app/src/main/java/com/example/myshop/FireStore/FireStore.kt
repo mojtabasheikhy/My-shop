@@ -10,6 +10,7 @@ import com.example.myshop.Utils.ConstVal
 import com.example.myshop.View.activity.*
 import com.example.myshop.View.fragment.Dashbord
 import com.example.myshop.View.fragment.ProductFragment
+import com.example.myshop.model.CartDataClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -194,13 +195,12 @@ class FireStore {
                     for (i in Products.documents) {
                         var Allproduct = i.toObject(ProductDataClass::class.java)
                         Allproduct?.product_id = i.id
-                        if (allProductList.size==0)
-                        {
-                           when(fragment) {
-                               is Dashbord ->{
-                                   fragment.NoDatarecived()
-                               }
-                           }
+                        if (allProductList.size == 0) {
+                            when (fragment) {
+                                is Dashbord -> {
+                                    fragment.NoDatarecived()
+                                }
+                            }
                         }
                         allProductList.add(Allproduct!!)
                     }
@@ -239,6 +239,19 @@ class FireStore {
             }
             .addOnFailureListener {
                 activity.FailedGetDetailProduct()
+            }
+    }
+
+    fun CreateCartItem(activity: DetailProduct, cartDataclass: CartDataClass) {
+        myFirestore.collection(ConstVal.cart_item)
+            .document()
+            .set(cartDataclass, SetOptions.merge())
+            .addOnSuccessListener {
+                activity.AddCartSuccess()
+            }
+            .addOnFailureListener {
+                activity.failed()
+
             }
     }
 }

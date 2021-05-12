@@ -76,6 +76,8 @@
     <string name="no">No</string>
     <string name="detail" >Detail</string>
     <string name="addtocart" >Add To Cart</string>
+    <string name="price_value" >$</string>
+    <string name="gotocart" >Go To Cart</string>
 
 
 </resources>

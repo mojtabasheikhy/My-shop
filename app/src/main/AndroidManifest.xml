@@ -52,6 +52,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/Splash_Theme">
 
+
+
+
         </activity>
         <activity
             android:name=".View.activity.Splash_Screen"

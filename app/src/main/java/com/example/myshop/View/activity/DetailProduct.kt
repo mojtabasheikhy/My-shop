@@ -3,12 +3,14 @@ package com.example.myshop.View.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.myshop.FireStore.FireStore
 import com.example.myshop.R
 import com.example.myshop.Utils.ConstVal
 import com.example.myshop.databinding.ActivityDetailProductBinding
+import com.example.myshop.databinding.ActivityForgotPasswordBindingImpl
 import com.example.myshop.model.CartDataClass
 import com.example.myshop.model.ProductDataClass
 import java.lang.invoke.ConstantCallSite
@@ -32,9 +34,9 @@ class DetailProduct : Basic(), View.OnClickListener {
         if (actionbar_history != null) {
             actionbar_history.setDisplayHomeAsUpEnabled(true)
             actionbar_history.title = resources.getString(R.string.detail)
-
         }
         detailProductBinding.detailToolbar.setNavigationIcon(R.drawable.ic_back)
+
         detailProductBinding.detailToolbar.setNavigationOnClickListener {
             onBackPressed()
             finish()
@@ -71,7 +73,7 @@ class DetailProduct : Basic(), View.OnClickListener {
             detailProductBinding.detailIvProduct
         )
         detailProductBinding.detailDescValue.text = product.product_desc
-        detailProductBinding.detailPriceValue.text = product.product_pricce.toString() + "$"
+        detailProductBinding.detailPriceValue.text = product.product_pricce.toString() + resources.getString(R.string.price_value)
         detailProductBinding.detailTitle.text = product.product_title
         detailProductBinding.detailQuantityValue.text = product.product_quantity.toString()
     }
@@ -89,8 +91,9 @@ class DetailProduct : Basic(), View.OnClickListener {
             productDetailGetsuccess!!.product_image,
             productDetailGetsuccess!!.product_quantity.toString(),
             ConstVal.cart_quantity,
-
             )
+        Toast.makeText(this,FireStore().GetCurrentUserID().toString(),Toast.LENGTH_SHORT).show()
+        FireStore().CreateCartItem(this,CartObj)
     }
 
     override fun onClick(v: View?) {
@@ -99,5 +102,14 @@ class DetailProduct : Basic(), View.OnClickListener {
                 AddProductDetailToCart()
             }
         }
+    }
+    fun AddCartSuccess(){
+        HideDialog()
+        Toast.makeText(this,"add",Toast.LENGTH_SHORT).show()
+    }
+
+    fun failed() {
+        HideDialog()
+        Toast.makeText(this,"notadd",Toast.LENGTH_SHORT).show()
     }
 }

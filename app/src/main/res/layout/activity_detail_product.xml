@@ -9,18 +9,20 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:backgroundTint="#F0F0F1"
         android:layout_height="match_parent"
+        android:backgroundTint="#F0F0F1"
         tools:context=".View.activity.DetailProduct">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/detail_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?attr/actionBarSize"
             android:background="@drawable/main_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+
+            app:navigationIconTint="@color/white"
             app:titleTextColor="@color/white" />
 
         <com.google.android.material.card.MaterialCardView
@@ -47,7 +49,7 @@
                 <ImageView
                     android:id="@+id/detail_iv_product"
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
+                    android:layout_height="320dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -187,20 +189,38 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/Detail_addtocart"
-            style="@style/loginButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_background"
+            app:backgroundTint="@null"
+            android:layout_marginTop="16dp"
             android:text="@string/addtocart"
-            app:initialCornerAngle="27dp"
+
+            app:icon="@drawable/ic_add_product"
+            app:iconSize="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/Detail_gotocart"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@+id/detail_cardview"
             app:layout_constraintTop_toBottomOf="@+id/detail_cardview"
-            app:spinning_bar_color="#FFF"
-            app:spinning_bar_padding="6dp"
-            app:spinning_bar_width="4dp" />
+            app:layout_constraintVertical_bias="0.135" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/Detail_gotocart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/button_background"
+            app:backgroundTint="@null"
+            android:text="@string/gotocart"
+            app:icon="@drawable/ic_exit"
+            app:iconSize="25dp"
+            app:layout_constraintBottom_toBottomOf="@+id/Detail_addtocart"
+            app:layout_constraintEnd_toEndOf="@+id/detail_cardview"
+            app:layout_constraintStart_toEndOf="@+id/Detail_addtocart"
+            app:layout_constraintTop_toTopOf="@+id/Detail_addtocart" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

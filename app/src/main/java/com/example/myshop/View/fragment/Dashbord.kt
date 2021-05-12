@@ -86,13 +86,14 @@ class Dashbord : Fragment() {
         })
         if (AllProductList.size > 0) {
             dashbordBinding.dashbordProductNoData.visibility = View.GONE
+            dashbordBinding.dashbordSwiprefresh.visibility = View.VISIBLE
+            dashbordBinding.dashbordRecycler.apply {
+                setHasFixedSize(true)
+                visibility = View.VISIBLE
+                layoutManager = GridLayoutManager(activity?.applicationContext, 2)
+                adapter = productAdapter
         }
-        dashbordBinding.dashbordSwiprefresh.visibility = View.VISIBLE
-        dashbordBinding.dashbordRecycler.apply {
-             setHasFixedSize(true)
-            visibility = View.VISIBLE
-            layoutManager = GridLayoutManager(requireContext(), 2)
-            adapter = productAdapter
+
         }
     }
         fun showshimer() {
