@@ -33,7 +33,7 @@ class FireStore {
     }
 
     fun GetCurrentUserID(): String {
-        var CurrentUser = FirebaseAuth.getInstance().currentUser
+        val CurrentUser = FirebaseAuth.getInstance().currentUser
         var CurrentUserID = ""
         if (CurrentUser != null) {
             CurrentUserID = CurrentUser.uid
@@ -112,7 +112,7 @@ class FireStore {
 
     fun UploadImageToCloudStore(activity: Activity, imageExtension: Uri, ImageType: String) {
 
-        var sref = FirebaseStorage.getInstance().reference.child(
+        val sref = FirebaseStorage.getInstance().reference.child(
             ImageType + System.currentTimeMillis() + "." + ConstVal.GetFileExtention(
                 activity,
                 imageExtension
@@ -169,7 +169,7 @@ class FireStore {
                 it.addOnSuccessListener { Products ->
                     val MyProductList: ArrayList<ProductDataClass> = ArrayList()
                     for (i in Products.documents) {
-                        var Myproduct = i.toObject(ProductDataClass::class.java)
+                        val Myproduct = i.toObject(ProductDataClass::class.java)
                         Myproduct?.product_id = i.id
                         MyProductList.add(Myproduct!!)
                     }
@@ -193,7 +193,7 @@ class FireStore {
                 it.addOnSuccessListener { Products ->
                     val allProductList: ArrayList<ProductDataClass> = ArrayList()
                     for (i in Products.documents) {
-                        var Allproduct = i.toObject(ProductDataClass::class.java)
+                        val Allproduct = i.toObject(ProductDataClass::class.java)
                         Allproduct?.product_id = i.id
                         if (allProductList.size == 0) {
                             when (fragment) {
@@ -252,6 +252,23 @@ class FireStore {
             .addOnFailureListener {
                 activity.failed()
 
+            }
+    }
+
+    fun CheckProductExistInCart(activity:DetailProduct,productId: String){
+        myFirestore.collection(ConstVal.cart_item)
+            .whereEqualTo(ConstVal.UserId,GetCurrentUserID())
+            .whereEqualTo(ConstVal.product_id,productId)
+            .get()
+            .addOnSuccessListener {
+              if (it.documents.size > 0){
+                  activity.successExistInCart()
+              }
+                else
+                  activity.HideDialog()
+            }
+            .addOnFailureListener {
+                activity.HideDialog()
             }
     }
 }

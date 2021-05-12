@@ -37,6 +37,7 @@ object ConstVal {
     const val PutExtera_detail_userid = "userid"
     const val cart_quantity = "1"
     const val cart_item="cartItem"
+    const val product_id="productid"
 
 
     fun ChoseImageFromGallery(activity: Activity) {

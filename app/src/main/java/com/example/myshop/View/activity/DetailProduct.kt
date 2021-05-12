@@ -1,10 +1,12 @@
 package com.example.myshop.View.activity
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.myshop.FireStore.FireStore
 import com.example.myshop.R
@@ -18,11 +20,11 @@ import java.lang.invoke.ConstantCallSite
 class DetailProduct : Basic(), View.OnClickListener {
     lateinit var detailProductBinding: ActivityDetailProductBinding
     var userId: String? = null
+    var product_id:String? = null
     var productDetailGetsuccess: ProductDataClass? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        detailProductBinding =
-            DataBindingUtil.setContentView(this, R.layout.activity_detail_product)
+        detailProductBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail_product)
         detailProductBinding.DetailAddtocart.setOnClickListener(this)
         GetDetailFromProduct()
         actionbarSetup()
@@ -30,7 +32,7 @@ class DetailProduct : Basic(), View.OnClickListener {
 
     fun actionbarSetup() {
         setSupportActionBar(detailProductBinding.detailToolbar)
-        var actionbar_history = supportActionBar
+        val actionbar_history = supportActionBar
         if (actionbar_history != null) {
             actionbar_history.setDisplayHomeAsUpEnabled(true)
             actionbar_history.title = resources.getString(R.string.detail)
@@ -46,53 +48,63 @@ class DetailProduct : Basic(), View.OnClickListener {
     fun GetDetailFromProduct() {
         ShowDialog(resources.getString(R.string.wait))
         if (intent.hasExtra(ConstVal.putExtera_detail_product)) {
-            var productid = intent.getStringExtra(ConstVal.putExtera_detail_product)
-            if (productid != null) {
-                FireStore().GetDetailProduct(this, productid)
-            }
-
+            product_id= intent.getStringExtra(ConstVal.putExtera_detail_product)
         }
         if (intent.hasExtra(ConstVal.PutExtera_detail_userid)) {
             userId = intent.getStringExtra(ConstVal.PutExtera_detail_userid)
+
         }
         if (FireStore().GetCurrentUserID() == userId) {
             detailProductBinding.DetailAddtocart.visibility = View.GONE
-        } else detailProductBinding.DetailAddtocart.visibility = View.VISIBLE
+
+        }
+        else{
+            detailProductBinding.DetailAddtocart.visibility = View.VISIBLE
+
+        }
+        if (product_id != null) {
+            FireStore().GetDetailProduct(this, product_id!!)
+
+        }
     }
 
+    @SuppressLint("SetTextI18n")
     fun successGetDetailProduct(product: ProductDataClass) {
-        HideDialog()
+
         productDetailGetsuccess = product
-
-
-
-
-        ConstVal.LoadPicByGlide_noCircle(
-            this,
-            product.product_image,
-            detailProductBinding.detailIvProduct
-        )
+        ConstVal.LoadPicByGlide_noCircle(this, product.product_image, detailProductBinding.detailIvProduct)
         detailProductBinding.detailDescValue.text = product.product_desc
-        detailProductBinding.detailPriceValue.text = product.product_pricce.toString() + resources.getString(R.string.price_value)
+        detailProductBinding.detailPriceValue.setText( product.product_pricce.toString() + resources.getString(R.string.price_value))
         detailProductBinding.detailTitle.text = product.product_title
         detailProductBinding.detailQuantityValue.text = product.product_quantity.toString()
-    }
+
+
+        if (product.product_quantity== 0){
+            detailProductBinding.detailQuantityValue.text=resources.getString(R.string.outofstock)
+            detailProductBinding.detailQuantityValue.setTextColor(ContextCompat.getColor(this,R.color.red))
+        }
+        else{
+            FireStore().CheckProductExistInCart(this,product_id!!)
+        }
+
+        }
+
 
     fun FailedGetDetailProduct() {
         HideDialog()
     }
 
     fun AddProductDetailToCart() {
-        var CartObj = CartDataClass(
+        val CartObj = CartDataClass(
             FireStore().GetCurrentUserID(),
-            productDetailGetsuccess!!.product_id,
+            product_id!!,
             productDetailGetsuccess!!.product_title,
             productDetailGetsuccess!!.product_pricce.toString(),
             productDetailGetsuccess!!.product_image,
             productDetailGetsuccess!!.product_quantity.toString(),
             ConstVal.cart_quantity,
             )
-        Toast.makeText(this,FireStore().GetCurrentUserID().toString(),Toast.LENGTH_SHORT).show()
+        ShowDialog(resources.getString(R.string.wait))
         FireStore().CreateCartItem(this,CartObj)
     }
 
@@ -105,11 +117,16 @@ class DetailProduct : Basic(), View.OnClickListener {
     }
     fun AddCartSuccess(){
         HideDialog()
+        detailProductBinding.DetailAddtocart.visibility=View.GONE
         Toast.makeText(this,"add",Toast.LENGTH_SHORT).show()
     }
 
     fun failed() {
         HideDialog()
         Toast.makeText(this,"notadd",Toast.LENGTH_SHORT).show()
+    }
+    fun successExistInCart(){
+        HideDialog()
+        detailProductBinding.DetailAddtocart.visibility=View.GONE
     }
 }

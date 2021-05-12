@@ -53,7 +53,7 @@ class Dashbord : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.dashbord_menu_settings->{
-                var intent=Intent(activity,Settings::class.java)
+                val intent=Intent(activity,Settings::class.java)
                 startActivity(intent)
                 return true
             }
@@ -74,12 +74,13 @@ class Dashbord : Fragment() {
     fun successGetAllProductFromFireStore(AllProductList:ArrayList<ProductDataClass>) {
         hideshimer()
         dashbordBinding.dashbordSwiprefresh.isRefreshing = false
-        var productAdapter = DashbordAdapter()
+        val productAdapter = DashbordAdapter()
         productAdapter.setAllProductData(AllProductList)
         productAdapter.setOnclickListener(object :DashbordAdapter.click{
             override fun onclickListener(productDataClass: ProductDataClass, position: Int) {
-                var intent=Intent(context,DetailProduct::class.java)
+                val intent=Intent(context,DetailProduct::class.java)
                 intent.putExtra(ConstVal.putExtera_detail_product,productDataClass.product_id)
+                intent.putExtra(ConstVal.PutExtera_detail_userid,productDataClass.id)
                 startActivity(intent)
             }
 

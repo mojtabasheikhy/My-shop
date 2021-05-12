@@ -70,12 +70,14 @@
     <string name="deletedfailed" >خطایی در هنگام حذف رخ داده است لطفا دوباره تلاش کنید !!</string>
     <string name="Are_you_sure">آیا شما برای پاک کردن مطمئن هستید ؟!</string>
     <string name="deleteitem" >پاک کردن !!</string>
+    <string name="hello_blank_fragment">سلام</string>
     <string name="yes">بله</string>
     <string name="no">خیر</string>
     <string name="detail">جزئیات</string>
     <string name="addtocart" >اضافه کردن</string>
     <string name="price_value" >تومان</string>
     <string name="gotocart" >رفتن به کارت</string>
+    <string name="outofstock" >اتمام موجودی</string>
 
 
 </resources>

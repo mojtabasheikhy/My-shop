@@ -49,7 +49,8 @@
                 <ImageView
                     android:id="@+id/detail_iv_product"
                     android:layout_width="match_parent"
-                    android:layout_height="320dp"
+                    android:layout_height="300dp"
+
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -62,7 +63,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="title"
+                    android:text="@string/loading"
                     android:textAlignment="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -139,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
-                    android:text="TextView"
+                    android:text="@string/loading"
                     app:layout_constraintBottom_toBottomOf="@+id/detail_price"
                     app:layout_constraintStart_toStartOf="@+id/detail_quantity_value"
                     app:layout_constraintTop_toTopOf="@+id/detail_price"
@@ -153,7 +154,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="16dp"
                     android:backgroundTint="@color/white"
-                    android:text="TextView"
+                    android:text="@string/loading"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/detail_desc"
                     app:layout_constraintTop_toBottomOf="@+id/detail_desc"
@@ -166,7 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:backgroundTint="@color/white"
-                    android:text="TextView"
+                    android:text="@string/loading"
                     app:layout_constraintBottom_toBottomOf="@+id/detail_quantity"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -189,38 +190,46 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/Detail_addtocart"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/button_background"
-            app:backgroundTint="@null"
-            android:layout_marginTop="16dp"
-            android:text="@string/addtocart"
-
-            app:icon="@drawable/ic_add_product"
-            app:iconSize="25dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/Detail_gotocart"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintEnd_toEndOf="@+id/detail_cardview"
             app:layout_constraintStart_toStartOf="@+id/detail_cardview"
             app:layout_constraintTop_toBottomOf="@+id/detail_cardview"
-            app:layout_constraintVertical_bias="0.135" />
+            app:layout_constraintVertical_bias="0.0">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/Detail_gotocart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/button_background"
-            app:backgroundTint="@null"
-            android:text="@string/gotocart"
-            app:icon="@drawable/ic_exit"
-            app:iconSize="25dp"
-            app:layout_constraintBottom_toBottomOf="@+id/Detail_addtocart"
-            app:layout_constraintEnd_toEndOf="@+id/detail_cardview"
-            app:layout_constraintStart_toEndOf="@+id/Detail_addtocart"
-            app:layout_constraintTop_toTopOf="@+id/Detail_addtocart" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/Detail_gotocart"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+
+
+                android:background="@drawable/button_background"
+                android:text="@string/gotocart"
+                android:textAllCaps="false"
+                app:backgroundTint="@null"
+                app:icon="@drawable/ic_exit"
+                app:iconSize="25dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/Detail_addtocart"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_background"
+                android:text="@string/addtocart"
+                android:textAllCaps="false"
+                app:backgroundTint="@null"
+                app:icon="@drawable/ic_add_product"
+                app:iconSize="25dp" />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
