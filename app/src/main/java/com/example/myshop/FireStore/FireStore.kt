@@ -2,6 +2,7 @@ package com.example.myshop.FireStore
 
 import android.app.Activity
 import android.net.Uri
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.example.myshop.model.ProductDataClass
 import com.example.myshop.model.user
@@ -49,7 +50,6 @@ class FireStore {
             .addOnCompleteListener {
                 it.addOnSuccessListener {
                     val user = it.toObject(user::class.java)
-
 
                     when (activity) {
                         is Login -> {
@@ -270,6 +270,36 @@ class FireStore {
             .addOnFailureListener {
                 activity.HideDialog()
             }
+    }
+
+    fun GetCart(activity: Activity){
+        myFirestore.collection(ConstVal.cart_item)
+            .whereEqualTo(ConstVal.UserId,GetCurrentUserID())
+            .get()
+            .addOnSuccessListener {
+                val cartitemList:ArrayList<CartDataClass> = ArrayList()
+                for (i in it.documents){
+                    val cartitem=i.toObject(CartDataClass::class.java)!!
+                    cartitem.cart_id=i.id
+                    cartitemList.add(cartitem)
+                }
+                when(activity){
+                    is cartlist ->{
+                        activity.GetCartListSuccess(cartitemList)
+                    }
+                }
+
+            }
+            .addOnFailureListener {
+              Log.e("error",it.message.toString())
+                when(activity){
+                    is cartlist ->{
+                        activity.HideDialog()
+                        activity.ShowSnackbar(it.message.toString(),false)
+                    }
+                }
+            }
+
     }
 }
 

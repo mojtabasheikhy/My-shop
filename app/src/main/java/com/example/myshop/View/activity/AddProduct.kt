@@ -114,12 +114,8 @@ class AddProduct : Basic(), View.OnClickListener {
                 if (data != null) {
                     try {
 
-                        addproductBinding?.addproductIvAddpic?.setImageDrawable(
-                            ContextCompat.getDrawable(
-                                this,
-                                R.drawable.ic_edit
-                            )
-                        )
+                        addproductBinding?.addproductIvAddpic?.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_edit))
+                        addproductBinding?.textView5?.visibility=View.GONE
 
                         imageuri_addproduct = data.data
                         // Compelte_profile.CompleteIvUserprofile.setImageURI(Uri.parse(SelectedImage))

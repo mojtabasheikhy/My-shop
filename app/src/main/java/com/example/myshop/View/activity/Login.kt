@@ -101,7 +101,6 @@ class Login : Basic(), View.OnClickListener {
             val intent_com = Intent(this, CompleteProfile::class.java)
             intent_com.putExtra(ConstVal.putExtra_UserDetail,user)
             intent_com.flags=Intent.FLAG_ACTIVITY_CLEAR_TASK or  Intent.FLAG_ACTIVITY_NEW_TASK
-
             startActivity(intent_com)
 
         } else if (user.profile_Compelete==1) {

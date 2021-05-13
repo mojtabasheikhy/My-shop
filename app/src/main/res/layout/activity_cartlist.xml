@@ -36,6 +36,8 @@
 
             <com.todkars.shimmer.ShimmerRecyclerView
                 android:layout_width="match_parent"
+                android:id="@+id/cart_recycler"
+                app:shimmer_recycler_item_count="4"
                 android:layout_height="0dp"
                 android:layout_weight="1.9"
                 android:background="#EAEAEA" />

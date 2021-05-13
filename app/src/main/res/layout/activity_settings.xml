@@ -87,15 +87,14 @@
             app:rippleColor="@color/black" />
 
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/settings_Btn_logout"
-            android:backgroundTint="@null"
             android:background="@drawable/button_background"
             android:layout_marginStart="20dp"
             android:padding="5dp"
+            app:backgroundTint="@null"
             android:layout_marginEnd="20dp"
             android:layout_width="match_parent"
-            android:textAlignment="center"
             android:textColor="@color/white"
             android:drawableEnd="@drawable/ic_exit"
             android:drawableTint="@color/white"
@@ -103,11 +102,11 @@
             app:cornerRadius="10dp"
             android:drawablePadding="3dp"
             android:layout_height="wrap_content"
-             android:elevation="8dp"
             android:layout_below="@id/settings_mat"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="15dp"
             android:layout_marginTop="10dp"
+            android:gravity="start"
             android:text="@string/logout"
           />
 
@@ -151,8 +150,8 @@
 
               <ImageView
                   android:id="@+id/settings_iv_gender"
-                  android:layout_width="40dp"
-                  android:layout_height="38dp"
+                  android:layout_width="35dp"
+                  android:layout_height="35dp"
 
                   android:layout_alignParentStart="true"
                   android:layout_alignParentTop="true"
@@ -168,20 +167,20 @@
                   android:layout_height="wrap_content"
                   android:layout_alignTop="@+id/settings_iv_gender"
                   android:layout_alignBottom="@+id/settings_iv_gender"
-                  android:layout_marginStart="14dp"
-                  android:layout_marginTop="9dp"
-                  android:layout_marginBottom="10dp"
+                  android:layout_marginStart="12dp"
+
                   android:layout_toEndOf="@+id/settings_iv_gender"
                   android:ellipsize="end"
                   android:lines="1"
-                  android:text="Loading"
-                  android:textAlignment="center"
+                  android:gravity="center_vertical"
+                  android:text="@string/loading"
+
                   android:textSize="14sp" />
 
               <ImageView
                   android:id="@+id/settings_iv_email"
-                  android:layout_width="40dp"
-                  android:layout_height="38dp"
+                  android:layout_width="35dp"
+                  android:layout_height="35dp"
                   android:layout_below="@id/settings_devider_below_name"
                   android:layout_alignParentStart="true"
 
@@ -198,13 +197,13 @@
                   android:layout_alignTop="@+id/settings_iv_email"
                   android:layout_alignBottom="@+id/settings_iv_email"
                   android:layout_marginStart="12dp"
-                  android:layout_marginTop="9dp"
-                  android:layout_marginBottom="10dp"
+                  android:gravity="center_vertical"
+
                   android:layout_toEndOf="@+id/settings_iv_gender"
                   android:ellipsize="end"
                   android:maxLines="1"
-                  android:text="Loading"
-                  android:textAlignment="center"
+                  android:text="@string/loading"
+
                   android:textSize="14sp" />
 
               <ImageView
@@ -225,14 +224,13 @@
                   android:layout_alignTop="@+id/settings_iv_phone"
                   android:layout_alignBottom="@+id/settings_iv_phone"
                   android:layout_marginStart="12dp"
-                  android:layout_marginTop="9dp"
-                  android:layout_marginBottom="10dp"
+                  android:gravity="center_vertical"
                   android:layout_toEndOf="@+id/settings_iv_gender"
                   android:ellipsize="end"
                   android:lines="1"
                   android:maxLines="1"
-                  android:text="Loading"
-                  android:textAlignment="center"
+                  android:text="@string/loading"
+
                   android:textSize="14sp" />
 
               <com.google.android.material.textfield.TextInputLayout

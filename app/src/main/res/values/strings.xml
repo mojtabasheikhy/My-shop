@@ -90,6 +90,7 @@
     <string name="total_amount">Total Amount :</string>
     <string name="no_item_added">No Item Added</string>
     <string name="checkout">Checkout</string>
+    <string name="chose" >Choose a photo of your product</string>
 
 
 </resources>

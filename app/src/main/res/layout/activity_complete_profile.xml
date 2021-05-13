@@ -25,9 +25,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/Complete_Iv_userprofile"
-                    android:layout_width="150dp"
+                    android:layout_width="200dp"
                     android:layout_height="200dp"
-
                     android:layout_gravity="center"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="30dp"
@@ -37,8 +36,8 @@
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/compelete_toolbar"
                     android:layout_width="match_parent"
+                    app:titleTextAppearance="@style/text_toolbar"
                     android:layout_height="?attr/actionBarSize"
-                    app:layout_collapseMode="pin"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                     app:titleTextColor="@color/white" />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -148,17 +147,25 @@
                             android:textColor="@color/gender_selector_text_color" />
                     </RadioGroup>
 
-                    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/Complete_Btn_save"
-                        style="@style/loginButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/viewParent.headerText"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:gravity="start"
+                        app:icon="@drawable/ic_baseline_save_alt_24"
+                        app:iconGravity="end"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="30dp"
                         android:layout_marginBottom="10dp"
                         android:text="@string/save"
-                        app:initialCornerAngle="27dp"
-                        app:spinning_bar_color="#FFF"
-                        app:spinning_bar_padding="6dp"
-                        app:spinning_bar_width="4dp" />
+                        app:backgroundTint="@null"
+                        android:background="@drawable/button_background"
+
+
+                      />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

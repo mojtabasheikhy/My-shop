@@ -29,6 +29,10 @@ class CompleteProfile : Basic(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Compelte_profile = DataBindingUtil.setContentView(this, R.layout.activity_complete_profile)
+        setSupportActionBar(Compelte_profile.compeleteToolbar)
+        actionbar_compelte?.setDisplayHomeAsUpEnabled(true)
+        actionbar_compelte = supportActionBar
+
         GetUserDetailFromRegister()
         SetOnClickListener()
 
@@ -41,35 +45,32 @@ class CompleteProfile : Basic(), View.OnClickListener {
 
     }
 
+    fun SetOnClickListener() {
+        Compelte_profile.CompleteIvUserprofile.setOnClickListener(this)
+        Compelte_profile.CompleteBtnSave.setOnClickListener(this)
+    }
 
     private fun GetUserDetailFromRegister() {
 
-        setSupportActionBar(Compelte_profile.compeleteToolbar)
-        actionbar_compelte = supportActionBar
         var Intent_GetUser_Detail = intent
         if (Intent_GetUser_Detail.hasExtra(ConstVal.putExtra_UserDetail)) {
             UserDetail = Intent_GetUser_Detail.getParcelableExtra<user>(ConstVal.putExtra_UserDetail)
-            SetDataToEdtGiveBefore(UserDetail)
             if (UserDetail?.profile_Compelete == 0) {
                 DisableEdtHasData()
-                if (actionbar_compelte != null) {
-                    Compelte_profile.CompleteRdGenderFemale.isChecked = true
-                    actionbar_compelte!!.setDisplayHomeAsUpEnabled(true)
-                    actionbar_compelte?.setTitle(resources.getString(R.string.Compeleteprofile))
-                }
+                Compelte_profile.CompleteRdGenderFemale.isChecked = true
+                actionbar_compelte?.setTitle(resources.getString(R.string.Compeleteprofile))
 
-            } else {
-                Compelte_profile.completeEdtEmail.isEnabled=false
-                if (actionbar_compelte != null) {
-                    actionbar_compelte!!.setDisplayHomeAsUpEnabled(true)
-                    actionbar_compelte?.setTitle(resources.getString(R.string.edit))
-                }
-
+            }
+            else {
+                Compelte_profile.completeEdtEmail.isEnabled = false
+                actionbar_compelte?.setTitle(resources.getString(R.string.edit))
+                Toast.makeText(this,UserDetail?.Image.toString(),Toast.LENGTH_SHORT).show()
                 if (UserDetail?.Image != null) {
                     LoadPicprofile(UserDetail!!.Image)
                 }
                 Compelte_profile.completeEdtLastName.setText(UserDetail?.lastName)
-                var gender = UserDetail?.gender
+
+                val gender = UserDetail?.gender
                 if (gender == ConstVal.Male) {
                     Compelte_profile.CompleteRdGenderMale.isChecked = true
                 } else {
@@ -78,6 +79,7 @@ class CompleteProfile : Basic(), View.OnClickListener {
             }
 
         }
+        SetDataToEdtGiveBefore(UserDetail)
         Compelte_profile.compeleteToolbar.setNavigationIcon(R.drawable.ic_back)
         Compelte_profile.compeleteToolbar.setNavigationOnClickListener {
             onBackPressed()
@@ -90,21 +92,19 @@ class CompleteProfile : Basic(), View.OnClickListener {
         Compelte_profile.completeEdtEmail.setText(userDetail?.Email)
         Compelte_profile.CompleteEdtName.setText(userDetail?.FirstName)
         Compelte_profile.completeEdtPhoneNumber.setText(userDetail?.Mobile.toString())
+        if (userDetail?.profile_Compelete == 1) {
+            Compelte_profile.completeEdtLastName.setText(userDetail.lastName)
+        }
     }
 
-    fun SetOnClickListener() {
-        Compelte_profile.CompleteIvUserprofile.setOnClickListener(this)
-        Compelte_profile.CompleteBtnSave.setOnClickListener(this)
-    }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.Complete_Iv_userprofile -> {
-                //TODO choose picture
                 CheckPermision()
             }
             R.id.Complete_Btn_save -> {
-                //TODO validate write lastname
+
                 if (ValidationLastName()) {
                     GiveDataTocompleteSetup()
                 }
@@ -116,8 +116,7 @@ class CompleteProfile : Basic(), View.OnClickListener {
     private fun GiveDataTocompleteSetup() {
 
         if (ImageUriSelceted != null) {
-
-            FireStore().UploadImageToCloudStore(this, ImageUriSelceted!!,ConstVal.UserProfileImage)
+            FireStore().UploadImageToCloudStore(this, ImageUriSelceted!!, ConstVal.UserProfileImage)
             ShowDialog(resources.getString(R.string.WaitToUpadteAndSendPic))
             Toast.makeText(this, ImageUriSelceted.toString(), Toast.LENGTH_LONG).show()
         } else {
@@ -128,20 +127,22 @@ class CompleteProfile : Basic(), View.OnClickListener {
 
     private fun UpdateUsersDetial() {
         val LastName = Compelte_profile.completeEdtLastName.text.toString()
-        var firstname=Compelte_profile.CompleteEdtName.text.toString()
-        val mobile=Compelte_profile.completeEdtPhoneNumber.text.toString()
+        var firstname = Compelte_profile.CompleteEdtName.text.toString()
+        val mobile = Compelte_profile.completeEdtPhoneNumber.text.toString()
         val UserHashMap = HashMap<String, Any>()
 
 
 
-        if (firstname.isNotEmpty() && firstname!=UserDetail?.FirstName) {
-            UserHashMap[ConstVal.name] = firstname.toString()
+        if (firstname.isNotEmpty() && firstname != UserDetail?.FirstName) {
+            UserHashMap[ConstVal.name] = firstname
         }
-        if (mobile.isNotEmpty()&&mobile!=UserDetail?.Mobile.toString()){
-            UserHashMap[ConstVal.phonenumber]=mobile.toLong()
+        if (mobile.isNotEmpty() && mobile != UserDetail?.Mobile.toString()) {
+            UserHashMap[ConstVal.phonenumber] = mobile.toLong()
         }
-
-        if (downloadAble != null &&!downloadAble.equals(UserDetail?.Image)) {
+        if (LastName.isNotEmpty() && LastName != UserDetail?.lastName) {
+            UserHashMap[ConstVal.Lastname] = LastName
+        }
+        if (downloadAble != null && !downloadAble.equals(UserDetail?.Image)) {
             UserHashMap[ConstVal.imageColumn] = downloadAble.toString()
         }
 
@@ -151,10 +152,8 @@ class CompleteProfile : Basic(), View.OnClickListener {
             ConstVal.Male
         }
 
-        if (LastName.isNotEmpty()&&LastName==UserDetail?.lastName) {
-            UserHashMap[ConstVal.Lastname] = LastName
-        }
-        if (gender.isNotEmpty() && gender!=UserDetail?.gender){
+
+        if (gender.isNotEmpty() && gender != UserDetail?.gender) {
             UserHashMap[ConstVal.gender] = gender
         }
 
@@ -176,16 +175,12 @@ class CompleteProfile : Basic(), View.OnClickListener {
 
     private fun CheckPermision() {
         //this  ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
         ) {
-            Toast.makeText(this, "shoma ghablan ejaze dadin", Toast.LENGTH_SHORT).show()
-
             ConstVal.ChoseImageFromGallery(this)
         } else {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), ConstVal.RequestCode_Gallery)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), ConstVal.RequestCode_Permission
+            )
         }
     }
 
@@ -193,7 +188,7 @@ class CompleteProfile : Basic(), View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             Log.e("pic", "1")
-            if (requestCode == ConstVal.RequestCode_Permission) {
+            if (requestCode == ConstVal.RequestCode_Gallery) {
                 Log.e("pic", "2")
                 if (data != null) {
                     try {
@@ -229,7 +224,7 @@ class CompleteProfile : Basic(), View.OnClickListener {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == ConstVal.RequestCode_Gallery) {
+        if (requestCode == ConstVal.RequestCode_Permission) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 ConstVal.ChoseImageFromGallery(this)
             } else {

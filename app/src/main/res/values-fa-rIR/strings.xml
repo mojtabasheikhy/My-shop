@@ -90,6 +90,7 @@
     <string name="total_amount">مقدار کل :</string>
     <string name="no_item_added">کالایی به سبد خرید اضافه نشده است</string>
     <string name="checkout">بررسی</string>
+    <string name="chose" >عکس کالای خود را انتخاب کنید</string>
 
 
 </resources>

@@ -104,7 +104,7 @@ class DetailProduct : Basic(), View.OnClickListener {
             FireStore().GetCurrentUserID(),
             product_id!!,
             productDetailGetsuccess!!.product_title,
-            productDetailGetsuccess!!.product_pricce.toString(),
+            productDetailGetsuccess!!.product_pricce,
             productDetailGetsuccess!!.product_image,
             productDetailGetsuccess!!.product_quantity.toString(),
             ConstVal.cart_quantity,

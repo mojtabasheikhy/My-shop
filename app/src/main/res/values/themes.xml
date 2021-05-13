@@ -45,8 +45,9 @@
 
     <style name="parent" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:layout_width">match_parent</item>
+        <item name="counterTextAppearance">@style/text_counter</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="boxStrokeColor">@color/orange</item>
+        <item name="boxStrokeColor">@color/second_text_color</item>
         <item name="boxStrokeWidth">0.6dp</item>
         <item name="android:textCursorDrawable">@drawable/cursor</item>
         <item name="boxCornerRadiusBottomEnd">10dp</item>
@@ -97,6 +98,15 @@
         <item name="android:textSize">16sp</item>
         <item name="android:button">@null</item>
     </style>
+    <style name="text_counter">
+        <item name="android:textSize">9sp</item>
+        <item name="fontFamily">@font/iranyekanweblight</item>
+    </style>
+    <style name="text_toolbar" parent="Widget.MaterialComponents.Toolbar">
+       <item name="titleTextStyle">@font/iranyekanweblight</item>
+        <item name="fontFamily">@font/iranyekanweblight</item>
+    </style>
+
 
 
 </resources>
