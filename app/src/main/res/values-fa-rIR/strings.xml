@@ -78,6 +78,11 @@
     <string name="price_value" >تومان</string>
     <string name="gotocart" >رفتن به کارت</string>
     <string name="outofstock" >اتمام موجودی</string>
+    <string name="outofstockmessage" >متاسفیم این کالادر حال حاضر موجودی ندارد</string>
+    <string name="ownproduct" >کالای خودتان</string>
+    <string name="cartitem" >موجود در سبد خرید</string>
+    <string name="successaddtocart" >کالا با موفقیت به سبد کالا اضافه شد</string>
+    <string name="cart" />
 
 
 </resources>

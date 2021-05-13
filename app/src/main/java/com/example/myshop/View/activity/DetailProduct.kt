@@ -15,6 +15,7 @@ import com.example.myshop.databinding.ActivityDetailProductBinding
 import com.example.myshop.databinding.ActivityForgotPasswordBindingImpl
 import com.example.myshop.model.CartDataClass
 import com.example.myshop.model.ProductDataClass
+import com.google.android.material.snackbar.Snackbar
 import java.lang.invoke.ConstantCallSite
 
 class DetailProduct : Basic(), View.OnClickListener {
@@ -55,8 +56,8 @@ class DetailProduct : Basic(), View.OnClickListener {
 
         }
         if (FireStore().GetCurrentUserID() == userId) {
-            detailProductBinding.DetailAddtocart.visibility = View.GONE
-
+            detailProductBinding.DetailAddtocart.setText(resources.getString(R.string.ownproduct))
+            detailProductBinding.DetailAddtocart.isEnabled=false
         }
         else{
             detailProductBinding.DetailAddtocart.visibility = View.VISIBLE
@@ -80,6 +81,8 @@ class DetailProduct : Basic(), View.OnClickListener {
 
 
         if (product.product_quantity== 0){
+            HideDialog()
+            ShowSnackbar(resources.getString(R.string.outofstockmessage),false)
             detailProductBinding.detailQuantityValue.text=resources.getString(R.string.outofstock)
             detailProductBinding.detailQuantityValue.setTextColor(ContextCompat.getColor(this,R.color.red))
         }
@@ -117,8 +120,9 @@ class DetailProduct : Basic(), View.OnClickListener {
     }
     fun AddCartSuccess(){
         HideDialog()
-        detailProductBinding.DetailAddtocart.visibility=View.GONE
-        Toast.makeText(this,"add",Toast.LENGTH_SHORT).show()
+        detailProductBinding.DetailAddtocart.setText(R.string.cartitem)
+        detailProductBinding.DetailAddtocart.isEnabled = false
+        ShowSnackbar(resources.getString(R.string.successaddtocart),true)
     }
 
     fun failed() {
@@ -127,6 +131,7 @@ class DetailProduct : Basic(), View.OnClickListener {
     }
     fun successExistInCart(){
         HideDialog()
-        detailProductBinding.DetailAddtocart.visibility=View.GONE
+        detailProductBinding.DetailAddtocart.setText(resources.getString(R.string.cartitem))
+        detailProductBinding.DetailAddtocart.isEnabled = false
     }
 }

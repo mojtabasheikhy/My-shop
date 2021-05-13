@@ -68,9 +68,8 @@
     <string name="loading">Loading</string>
     <string name="deletedSuccessFully">Your Product Deleted Successfully</string>
     <string name="deletedfailed">Error in deleting item !!</string>
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="Are_you_sure">Are you sure you want to delete?</string>
+    <string name="Are_you_sure">Are you sure you want to delete?😳</string>
     <string name="deleteitem">Delete Item</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -79,6 +78,11 @@
     <string name="price_value" >$</string>
     <string name="gotocart" >Go To Cart</string>
     <string name="outofstock" >Out Of Stock</string>
+    <string name="outofstockmessage" >Sorry, this product is currently out of stock 😕</string>
+    <string name="ownproduct" >Own Product</string>
+    <string name="cartitem" >Product in Cart</string>
+    <string name="successaddtocart" >Product successfully added to cart</string>
+    <string name="cart" />
 
 
 </resources>
