@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.myshop.FireStore.FireStore
 import com.example.myshop.R
@@ -89,27 +90,32 @@ class Login : Basic(), View.OnClickListener {
 
     fun UserLoginSuccess(user: user) {
 
-        var pref=getSharedPreferences(ConstVal.MySharePref, Context.MODE_PRIVATE)
-        var editor=pref.edit()
+        val pref=getSharedPreferences(ConstVal.MySharePref, Context.MODE_PRIVATE)
+        val editor=pref.edit()
         editor.putString(ConstVal.UserNameKeyPref,user.FirstName)
         editor.apply()
        if (!this@Login.isFinishing) {
            HideDialog()
        }
         if (user.profile_Compelete == 0) {
-            var intent_com = Intent(this, CompleteProfile::class.java)
+            val intent_com = Intent(this, CompleteProfile::class.java)
             intent_com.putExtra(ConstVal.putExtra_UserDetail,user)
             intent_com.flags=Intent.FLAG_ACTIVITY_CLEAR_TASK or  Intent.FLAG_ACTIVITY_NEW_TASK
 
             startActivity(intent_com)
 
-        } else {
-            var intent_dashbord = Intent(this, Main::class.java)
+        } else if (user.profile_Compelete==1) {
+            val intent_dashbord = Intent(this, Main::class.java)
             intent_dashbord.flags=Intent.FLAG_ACTIVITY_CLEAR_TASK or  Intent.FLAG_ACTIVITY_NEW_TASK
 
             startActivity(intent_dashbord)
 
 
+        }
+        else
+        {
+            HideDialog()
+            Toast.makeText(this,"please register by another acount",Toast.LENGTH_SHORT).show()
         }
 
 

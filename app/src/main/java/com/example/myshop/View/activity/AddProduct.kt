@@ -38,7 +38,7 @@ class AddProduct : Basic(), View.OnClickListener {
 
     fun actionbar_setup() {
         setSupportActionBar(addproductBinding!!.AddproductToolbar)
-        var actionbar_addproduct = supportActionBar
+        val actionbar_addproduct = supportActionBar
         if (actionbar_addproduct != null) {
             actionbar_addproduct.setDisplayHomeAsUpEnabled(true)
             actionbar_addproduct.title = resources.getString(R.string.add_product)
@@ -98,10 +98,8 @@ class AddProduct : Basic(), View.OnClickListener {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == ConstVal.RequestCode_Permission) {
-            Log.e("pic", "2")
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 ConstVal.ChoseImageFromGallery(this)
-                Log.e("pic", "2")
             } else {
                 ShowSnackbar(resources.getString(R.string.pleaseAllowPermision), false)
             }
@@ -111,12 +109,11 @@ class AddProduct : Basic(), View.OnClickListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            Log.e("pic", "1.5")
             if (requestCode == ConstVal.RequestCode_Gallery) {
-                Log.e("pic", "2")
+
                 if (data != null) {
                     try {
-                        Log.e("pic", "3")
+
                         addproductBinding?.addproductIvAddpic?.setImageDrawable(
                             ContextCompat.getDrawable(
                                 this,
@@ -128,7 +125,6 @@ class AddProduct : Basic(), View.OnClickListener {
                         // Compelte_profile.CompleteIvUserprofile.setImageURI(Uri.parse(SelectedImage))
                         imageuri_addproduct?.let {
 
-                            Log.e("pic", "4")
                             ConstVal.LoadPicByGlide_noCircle(
                                 this,
                                 it,
@@ -191,10 +187,10 @@ class AddProduct : Basic(), View.OnClickListener {
         val desc =addproductBinding?.AddproductDescEdt?.text.toString().trim()
         val quantity =addproductBinding?.AddproductQuantityEdt?.text.toString().trim()
 
-        var username_pref=getSharedPreferences(ConstVal.MySharePref, Context.MODE_PRIVATE)
-        var username= username_pref.getString(ConstVal.UserNameKeyPref,"username")
-        var userid=FireStore().GetCurrentUserID()
-        var product_obj= ProductDataClass( userid,username!!,title, Price.toFloat(), desc,quantity.toInt(),downloadAble_Image_uri?:"")
+        val username_pref=getSharedPreferences(ConstVal.MySharePref, Context.MODE_PRIVATE)
+        val username= username_pref.getString(ConstVal.UserNameKeyPref,"username")
+        val userid=FireStore().GetCurrentUserID()
+        val product_obj= ProductDataClass( userid,username!!,title, Price.toInt(), desc,quantity.toInt(),downloadAble_Image_uri?:"")
         FireStore().addproductToFireStore(this, product_obj)
 
     }

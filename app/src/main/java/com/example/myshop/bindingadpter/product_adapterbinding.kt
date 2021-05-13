@@ -1,5 +1,9 @@
 package com.example.myshop.bindingadpter
 
+import android.app.Application
+import android.content.Context
+import android.content.res.Resources
+import android.provider.Settings.Global.getString
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.TextView
@@ -22,9 +26,10 @@ object product_adapterbinding {
     }
     @JvmStatic
     @BindingAdapter("setprice")
-    fun chaneFloatToString(textView: TextView,price:Float){
-        textView.text=price.toString()
+    fun chaneFloatToString(textView: TextView,price:Int) {
+        textView.setText(price.toString())
     }
+
     @JvmStatic
     @BindingAdapter("setImageNoCircleImageView")
     fun setImage_product_nocircle(view:ImageView,url: String){

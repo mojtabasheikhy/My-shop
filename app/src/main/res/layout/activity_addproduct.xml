@@ -130,7 +130,6 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Addproduct_quantity_Edt"
-
                     style="@style/modifiedEditText"
                     android:drawableEnd="@drawable/ic_quantity"
                     android:hint="@string/product_quantity"

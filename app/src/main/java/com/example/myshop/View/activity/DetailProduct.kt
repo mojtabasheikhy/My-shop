@@ -1,6 +1,7 @@
 package com.example.myshop.View.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -27,6 +28,7 @@ class DetailProduct : Basic(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         detailProductBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail_product)
         detailProductBinding.DetailAddtocart.setOnClickListener(this)
+        detailProductBinding.DetailGotocart.setOnClickListener(this)
         GetDetailFromProduct()
         actionbarSetup()
     }
@@ -115,6 +117,11 @@ class DetailProduct : Basic(), View.OnClickListener {
         when (v?.id) {
             R.id.Detail_addtocart -> {
                 AddProductDetailToCart()
+            }
+            R.id.Detail_gotocart ->{
+                val intent=Intent(this,cartlist::class.java)
+                startActivity(intent)
+
             }
         }
     }

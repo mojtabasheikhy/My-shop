@@ -45,9 +45,9 @@ class Splash_Screen : AppCompatActivity() {
             .setSizeFactor(30f)
             .setLetterSpacing(20f)
             .setText("MY SHOP")
-            .setListener(TextAnim.Listener {
+            .setListener( {
                 Handler(mainLooper).postDelayed({
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, Login::class.java))
                     finish()
                 }, 500)
 

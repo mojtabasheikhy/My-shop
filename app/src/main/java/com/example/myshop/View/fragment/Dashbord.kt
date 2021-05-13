@@ -13,6 +13,7 @@ import com.example.myshop.R
 import com.example.myshop.Utils.ConstVal
 import com.example.myshop.View.activity.DetailProduct
 import com.example.myshop.View.activity.Settings
+import com.example.myshop.View.activity.cartlist
 import com.example.myshop.adapter.DashbordAdapter
 import com.example.myshop.adapter.Product_adapter
 import com.example.myshop.databinding.FragmentDashbordBinding
@@ -55,6 +56,11 @@ class Dashbord : Fragment() {
             R.id.dashbord_menu_settings->{
                 val intent=Intent(activity,Settings::class.java)
                 startActivity(intent)
+                return true
+            }
+            R.id.dashbord_menu_cart ->{
+                val intent_cart=Intent(activity,cartlist::class.java)
+                startActivity(intent_cart)
                 return true
             }
 

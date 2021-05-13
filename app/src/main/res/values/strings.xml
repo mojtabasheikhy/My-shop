@@ -55,9 +55,9 @@
     <string name="welcome">Welcome</string>
     <string name="add_product">Add Product</string>
     <string name="Product_title">Product Title</string>
-    <string name="price">Product Price</string>
-    <string name="product_desc">Product Description</string>
-    <string name="product_quantity">Product Quantity</string>
+    <string name="price">Product Price :</string>
+    <string name="product_desc">Product Description :</string>
+    <string name="product_quantity">Product Quantity :</string>
     <string name="AddTitleProduct">Please Add title Your Product</string>
     <string name="AddPriceProduct">Please Add Price Your Product</string>
     <string name="AddQuantityProduct">Please Add Quantity Your Product</string>
@@ -73,16 +73,23 @@
     <string name="deleteitem">Delete Item</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="detail" >Detail</string>
-    <string name="addtocart" >Add To Cart</string>
-    <string name="price_value" >$</string>
-    <string name="gotocart" >Go To Cart</string>
-    <string name="outofstock" >Out Of Stock</string>
-    <string name="outofstockmessage" >Sorry, this product is currently out of stock 😕</string>
-    <string name="ownproduct" >Own Product</string>
-    <string name="cartitem" >Product in Cart</string>
-    <string name="successaddtocart" >Product successfully added to cart</string>
-    <string name="cart" />
+    <string name="detail">Detail</string>
+    <string name="addtocart">Add To Cart</string>
+    <string name="price_value">$</string>
+    <string name="gotocart">Go To Cart</string>
+    <string name="outofstock">Out Of Stock</string>
+    <string name="outofstockmessage">Sorry, this product is currently out of stock 😕</string>
+    <string name="ownproduct">Own Product</string>
+    <string name="cartitem">Product in Cart</string>
+    <string name="successaddtocart">Product successfully added to cart</string>
+    <string name="cart" >Cart</string>
+    <string name="cartlist">Cart List</string>
+    <string name="subtotal">Subtotal :</string>
+    <string name="shiping_charge">Shipping Charge :</string>
+    <string name="acount">Acount</string>
+    <string name="total_amount">Total Amount :</string>
+    <string name="no_item_added">No Item Added</string>
+    <string name="checkout">Checkout</string>
 
 
 </resources>

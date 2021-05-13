@@ -13,17 +13,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Myshop">
-        <activity android:name=".View.activity.DetailProduct"
+        <activity android:name=".View.activity.cartlist"
             android:screenOrientation="portrait"
-            android:theme="@style/Splash_Theme"/>
+            android:theme="@style/Splash_Theme">
+
+        </activity>
+        <activity
+            android:name=".View.activity.DetailProduct"
+            android:screenOrientation="portrait"
+            android:theme="@style/Splash_Theme" />
         <activity
             android:name=".View.activity.AddProduct"
             android:screenOrientation="portrait"
-            android:theme="@style/Splash_Theme"/>
+            android:theme="@style/Splash_Theme" />
         <activity
             android:name=".View.activity.Settings"
             android:screenOrientation="portrait"
-            android:theme="@style/Splash_Theme"/>
+            android:theme="@style/Splash_Theme" />
         <activity
             android:name=".View.activity.Main"
             android:label="@string/title_activity_dashboard"
@@ -52,14 +58,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/Splash_Theme">
 
-
-
-
         </activity>
         <activity
             android:name=".View.activity.Splash_Screen"
             android:screenOrientation="portrait"
-            android:theme="@style/Splash_Theme" />
+            android:theme="@style/Splash_Theme" >
+           </activity>
         <activity android:name=".MainActivity" />
     </application>
 

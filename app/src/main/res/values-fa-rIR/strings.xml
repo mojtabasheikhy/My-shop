@@ -55,9 +55,9 @@
     <string name="welcome">خوش آمدین</string>
     <string name="add_product">اضافه کردن</string>
     <string name="Product_title" >عنوان کالا</string>
-    <string name="price">قیمت کالا</string>
-    <string name="product_desc">توضیحات</string>
-    <string name="product_quantity" >تعداد کالا</string>
+    <string name="price">قیمت کالا :</string>
+    <string name="product_desc">توضیحات کالا :</string>
+    <string name="product_quantity" >تعداد کالا :</string>
     <string name="AddTitleProduct" >لطفا عنوان کالای خود را وارد کنید</string>
     <string name="AddPriceProduct" >لطفا قیمت کالای خود را وارد کنید</string>
     <string name="AddQuantityProduct" >لطفا تعداد کالای خود را وارد کنید</string>
@@ -82,7 +82,14 @@
     <string name="ownproduct" >کالای خودتان</string>
     <string name="cartitem" >موجود در سبد خرید</string>
     <string name="successaddtocart" >کالا با موفقیت به سبد کالا اضافه شد</string>
-    <string name="cart" />
+    <string name="cart" >سبد خرید</string>
+    <string name="cartlist">لیست سبد خرید</string>
+    <string name="subtotal">جمع کل :</string>
+    <string name="shiping_charge">هزینه حمل و نقل :</string>
+    <string name="acount">فاکتور </string>
+    <string name="total_amount">مقدار کل :</string>
+    <string name="no_item_added">کالایی به سبد خرید اضافه نشده است</string>
+    <string name="checkout">بررسی</string>
 
 
 </resources>

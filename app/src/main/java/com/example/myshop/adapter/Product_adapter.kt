@@ -21,7 +21,7 @@ class Product_adapter(var context: android.content.Context,var fragment:ProductF
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewholder {
-        var Productview = ItemProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val Productview = ItemProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ProductViewholder(Productview)
     }
@@ -35,7 +35,7 @@ class Product_adapter(var context: android.content.Context,var fragment:ProductF
             fragment.deleteItem(ProductList[position].product_id)
         }
         holder.ProductItem.productMatrialroot.setOnClickListener {
-             var intent_detail=Intent(context,DetailProduct::class.java)
+             val intent_detail=Intent(context,DetailProduct::class.java)
              intent_detail.putExtra(ConstVal.putExtera_detail_product,ProductList[position].product_id)
              intent_detail.putExtra(ConstVal.PutExtera_detail_userid,ProductList[position].id)
              context.startActivity(intent_detail)
@@ -44,8 +44,8 @@ class Product_adapter(var context: android.content.Context,var fragment:ProductF
     }
 
     fun setdata(newdata: ArrayList<ProductDataClass>) {
-        var difutils_obj = product_diff_util(newdata, ProductList)
-        var difutils_calucate = DiffUtil.calculateDiff(difutils_obj)
+        val difutils_obj = product_diff_util(newdata, ProductList)
+        val difutils_calucate = DiffUtil.calculateDiff(difutils_obj)
         ProductList = newdata
         difutils_calucate.dispatchUpdatesTo(this)
 
