@@ -1,6 +1,7 @@
 package com.example.myshop.FireStore
 
 import android.app.Activity
+import android.content.Context
 import android.net.Uri
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -41,7 +42,6 @@ class FireStore {
         }
         return CurrentUserID
     }
-
 
     fun GetUserDetailFromFireStore(activity: Activity) {
         myFirestore.collection(ConstVal.Collection_Users)
@@ -255,47 +255,114 @@ class FireStore {
             }
     }
 
-    fun CheckProductExistInCart(activity:DetailProduct,productId: String){
+    fun CheckProductExistInCart(activity: DetailProduct, productId: String) {
         myFirestore.collection(ConstVal.cart_item)
-            .whereEqualTo(ConstVal.UserId,GetCurrentUserID())
-            .whereEqualTo(ConstVal.product_id,productId)
+            .whereEqualTo(ConstVal.UserId, GetCurrentUserID())
+            .whereEqualTo(ConstVal.product_id, productId)
             .get()
             .addOnSuccessListener {
-              if (it.documents.size > 0){
-                  activity.successExistInCart()
-              }
-                else
-                  activity.HideDialog()
+                if (it.documents.size > 0) {
+                    activity.successExistInCart()
+                } else
+                    activity.HideDialog()
             }
             .addOnFailureListener {
                 activity.HideDialog()
             }
     }
 
-    fun GetCart(activity: Activity){
+    fun GetCart(activity: Activity) {
         myFirestore.collection(ConstVal.cart_item)
-            .whereEqualTo(ConstVal.UserId,GetCurrentUserID())
+            .whereEqualTo(ConstVal.UserId, GetCurrentUserID())
             .get()
             .addOnSuccessListener {
-                val cartitemList:ArrayList<CartDataClass> = ArrayList()
-                for (i in it.documents){
-                    val cartitem=i.toObject(CartDataClass::class.java)!!
-                    cartitem.cart_id=i.id
+                val cartitemList: ArrayList<CartDataClass> = ArrayList()
+                for (i in it.documents) {
+                    val cartitem = i.toObject(CartDataClass::class.java)!!
+                    cartitem.cart_id = i.id
                     cartitemList.add(cartitem)
                 }
-                when(activity){
-                    is cartlist ->{
+                when (activity) {
+                    is cartlist -> {
                         activity.GetCartListSuccess(cartitemList)
                     }
                 }
 
             }
             .addOnFailureListener {
-              Log.e("error",it.message.toString())
+                Log.e("error", it.message.toString())
+                when (activity) {
+                    is cartlist -> {
+                        activity.HideDialog()
+                        activity.ShowSnackbar(it.message.toString(), false)
+                    }
+                }
+            }
+
+    }
+
+    fun GetallProductCartlist(activity: cartlist) {
+        myFirestore.collection(ConstVal.Collection_addproduct)
+            .get()
+            .addOnSuccessListener {
+                var ProductList = ArrayList<ProductDataClass>()
+                for (i in it.documents) {
+                    var product = i.toObject(ProductDataClass::class.java)
+                    product?.product_id = i.id
+                    ProductList.add(product!!)
+
+                }
+                activity.SuccessGetAllProduct(productList = ProductList)
+
+            }
+            .addOnFailureListener {
+                activity.HideDialog()
+            }
+    }
+
+    fun DeleteCartItem(activity: Context, cartid: String) {
+        myFirestore.collection(ConstVal.cart_item)
+            .document(cartid)
+            .delete()
+            .addOnSuccessListener {
+
                 when(activity){
                     is cartlist ->{
+                        activity.SuccessDeleteCartItem()
+
+                    }
+                }
+            }
+            .addOnFailureListener {
+                when (activity) {
+                    is cartlist -> {
                         activity.HideDialog()
                         activity.ShowSnackbar(it.message.toString(),false)
+                    }
+                }
+            }
+    }
+
+    fun UpdateDetailCart(cartid: String,context: Context,hashMap: HashMap<String,Any>){
+        myFirestore.collection(ConstVal.cart_item)
+            .document(cartid)
+            .update(hashMap)
+            .addOnSuccessListener {
+            when(context)
+            {
+                is cartlist ->{
+                    context.SuccessUpdateCart()
+                }
+            }
+
+            }
+            .addOnFailureListener {
+
+                when(context){
+                    is cartlist -> {
+                        context.HideDialog()
+                        context.ShowSnackbar(it.message.toString(),false)
+
                     }
                 }
             }

@@ -86,6 +86,7 @@ class DetailProduct : Basic(), View.OnClickListener {
             HideDialog()
             ShowSnackbar(resources.getString(R.string.outofstockmessage),false)
             detailProductBinding.detailQuantityValue.text=resources.getString(R.string.outofstock)
+            detailProductBinding.DetailAddtocart.isEnabled=false
             detailProductBinding.detailQuantityValue.setTextColor(ContextCompat.getColor(this,R.color.red))
         }
         else{
@@ -106,7 +107,7 @@ class DetailProduct : Basic(), View.OnClickListener {
             productDetailGetsuccess!!.product_title,
             productDetailGetsuccess!!.product_pricce,
             productDetailGetsuccess!!.product_image,
-            productDetailGetsuccess!!.product_quantity.toString(),
+            productDetailGetsuccess!!.product_quantity,
             ConstVal.cart_quantity,
             )
         ShowDialog(resources.getString(R.string.wait))
@@ -121,7 +122,6 @@ class DetailProduct : Basic(), View.OnClickListener {
             R.id.Detail_gotocart ->{
                 val intent=Intent(this,cartlist::class.java)
                 startActivity(intent)
-
             }
         }
     }
@@ -141,4 +141,6 @@ class DetailProduct : Basic(), View.OnClickListener {
         detailProductBinding.DetailAddtocart.setText(resources.getString(R.string.cartitem))
         detailProductBinding.DetailAddtocart.isEnabled = false
     }
+
+
 }

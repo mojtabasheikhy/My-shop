@@ -34,11 +34,7 @@
             android:name=".View.activity.Main"
             android:label="@string/title_activity_dashboard"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".View.activity.CompleteProfile"
@@ -57,7 +53,11 @@
             android:name=".View.activity.Login"
             android:screenOrientation="portrait"
             android:theme="@style/Splash_Theme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".View.activity.Splash_Screen"

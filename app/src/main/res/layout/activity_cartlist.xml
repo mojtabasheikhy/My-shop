@@ -12,6 +12,21 @@
         android:layout_height="match_parent"
         tools:context=".View.activity.cartlist">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimationView2"
+            android:layout_width="200dp"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/nocart"
+            android:visibility="gone"
+            app:lottie_repeatCount="10"
+            android:layout_height="200dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textView3"
+            app:layout_constraintStart_toStartOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:layout_constraintVertical_bias="0.16000003" />
+
+
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/cartlist_toolbar"
             android:layout_width="match_parent"
@@ -34,17 +49,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cartlist_toolbar">
 
+
             <com.todkars.shimmer.ShimmerRecyclerView
-                android:layout_width="match_parent"
                 android:id="@+id/cart_recycler"
-                app:shimmer_recycler_item_count="4"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1.9"
-                android:background="#EAEAEA" />
-
+                android:background="@color/text_color"
+                app:shimmer_recycler_item_count="4" />
 
             <LinearLayout
                 android:layout_marginStart="16dp"
+
                 android:layout_marginEnd="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,11 +93,15 @@
                     <TextView
                         style="@style/viewParent.normalText"
                         android:layout_width="0dp"
+                        android:padding="3dp"
+                        android:textAlignment="center"
+                        android:background="@drawable/background_price"
                         android:id="@+id/cart_subtotal_value"
                         android:layout_height="wrap_content"
                         android:layout_weight=".3"
-                        android:gravity="end"
-                        android:text="@string/loading" />
+
+                        android:text="@string/loading"
+                 />
                 </LinearLayout>
 
                 <View
@@ -108,9 +128,13 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".3"
+                        android:padding="3dp"
+                        android:textAlignment="center"
+                        android:background="@drawable/background_price"
                         android:id="@+id/cart_shiping_value"
                         android:gravity="end"
-                        android:text="@string/loading" />
+                        android:text="@string/loading"
+                        tools:ignore="RtlCompat" />
                 </LinearLayout>
 
                 <View
@@ -138,8 +162,12 @@
                         android:layout_height="wrap_content"
                         android:layout_weight=".3"
                         android:gravity="end"
+                        android:padding="3dp"
+                        android:textAlignment="center"
+                        android:background="@drawable/background_price"
                         android:id="@+id/cart_totalamount_value"
-                        android:text="@string/loading" />
+                        android:text="@string/loading"
+                        tools:ignore="RtlCompat" />
                 </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
@@ -171,12 +199,15 @@
             style="@style/viewParent.headerText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="200dp"
+            android:layout_marginEnd="16dp"
             android:text="@string/no_item_added"
             android:textAlignment="center"
             android:textColor="@color/second_text_color"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.52"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cartlist_toolbar" />
 

@@ -11,9 +11,12 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:padding="10dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
         android:background="@color/text_color"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             app:cardCornerRadius="@dimen/corner_radius"
@@ -23,9 +26,11 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <ImageView
+                    android:id="@+id/cart_iv"
                     setImageNoCircleImageView="@{cartitemdata.image}"
                     tools:src="@android:drawable/ic_menu_manage"
                     android:layout_weight=".6"
+                    android:scaleType="centerCrop"
                     android:layout_width="0dp"
                     android:layout_height="100dp"/>
                 <LinearLayout
@@ -58,6 +63,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginTop="8dp"
+                        android:background="@drawable/background_price"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -68,8 +74,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight=".1"
-
-                            android:background="@color/text_color"
+                            android:foreground="?attr/selectableItemBackgroundBorderless"
                             app:srcCompat="@drawable/ic_baseline_add_cart" />
 
                         <TextView
@@ -81,21 +86,23 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight=".5"
-                            android:text="@{cartitemdata.productQuantity}" />
+                            />
 
                         <ImageView
                             android:id="@+id/cart_item_removeproduct"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:foreground="?attr/selectableItemBackgroundBorderless"
 
                             android:layout_weight=".1"
-                            android:background="@color/text_color"
                             app:srcCompat="@drawable/ic_baseline_remove_cart" />
 
                     </LinearLayout>
                 </LinearLayout>
 
                 <ImageView
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+
                     android:id="@+id/cart_item_delete"
                      android:layout_marginTop="8dp"
                     android:layout_marginEnd="6dp"

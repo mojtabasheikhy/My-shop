@@ -35,9 +35,10 @@ object ConstVal {
     const val UserId = "id"
     const val putExtera_detail_product = "detail"
     const val PutExtera_detail_userid = "userid"
-    const val cart_quantity = "1"
+    const val cart_quantity:Int = 1
     const val cart_item="cartItem"
     const val product_id="productid"
+    const val cart_quantity_colmn="card_quantity"
 
 
     fun ChoseImageFromGallery(activity: Activity) {

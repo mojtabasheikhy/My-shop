@@ -75,7 +75,7 @@
     <string name="no">خیر</string>
     <string name="detail">جزئیات</string>
     <string name="addtocart" >اضافه کردن</string>
-    <string name="price_value" >تومان</string>
+    <string name="price_value" > تومان</string>
     <string name="gotocart" >رفتن به کارت</string>
     <string name="outofstock" >اتمام موجودی</string>
     <string name="outofstockmessage" >متاسفیم این کالادر حال حاضر موجودی ندارد</string>
@@ -91,6 +91,9 @@
     <string name="no_item_added">کالایی به سبد خرید اضافه نشده است</string>
     <string name="checkout">بررسی</string>
     <string name="chose" >عکس کالای خود را انتخاب کنید</string>
+    <string name="deletedSuccessFullyCartitem">کالا با موفقیت از سبد کالا حذف شد</string>
+    <string name="nomoreproduct">تعداد درخواستی شما بیش از تعداد موجود است</string>
+
 
 
 </resources>

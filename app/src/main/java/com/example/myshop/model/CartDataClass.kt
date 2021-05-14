@@ -10,7 +10,7 @@ data class CartDataClass(
     var title: String = "",
     var price: Int = 0,
     var Image: String = "",
-    var productQuantity:String ="",
-    var card_quantity: String = "",
+    var productQuantity:Int =1,
+    var card_quantity: Int = 1,
     var cart_id: String = ""
 ):Parcelable
