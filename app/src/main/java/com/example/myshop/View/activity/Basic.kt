@@ -1,11 +1,9 @@
 package com.example.myshop.View.activity
 
-import android.app.Activity
 import android.app.Dialog
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -23,8 +21,8 @@ open class Basic : AppCompatActivity() {
     }
 
     fun ShowSnackbar(message: String ,boolean: Boolean){
-        var snackbar=Snackbar.make(findViewById(android.R.id.content),message,Snackbar.LENGTH_SHORT)
-        var snackbarview=snackbar.view
+        val snackbar=Snackbar.make(findViewById(android.R.id.content),message,Snackbar.LENGTH_SHORT)
+        val snackbarview=snackbar.view
         if (boolean)
             snackbarview.setBackgroundColor(ContextCompat.getColor(this,R.color.green))
         else
@@ -43,7 +41,7 @@ open class Basic : AppCompatActivity() {
         alertDialog =Dialog(this)
         alertDialog!!.setContentView(dialogBinding!!.root)
         alertDialog!!.setCancelable(false)
-        var typeface_alert =Typeface.createFromAsset(assets,"Myfont/"+"iranyekanweblight2.ttf")
+        val typeface_alert =Typeface.createFromAsset(assets,"fonts/"+"iranyekanweblight2.ttf")
         dialogBinding.alertTvLoading.typeface = typeface_alert
         alertDialog!!.setCanceledOnTouchOutside(false)
         alertDialog!!.show()

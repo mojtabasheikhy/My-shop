@@ -13,6 +13,7 @@
 
     <item
         android:id="@+id/navigation_notifications"
+
         android:icon="@drawable/order_ic_selector"
         android:title="@string/title_notifications" />
 

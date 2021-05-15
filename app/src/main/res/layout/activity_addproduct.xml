@@ -166,7 +166,7 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/Addproduct_Btn_Send"
                     style="@style/viewParent.headerText"
-                    android:layout_width="150dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="1dp"

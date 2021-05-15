@@ -1,5 +1,6 @@
 package com.example.myshop.View.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -49,12 +50,15 @@ class Settings : Basic(), View.OnClickListener {
         User_Gave = user
         HideDialog()
         ConstVal.LoadPicByGlide(this,user.Image,settings_bind.settingsIvProfile)
+
+
         settings_bind.settingsTvEmail.text=user.Email
         settings_bind.settingsTvName.text=user.FirstName
         settings_bind.settingsTvPhone.text=user.Mobile.toString()
         if (user.gender==ConstVal.Male)
         {
             settings_bind.settingsIvGender.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.ic_man))
+
         }
         else
             settings_bind.settingsIvGender.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.ic_woman))

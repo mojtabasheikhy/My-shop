@@ -343,6 +343,15 @@ class FireStore {
             }
     }
 
+    fun UpdateProductDetail(productId: String, hashMap: HashMap<String, Any>, context: Context){
+        myFirestore.collection(ConstVal.Collection_addproduct).document(productId).update(hashMap).addOnFailureListener {
+
+        }
+            .addOnFailureListener {
+
+            }
+    }
+
     fun UpdateDetailCart(cartid: String,context: Context,hashMap: HashMap<String,Any>){
         myFirestore.collection(ConstVal.cart_item)
             .document(cartid)
@@ -368,6 +377,7 @@ class FireStore {
             }
 
     }
+
 }
 
 

@@ -16,6 +16,7 @@ import com.example.myshop.View.activity.Settings
 import com.example.myshop.View.activity.cartlist
 import com.example.myshop.adapter.DashbordAdapter
 import com.example.myshop.adapter.Product_adapter
+import com.example.myshop.databinding.AlertDialogWaitingBindingImpl
 import com.example.myshop.databinding.FragmentDashbordBinding
 import com.example.myshop.databinding.ItemProductBinding
 import com.example.myshop.model.ProductDataClass
@@ -35,6 +36,8 @@ class Dashbord : Fragment() {
         dashbordBinding= FragmentDashbordBinding.inflate(inflater,container,false)
         dashbordBinding.dashbordSwiprefresh.setOnRefreshListener {
             dashbordBinding.dashbordProductNoData.visibility=View.GONE
+            dashbordBinding.lottieAnimationView3.visibility=View.GONE
+            dashbordBinding.dashbordRecycler.visibility=View.VISIBLE
             showshimer()
             GetAllProduct()
         }
@@ -69,6 +72,7 @@ class Dashbord : Fragment() {
 
     }
     fun GetAllProduct(){
+        showshimer()
         FireStore().GetAllProduct(this)
     }
     fun NoDatarecived(){
@@ -91,9 +95,15 @@ class Dashbord : Fragment() {
             }
 
         })
+        if (AllProductList.size==0){
+            dashbordBinding.dashbordProductNoData.visibility = View.VISIBLE
+            dashbordBinding.lottieAnimationView3.visibility = View.VISIBLE
+            dashbordBinding.dashbordRecycler.visibility=View.GONE
+
+        }
         if (AllProductList.size > 0) {
             dashbordBinding.dashbordProductNoData.visibility = View.GONE
-            dashbordBinding.dashbordSwiprefresh.visibility = View.VISIBLE
+            dashbordBinding.lottieAnimationView3.visibility = View.GONE
             dashbordBinding.dashbordRecycler.apply {
                 setHasFixedSize(true)
                 visibility = View.VISIBLE
@@ -105,6 +115,9 @@ class Dashbord : Fragment() {
     }
         fun showshimer() {
             dashbordBinding.dashbordRecycler.showShimmer()
+            dashbordBinding.dashbordRecycler.apply {
+                setHasFixedSize(true)
+                layoutManager = GridLayoutManager(activity?.applicationContext, 2)}
         }
 
         fun hideshimer() {

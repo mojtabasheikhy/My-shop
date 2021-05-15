@@ -2,6 +2,7 @@ package com.example.myshop.View.activity
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -119,6 +120,7 @@ class CompleteProfile : Basic(), View.OnClickListener {
             FireStore().UploadImageToCloudStore(this, ImageUriSelceted!!, ConstVal.UserProfileImage)
             ShowDialog(resources.getString(R.string.WaitToUpadteAndSendPic))
             Toast.makeText(this, ImageUriSelceted.toString(), Toast.LENGTH_LONG).show()
+
         } else {
             ShowDialog(resources.getString(R.string.WaitToUpadte))
             UpdateUsersDetial()
@@ -144,6 +146,7 @@ class CompleteProfile : Basic(), View.OnClickListener {
         }
         if (downloadAble != null && !downloadAble.equals(UserDetail?.Image)) {
             UserHashMap[ConstVal.imageColumn] = downloadAble.toString()
+
         }
 
         val gender = if (Compelte_profile.CompleteRdGenderFemale.isChecked) {
@@ -239,6 +242,11 @@ class CompleteProfile : Basic(), View.OnClickListener {
 
         Log.e("pic", it.toString())
         downloadAble = it.toString()
+
+        val pref=getSharedPreferences(ConstVal.MySharePref, Context.MODE_PRIVATE)
+        val editor=pref.edit()
+        editor.putString(ConstVal.userImageuri,it.toString())
+        editor.apply()
         UpdateUsersDetial()
 
     }
@@ -249,11 +257,7 @@ class CompleteProfile : Basic(), View.OnClickListener {
             HideDialog()
         }
         if (UserDetail?.profile_Compelete == 0) {
-            Toast.makeText(
-                this,
-                resources.getString(R.string.welcome) + UserDetail?.FirstName,
-                Toast.LENGTH_LONG
-            ).show()
+            Toast.makeText(this, resources.getString(R.string.welcome) + UserDetail?.FirstName, Toast.LENGTH_LONG).show()
             startActivity(Intent(this, Main::class.java))
             finish()
         }

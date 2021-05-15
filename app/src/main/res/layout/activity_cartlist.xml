@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1.9"
-                android:background="@color/text_color"
+                android:background="#F1F1F1"
                 app:shimmer_recycler_item_count="4" />
 
             <LinearLayout

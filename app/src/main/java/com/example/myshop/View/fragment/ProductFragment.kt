@@ -37,7 +37,9 @@ class ProductFragment : BasicFragment() {
 
         ProductBinding = FragmentProductBinding.inflate(inflater, container, false)
         ProductBinding.productSwiprefresh.setOnRefreshListener {
-            ProductBinding.ProductNoData.visibility=View.GONE
+            ProductBinding.ProductNoData.visibility = View.GONE
+            ProductBinding.noaddedProduct.visibility = View.GONE
+            ProductBinding.ProdcutRecycler.visibility = View.VISIBLE
             showshimer()
             GetMyProductFromFireStore()
         }
@@ -77,28 +79,36 @@ class ProductFragment : BasicFragment() {
     fun successGetMyProductFromFireStore(MyProductList: ArrayList<ProductDataClass>) {
         hideshimer()
         ProductBinding.productSwiprefresh.isRefreshing = false
-        var productAdapter = Product_adapter(requireContext(),this)
-        productAdapter.setdata(MyProductList)
+        var productAdapter =Product_adapter(requireContext(),this) 
+        productAdapter?.setdata(MyProductList)
 
-        if (MyProductList.size==0){
+        if (MyProductList.size == 0) {
             ProductBinding.ProductNoData.visibility = View.VISIBLE
+            ProductBinding.noaddedProduct.visibility = View.VISIBLE
+            ProductBinding.ProdcutRecycler.visibility=View.GONE
+
 
         }
         if (MyProductList.size > 0) {
             ProductBinding.ProductNoData.visibility = View.GONE
-        }
-        ProductBinding.productSwiprefresh.visibility = View.VISIBLE
-        ProductBinding.ProdcutRecycler.apply {
-            setHasFixedSize(true)
-            visibility = View.VISIBLE
-            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-            adapter = productAdapter
+            ProductBinding.noaddedProduct.visibility = View.GONE
+            ProductBinding.ProdcutRecycler.apply {
+                setHasFixedSize(true)
+                visibility = View.VISIBLE
+                layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+                adapter = productAdapter
 
+            }
         }
     }
 
     fun showshimer() {
         ProductBinding.ProdcutRecycler.showShimmer()
+        ProductBinding.ProdcutRecycler.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+
+        }
     }
 
     fun hideshimer() {
@@ -106,43 +116,42 @@ class ProductFragment : BasicFragment() {
     }
 
     fun SuccessDeleteMyProduct() {
-        show_snackbar(resources.getString(R.string.deletedSuccessFully),true)
+        show_snackbar(resources.getString(R.string.deletedSuccessFully), true)
         GetMyProductFromFireStore()
 
     }
 
     fun failedDeleteMyProduct() {
-        show_snackbar(resources.getString(R.string.deletedfailed),true)
+        show_snackbar(resources.getString(R.string.deletedfailed), true)
 
     }
 
     fun showalertDelete(productId: String) {
         var alert = ShowAlertDialog(
             resources.getString(R.string.deleteitem),
-            resources.getString(R.string.Are_you_sure),R.drawable.ic_delete
+            resources.getString(R.string.Are_you_sure), R.drawable.ic_delete
         )
-        alert.setPositiveButton(resources.getString(R.string.yes),{ dialog: DialogInterface?, which: Int ->
-            //TODO delete item
-          FireStore().deleteMyProduct(this,productId)
-        })
-        alert.setNegativeButton(resources.getString(R.string.no),{dialog: DialogInterface?, which: Int ->
-            //TODO dismis alert
-            dialog?.dismiss()
+        alert.setPositiveButton(resources.getString(R.string.yes),
+            { dialog: DialogInterface?, which: Int ->
+                //TODO delete item
+                FireStore().deleteMyProduct(this, productId)
+            })
+        alert.setNegativeButton(resources.getString(R.string.no),
+            { dialog: DialogInterface?, which: Int ->
+                //TODO dismis alert
+                dialog?.dismiss()
 
-        })
+            })
         alert.create()
         alert.setCancelable(false)
         alert.show()
 
 
-
-
     }
 
-    fun deleteItem(productId: String){
+    fun deleteItem(productId: String) {
         showalertDelete(productId)
     }
-
 
 
 }

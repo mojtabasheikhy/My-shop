@@ -11,7 +11,7 @@ class Custom_Material_Button(context: Context, attributeSet: AttributeSet):Mater
     }
 
     fun applybtn(){
-        var ir_sans_type_face =Typeface.createFromAsset(context.assets,"Myfont/"+"ir_sans_font.ttf")
+        var ir_sans_type_face =Typeface.createFromAsset(context.assets,"fonts/"+"ir_sans_font.ttf")
          typeface=ir_sans_type_face
       }
 }

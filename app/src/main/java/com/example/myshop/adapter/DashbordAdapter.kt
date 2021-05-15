@@ -22,6 +22,7 @@ class DashbordAdapter:RecyclerView.Adapter<DashbordAdapter.dashbordViewholder>()
     override fun getItemCount(): Int =AllProduct.size
     override fun onBindViewHolder(holder: dashbordViewholder, position: Int) {
      holder.dashbordbinding.dashbord=AllProduct[position]
+     holder.dashbordbinding.textView.setText(AllProduct[position].product_pricce.toString())
         holder.itemView.setOnClickListener {
             clickListener?.onclickListener(AllProduct[position],position)
         }

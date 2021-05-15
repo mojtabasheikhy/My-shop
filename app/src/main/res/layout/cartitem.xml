@@ -15,7 +15,7 @@
         android:paddingEnd="8dp"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
-        android:background="@color/text_color"
+        android:background="#FFF1F1F1"
         android:layout_height="wrap_content">
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -32,33 +32,57 @@
                     android:layout_weight=".6"
                     android:scaleType="centerCrop"
                     android:layout_width="0dp"
-                    android:layout_height="100dp"/>
+                    android:layout_height="120dp"/>
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
-                    <TextView
+                   <LinearLayout
+                       android:layout_width="wrap_content"
+                       android:orientation="horizontal"
+                       android:layout_marginStart="8dp"
+                       android:layout_height="wrap_content">
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           style="@style/viewParent.normalText"
+                           android:text="@string/title_product"/>
+                       <TextView
+                           android:layout_marginStart="3dp"
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/viewParent.headerText.NoMode"
-                        android:textSize="16sp"
-                        android:layout_gravity="center"
-                        android:id="@+id/cartitem_title"
-                        android:text="@{cartitemdata.title}"/>
-                    <TextView
-                        android:layout_marginTop="8dp"
-                        android:layout_marginStart="16dp"
-                        setprice="@{cartitemdata.price}"
-                        style="@style/viewParent.normalText"
-                        android:textSize="12sp"
-                        android:id="@+id/cart_item_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/loading"
-                        />
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           style="@style/viewParent.headerText.NoMode"
+                           android:textSize="16sp"
+                           android:layout_gravity="center"
+                           android:id="@+id/cartitem_title"
+                           android:text="@{cartitemdata.title}"/>
+                   </LinearLayout>
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_marginStart="8dp"
+
+                   android:layout_height="wrap_content">
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       style="@style/viewParent.normalText"
+                       android:text="@string/price"/>
+                   <TextView
+                       android:layout_marginStart="3dp"
+                       setprice="@{cartitemdata.price}"
+                       style="@style/viewParent.normalText"
+                       android:textSize="12sp"
+                       android:id="@+id/cart_item_price"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/loading"
+                       />
+
+               </LinearLayout>
+
                     <LinearLayout
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
@@ -104,12 +128,12 @@
                     android:foreground="?attr/selectableItemBackgroundBorderless"
 
                     android:id="@+id/cart_item_delete"
-                     android:layout_marginTop="8dp"
+
                     android:layout_marginEnd="6dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
-
+                    android:layout_weight="0.01"
+                    android:layout_gravity="center_vertical"
                     app:srcCompat="@drawable/ic_delete" />
 
             </LinearLayout>

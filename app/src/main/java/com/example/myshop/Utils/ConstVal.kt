@@ -39,6 +39,7 @@ object ConstVal {
     const val cart_item="cartItem"
     const val product_id="productid"
     const val cart_quantity_colmn="card_quantity"
+    const val userImageuri="user_image"
 
 
     fun ChoseImageFromGallery(activity: Activity) {

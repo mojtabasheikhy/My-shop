@@ -17,7 +17,7 @@ class Custom_Material_TextView(context: Context, attributeSet: AttributeSet):Mat
         setPadding(1,1,1,1)
         var ir_sans_type_face = Typeface.createFromAsset(
             context.assets,
-            "Myfont/" + "ir_sans_font.ttf"
+            "fonts/" + "ir_sans_font.ttf"
         )
         typeface=ir_sans_type_face
 

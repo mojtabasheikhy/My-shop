@@ -184,9 +184,10 @@ class AddProduct : Basic(), View.OnClickListener {
         val quantity =addproductBinding?.AddproductQuantityEdt?.text.toString().trim()
 
         val username_pref=getSharedPreferences(ConstVal.MySharePref, Context.MODE_PRIVATE)
+        val userimge=username_pref.getString(ConstVal.userImageuri,"")
         val username= username_pref.getString(ConstVal.UserNameKeyPref,"username")
         val userid=FireStore().GetCurrentUserID()
-        val product_obj= ProductDataClass( userid,username!!,title, Price.toInt(), desc,quantity.toInt(),downloadAble_Image_uri?:"")
+        val product_obj= ProductDataClass( userid,username!!,title, Price.toInt(), desc,quantity.toInt(),downloadAble_Image_uri?:"","",userimge ?:"")
         FireStore().addproductToFireStore(this, product_obj)
 
     }

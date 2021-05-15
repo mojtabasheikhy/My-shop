@@ -5,30 +5,50 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="#F4F4F4"
-        android:padding="8dp"
         android:layout_height="match_parent"
+        android:background="#F4F4F4"
+
+        android:padding="8dp"
         tools:context=".View.fragment.ProductFragment">
 
-        <TextView
-            style="@style/viewParent.headerText"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimationView3"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
 
+            android:layout_marginBottom="50dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/dashbord_Product_NoData"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/dashbord_Product_NoData"
+            app:layout_constraintTop_toBottomOf="@+id/dashbord_Product_NoData"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/searching_shop"
+            app:lottie_repeatCount="10" />
+
+        <TextView
+            android:id="@+id/dashbord_Product_NoData"
+            style="@style/viewParent.headerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/No_product_Add"
-            android:id="@+id/dashbord_Product_NoData"
             android:textColor="@color/second_text_color"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/lottieAnimationView3"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.64"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/dashbord_swiprefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
             android:animateLayoutChanges="true"
-            android:id="@+id/dashbord_swiprefresh"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,14 +58,13 @@
             <com.todkars.shimmer.ShimmerRecyclerView
                 android:id="@+id/dashbord_Recycler"
                 android:layout_width="match_parent"
-                app:shimmer_recycler_layout="@layout/item_product_shimmer"
                 android:layout_height="match_parent"
-                app:shimmer_recycler_item_count="15"
-                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:shimmer_recycler_item_count="8"
+                app:shimmer_recycler_layout="@layout/dashbord_shimer" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

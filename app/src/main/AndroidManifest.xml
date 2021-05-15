@@ -58,13 +58,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".View.activity.Splash_Screen"
             android:screenOrientation="portrait"
             android:theme="@style/Splash_Theme" >
            </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity" >
+
+        </activity>
     </application>
 
 </manifest>

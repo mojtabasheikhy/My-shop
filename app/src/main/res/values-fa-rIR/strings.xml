@@ -40,8 +40,8 @@
     <string name="SuccessWhenUpadteData">اطلاعات با موفیقیت به روز رسانی شد</string>
     <string name="WaitToUpadteAndSendPic">لطفا جهت بروزرسانی اطلاعات و ارسال عکس به سرور منتظر بمانید</string>
     <string name="title_activity_dashboard">فروشگاه من</string>
-    <string name="title_home">سی</string>
-    <string name="title_dashboard">کالاها</string>
+    <string name="title_home">خانه</string>
+    <string name="title_dashboard">کالاهای خودم</string>
     <string name="title_notifications">سفارش ها</string>
     <string name="pleaseAllowPermision">لطفا اجازه دسترسی به برنامه در تنظیمات تغییر دهید</string>
     <string name="alerttouploadpic">اپلود تصویر ممکن است چند ثانیه طول بکشد</string>
@@ -54,8 +54,8 @@
     <string name="Compeleteprofile">تکمیل اطلاعات کاربری</string>
     <string name="welcome">خوش آمدین</string>
     <string name="add_product">اضافه کردن</string>
-    <string name="Product_title" >عنوان کالا</string>
-    <string name="price">قیمت کالا :</string>
+    <string name="Product_title" >عنوان کالا : </string>
+    <string name="price">قیمت کالا : </string>
     <string name="product_desc">توضیحات کالا :</string>
     <string name="product_quantity" >تعداد کالا :</string>
     <string name="AddTitleProduct" >لطفا عنوان کالای خود را وارد کنید</string>
@@ -93,6 +93,8 @@
     <string name="chose" >عکس کالای خود را انتخاب کنید</string>
     <string name="deletedSuccessFullyCartitem">کالا با موفقیت از سبد کالا حذف شد</string>
     <string name="nomoreproduct">تعداد درخواستی شما بیش از تعداد موجود است</string>
+    <string name="title_product">عنوان کالا : </string>
+
 
 
 

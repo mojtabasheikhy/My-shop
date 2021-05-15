@@ -10,24 +10,40 @@
         tools:context=".View.fragment.ProductFragment">
 
         <TextView
+            android:id="@+id/Product_NoData"
             style="@style/viewParent.headerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/No_product_Add"
-            android:id="@+id/Product_NoData"
             android:textColor="@color/second_text_color"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.29000002" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:id="@+id/noadded_product"
+            android:visibility="gone"
+            app:lottie_rawRes="@raw/add_tocart"
+
+            app:layout_constraintEnd_toEndOf="@+id/Product_NoData"
+            app:layout_constraintStart_toStartOf="@+id/Product_NoData"
+            app:layout_constraintTop_toBottomOf="@+id/Product_NoData"
+            app:lottie_autoPlay="true"
+            app:lottie_repeatCount="10" />
+
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/product_swiprefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
             android:animateLayoutChanges="true"
 
-            android:id="@+id/product_swiprefresh"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,14 +53,14 @@
             <com.todkars.shimmer.ShimmerRecyclerView
                 android:id="@+id/Prodcut_Recycler"
                 android:layout_width="match_parent"
-                app:shimmer_recycler_layout="@layout/item_product_shimmer"
                 android:layout_height="match_parent"
-                app:shimmer_recycler_item_count="15"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:shimmer_recycler_item_count="15"
+                app:shimmer_recycler_layout="@layout/item_product_shimmer" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
