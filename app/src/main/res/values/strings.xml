@@ -82,7 +82,7 @@
     <string name="ownproduct">Own Product</string>
     <string name="cartitem">Product in Cart</string>
     <string name="successaddtocart">Product successfully added to cart</string>
-    <string name="cart" >Cart</string>
+    <string name="cart">Cart</string>
     <string name="cartlist">Cart List</string>
     <string name="subtotal">Subtotal : </string>
     <string name="shiping_charge">Shipping Charge : </string>
@@ -90,10 +90,25 @@
     <string name="total_amount">Total Amount : </string>
     <string name="no_item_added">No Item Added</string>
     <string name="checkout">Checkout</string>
-    <string name="chose" >Choose a photo of your product</string>
+    <string name="chose">Choose a photo of your product</string>
     <string name="deletedSuccessFullyCartitem">Your Cart Item Deleted Successfully</string>
     <string name="nomoreproduct">The number you requested is more than the number available</string>
     <string name="title_product">Title Product : </string>
+    <string name="add_address">Add Address</string>
+    <string name="noaddressfound"> No Address Found</string>
+    <string name="fullname">FullName</string>
+    <string name="zipcode">Zip Code</string>
+    <string name="other">Other</string>
+    <string name="office">Office</string>
+    <string name="home">Home</string>
+    <string name="addintional">Additional Note</string>
+    <string name="add_your_address">Add Your Address</string>
+    <string name="Enter_address">Please Enter Your Address</string>
+    <string name="Enter_zipcode">Please Enter Your ZipCode</string>
+    <string name="Enter_additional" >Please Enter Your additional Note</string>
+    <string name="Other_detail">Other Detail</string>
+    <string name="successAdd">Your address Added</string>
+    <string name="failedaddAddress">Oops!!Your address Not Added</string>
 
 
 </resources>

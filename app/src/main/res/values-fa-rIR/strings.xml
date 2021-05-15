@@ -94,8 +94,21 @@
     <string name="deletedSuccessFullyCartitem">کالا با موفقیت از سبد کالا حذف شد</string>
     <string name="nomoreproduct">تعداد درخواستی شما بیش از تعداد موجود است</string>
     <string name="title_product">عنوان کالا : </string>
-
-
+    <string name="add_address" >اضافه کردن آدرس </string>
+    <string name="noaddressfound">آدرسی یافت نشد</string>
+    <string name="fullname" >نام کامل</string>
+    <string name="zipcode">کد پستی</string>
+    <string name="other">دیگر</string>
+    <string name="office">دفتر</string>
+    <string name="home">خانه</string>
+    <string name="addintional">یادداشت اضافی</string>
+    <string name="add_your_address">آدرس خود را اضافه کنید</string>
+    <string name="Enter_address">لطفا آدرس خود را وارد کنید</string>
+    <string name="Enter_zipcode">لطفا کد پستی خود را وارد کنید</string>
+    <string name="Enter_additional" >لطفا فیلد یادداشت را خالی نگزارید</string>
+    <string name="Other_detail">اطلاعات دیگر</string>
+    <string name="successAdd">آدرس شما اضافه شد</string>
+    <string name="failedaddAddress" >متاسفانه آدرس  شما اضافه نشد</string>
 
 
 </resources>

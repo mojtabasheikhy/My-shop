@@ -40,6 +40,11 @@ object ConstVal {
     const val product_id="productid"
     const val cart_quantity_colmn="card_quantity"
     const val userImageuri="user_image"
+    const val Home="home"
+    const val office="office"
+    const val other="other"
+    const val address_collection="address"
+    const val addressDetailExtera="exteraDetailAddress"
 
 
     fun ChoseImageFromGallery(activity: Activity) {

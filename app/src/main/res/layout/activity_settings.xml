@@ -133,9 +133,9 @@
                   android:layout_width="match_parent"
                   android:layout_height=".5dp"
                   android:layout_below="@id/settings_iv_gender"
-                  android:layout_marginStart="40dp"
+                  android:layout_marginStart="30dp"
                   android:layout_marginTop="10dp"
-                  android:layout_marginEnd="40dp"
+                  android:layout_marginEnd="30dp"
                   android:background="@color/second_text_color" />
 
               <View
@@ -143,9 +143,9 @@
                   android:layout_width="match_parent"
                   android:layout_height=".5dp"
                   android:layout_below="@id/settings_iv_email"
-                  android:layout_marginStart="40dp"
+                  android:layout_marginStart="30dp"
                   android:layout_marginTop="10dp"
-                  android:layout_marginEnd="40dp"
+                  android:layout_marginEnd="30dp"
                   android:background="@color/second_text_color" />
 
               <ImageView
@@ -155,7 +155,7 @@
 
                   android:layout_alignParentStart="true"
                   android:layout_alignParentTop="true"
-                  android:layout_marginStart="20dp"
+                  android:layout_marginStart="30dp"
                   android:layout_marginTop="15dp"
                   android:src="@drawable/ic_man" />
 
@@ -171,8 +171,8 @@
 
                   android:layout_toEndOf="@+id/settings_iv_gender"
                   android:ellipsize="end"
-                  android:lines="1"
                   android:gravity="center_vertical"
+                  android:lines="1"
                   android:text="@string/loading"
 
                   android:textSize="14sp" />
@@ -184,7 +184,7 @@
                   android:layout_below="@id/settings_devider_below_name"
                   android:layout_alignParentStart="true"
 
-                  android:layout_marginStart="20dp"
+                  android:layout_marginStart="30dp"
                   android:layout_marginTop="15dp"
                   android:src="@drawable/ic_circle_icons_mail" />
 
@@ -197,10 +197,10 @@
                   android:layout_alignTop="@+id/settings_iv_email"
                   android:layout_alignBottom="@+id/settings_iv_email"
                   android:layout_marginStart="12dp"
-                  android:gravity="center_vertical"
-
                   android:layout_toEndOf="@+id/settings_iv_gender"
+
                   android:ellipsize="end"
+                  android:gravity="center_vertical"
                   android:maxLines="1"
                   android:text="@string/loading"
 
@@ -212,7 +212,7 @@
                   android:layout_height="38dp"
                   android:layout_below="@id/settings_devider_below_email"
                   android:layout_alignParentStart="true"
-                  android:layout_marginStart="20dp"
+                  android:layout_marginStart="30dp"
                   android:layout_marginTop="15dp"
                   android:src="@drawable/ic_phone" />
 
@@ -224,31 +224,36 @@
                   android:layout_alignTop="@+id/settings_iv_phone"
                   android:layout_alignBottom="@+id/settings_iv_phone"
                   android:layout_marginStart="12dp"
-                  android:gravity="center_vertical"
                   android:layout_toEndOf="@+id/settings_iv_gender"
                   android:ellipsize="end"
+                  android:gravity="center_vertical"
                   android:lines="1"
                   android:maxLines="1"
                   android:text="@string/loading"
 
                   android:textSize="14sp" />
 
-              <com.google.android.material.textfield.TextInputLayout
+              <com.google.android.material.textview.MaterialTextView
                   android:id="@+id/settings_Edt_add_textlayout"
-                  style="@style/parent"
+                  style="@style/viewParent.normalText"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
                   android:layout_below="@id/settings_iv_phone"
-                  android:layout_marginStart="20dp"
-                  android:layout_marginEnd="20dp"
-                  android:layout_marginBottom="15dp">
+                  android:layout_alignStart="@+id/settings_iv_phone"
+                  android:layout_alignEnd="@+id/settings_devider_below_email"
+                  android:layout_marginStart="0dp"
+                  android:layout_marginTop="12dp"
+                  android:layout_marginBottom="15dp"
+                  android:background="@drawable/background_price"
+                  android:drawableEnd="@drawable/ic_location"
+                  android:foreground="?attr/selectableItemBackgroundBorderless"
+                  android:padding="6dp"
+                  android:text="@string/address"
+                  android:textAlignment="center"
+                  android:textSize="20sp">
 
-                  <com.google.android.material.textfield.TextInputEditText
-                      android:id="@+id/settings_Edt_address"
-                      style="@style/modifiedEditText"
-                      android:drawableEnd="@drawable/ic_location"
-                      android:hint="@string/address"
-                      android:inputType="textPersonName"
-                      android:maxLines="1" />
-              </com.google.android.material.textfield.TextInputLayout>
+
+              </com.google.android.material.textview.MaterialTextView>
           </RelativeLayout>
       </com.google.android.material.card.MaterialCardView>
 

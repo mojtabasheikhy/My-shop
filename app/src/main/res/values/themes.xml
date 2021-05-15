@@ -48,7 +48,7 @@
         <item name="counterTextAppearance">@style/text_counter</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="boxStrokeColor">@color/second_text_color</item>
-        <item name="boxStrokeWidth">0.6dp</item>
+        <item name="boxStrokeWidth">0.4dp</item>
         <item name="android:textCursorDrawable">@drawable/cursor</item>
         <item name="boxCornerRadiusBottomEnd">10dp</item>
         <item name="boxCornerRadiusBottomStart">10dp</item>

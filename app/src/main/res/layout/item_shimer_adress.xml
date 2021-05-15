@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="address"
+            type="com.example.myshop.model.AddressDataClass" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:background="#F3F3F3"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/address_fullname"
+                        android:layout_weight=".01"
+                        android:text="@string/fullname"
+                        android:padding="6dp"
+                        android:layout_height="wrap_content"
+                        style="@style/viewParent.normalText" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
+                        android:background="@color/second_text_color"
+                        android:padding="6dp"
+                        android:layout_height="37dp"
+                        style="@style/viewParent.normalText" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/address_ads_value">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/viewParent.normalText"
+                        android:padding="4dp"
+                        android:text="@string/zipcode"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/viewParent.normalText"
+                        android:padding="4dp"
+                        android:text="@string/loading"/>
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/address"
+                    android:padding="4dp"
+                    style="@style/viewParent.normalText"
+                    android:id="@+id/address_ads"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:background="@color/second_text_color"
+                    android:textColor="@color/white"
+                    android:maxLines="1"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:padding="4dp"
+                    style="@style/viewParent.normalText"/>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

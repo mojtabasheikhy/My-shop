@@ -39,6 +39,8 @@ class Settings : Basic(), View.OnClickListener {
     private fun SetOnClickListener() {
         settings_bind.settingsBtnEdit.setOnClickListener(this)
         settings_bind.settingsBtnLogout.setOnClickListener(this)
+        settings_bind.settingsEdtAddTextlayout.setOnClickListener (this)
+
     }
 
     fun GetUserDetailSettings(){
@@ -83,6 +85,10 @@ class Settings : Basic(), View.OnClickListener {
             R.id.settings_btn_edit ->{
                 var intent=Intent(this,CompleteProfile::class.java)
                 intent.putExtra(ConstVal.putExtra_UserDetail,User_Gave)
+                startActivity(intent)
+            }
+            R.id.settings_Edt_add_textlayout ->{
+                var intent=Intent(this,Address::class.java)
                 startActivity(intent)
             }
         }

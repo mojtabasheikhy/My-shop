@@ -12,6 +12,7 @@ import com.example.myshop.Utils.ConstVal
 import com.example.myshop.View.activity.*
 import com.example.myshop.View.fragment.Dashbord
 import com.example.myshop.View.fragment.ProductFragment
+import com.example.myshop.model.AddressDataClass
 import com.example.myshop.model.CartDataClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -343,14 +344,7 @@ class FireStore {
             }
     }
 
-    fun UpdateProductDetail(productId: String, hashMap: HashMap<String, Any>, context: Context){
-        myFirestore.collection(ConstVal.Collection_addproduct).document(productId).update(hashMap).addOnFailureListener {
 
-        }
-            .addOnFailureListener {
-
-            }
-    }
 
     fun UpdateDetailCart(cartid: String,context: Context,hashMap: HashMap<String,Any>){
         myFirestore.collection(ConstVal.cart_item)
@@ -376,6 +370,73 @@ class FireStore {
                 }
             }
 
+    }
+    fun addAddressToFireStore(activity:AddAddress, address:AddressDataClass) {
+        myFirestore.collection(ConstVal.address_collection)
+            .document()
+            .set(address, SetOptions.merge())
+            .addOnCompleteListener {
+                it.addOnSuccessListener {
+                    activity.HideDialog()
+                    activity.successAddAddress()
+                }
+            }
+            .addOnFailureListener {
+                activity.HideDialog()
+                activity.failedAddAdress()
+            }
+    }
+    fun GetAllAdressOwn(activity: Activity){
+        myFirestore.collection(ConstVal.address_collection)
+            .whereEqualTo(ConstVal.UserId, GetCurrentUserID())
+            .get()
+            .addOnCompleteListener {
+                it.addOnSuccessListener { address ->
+                    val MyAddresslist: ArrayList<AddressDataClass> = ArrayList()
+                    for (i in address.documents) {
+                        val MyAddress = i.toObject(AddressDataClass::class.java)
+                        MyAddress?.address_id = i.id
+                        MyAddresslist.add(MyAddress!!)
+                    }
+                    when (activity) {
+                        is Address -> {
+                            activity.successGetMyAddressFromFireStore(MyAddresslist)
+                        }
+                    }
+
+                }
+            }
+            .addOnFailureListener {
+               when(activity){
+                   is Address ->{
+                       activity.HideDialog()
+                   }
+               }
+            }
+    }
+
+    fun UpdateAddressDetail(activity: AddAddress,dataClass: AddressDataClass,addressid:String){
+        myFirestore.collection(ConstVal.address_collection)
+            .document(addressid)
+            .set(dataClass).addOnSuccessListener {
+                activity.HideDialog()
+                activity.successUpdate()
+            }
+            .addOnFailureListener {
+                activity.HideDialog()
+                activity.failed()
+            }
+
+    }
+    fun deleteAdress(activity: Address,addressid: String){
+        myFirestore.collection(ConstVal.address_collection)
+            .document(addressid)
+            .delete().addOnSuccessListener {
+                activity.successDelete()
+            }
+            .addOnFailureListener {
+                activity.failedDelete()
+            }
     }
 
 }
