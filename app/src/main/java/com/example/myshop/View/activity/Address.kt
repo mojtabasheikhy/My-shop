@@ -42,8 +42,6 @@ class Address : Basic(), View.OnClickListener, SwipeRefreshLayout.OnRefreshListe
             finish()
         }
     }
-
-
     fun GetAllAddress(){
         showShimmer()
         FireStore().GetAllAdressOwn(this)
