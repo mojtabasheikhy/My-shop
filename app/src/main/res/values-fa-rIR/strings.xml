@@ -109,6 +109,8 @@
     <string name="Other_detail">اطلاعات دیگر</string>
     <string name="successAdd">آدرس شما اضافه شد</string>
     <string name="failedaddAddress" >متاسفانه آدرس  شما اضافه نشد</string>
+    <string name="selectAddreess">انتخاب آدرس</string>
+    <string name="selectedAddreess" >ادرس انتخاب شده </string>
 
 
 </resources>

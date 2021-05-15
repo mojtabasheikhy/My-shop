@@ -1,5 +1,6 @@
 package com.example.myshop.View.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -7,19 +8,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myshop.FireStore.FireStore
 import com.example.myshop.R
+import com.example.myshop.Utils.ConstVal
 import com.example.myshop.adapter.CartAdapter
 import com.example.myshop.databinding.ActivityCartlistBinding
 import com.example.myshop.model.CartDataClass
 import com.example.myshop.model.ProductDataClass
 import com.google.firebase.database.core.view.View
 
-class cartlist : Basic() {
+class cartlist : Basic(), android.view.View.OnClickListener {
     var cartListBinding: ActivityCartlistBinding? = null
     var MproductList: ArrayList<ProductDataClass>? = null
     var McartList: ArrayList<CartDataClass>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         cartListBinding = DataBindingUtil.setContentView(this, R.layout.activity_cartlist)
+        cartListBinding!!.cartCheckoutBtn.setOnClickListener(this)
         actionbarSetup()
 
     }
@@ -114,5 +117,15 @@ class cartlist : Basic() {
     fun SuccessUpdateCart(){
         HideDialog()
         GetCartList()
+    }
+
+    override fun onClick(v: android.view.View?) {
+        when(v?.id){
+            R.id.cart_checkout_btn ->{
+                var intent=Intent(this,Address::class.java)
+                intent.putExtra(ConstVal.pushExtera_selecet_address,true)
+                startActivity(intent)
+            }
+        }
     }
 }

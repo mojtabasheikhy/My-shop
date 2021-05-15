@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -24,7 +25,9 @@ import com.example.myshop.model.AddressDataClass
 import com.example.myshop.model.CartDataClass
 import com.example.myshop.model.ProductDataClass
 
-class AddressAdapter(var context: Context) : RecyclerView.Adapter<AddressAdapter.AddressViewholder>() {
+class AddressAdapter(var context: Context,
+var selectedAddress:Boolean
+) : RecyclerView.Adapter<AddressAdapter.AddressViewholder>() {
     var AddresslistOld = emptyList<AddressDataClass>()
 
     inner class AddressViewholder(var addressBinding: ItemAddressBinding) :
@@ -39,6 +42,12 @@ class AddressAdapter(var context: Context) : RecyclerView.Adapter<AddressAdapter
 
     override fun onBindViewHolder(holder: AddressViewholder, position: Int) {
         holder.addressBinding.address = AddresslistOld[position]
+        if (selectedAddress){
+            holder.addressBinding.root.setOnClickListener {
+                Toast.makeText(context,
+                context.resources.getString(R.string.selectedAddreess) + AddresslistOld[position].address ,Toast.LENGTH_SHORT).show()
+            }
+        }
 
         }
 
@@ -57,7 +66,7 @@ class AddressAdapter(var context: Context) : RecyclerView.Adapter<AddressAdapter
     fun NotifyDelete(activity:Activity,position: Int){
         var intent=Intent(context,AddAddress::class.java)
         intent.putExtra(ConstVal.addressDetailExtera,AddresslistOld[position] )
-        activity.startActivity(intent)
+        activity.startActivityForResult(intent,ConstVal.ActivityStartCode_selectAddress)
         notifyItemChanged(position)
     }
 

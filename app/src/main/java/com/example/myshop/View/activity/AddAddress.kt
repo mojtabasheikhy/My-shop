@@ -1,5 +1,6 @@
 package com.example.myshop.View.activity
 
+import android.app.Activity
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -41,6 +42,7 @@ class AddAddress : Basic(), View.OnClickListener {
 
     fun successUpdate(){
         Toast.makeText(this, resources.getString(R.string.SuccessWhenUpadteData),Toast.LENGTH_SHORT).show()
+       setResult(Activity.RESULT_OK)
         finish()
     }
     fun failed(){
@@ -167,6 +169,7 @@ class AddAddress : Basic(), View.OnClickListener {
 
     fun successAddAddress() {
         Toast.makeText(this, resources.getString(R.string.successAdd), Toast.LENGTH_SHORT).show()
+        setResult(Activity.RESULT_OK)
         finish()
     }
 
@@ -174,4 +177,5 @@ class AddAddress : Basic(), View.OnClickListener {
         Toast.makeText(this, resources.getString(R.string.failedaddAddress), Toast.LENGTH_SHORT)
             .show()
     }
+
 }

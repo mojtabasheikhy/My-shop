@@ -109,6 +109,8 @@
     <string name="Other_detail">Other Detail</string>
     <string name="successAdd">Your address Added</string>
     <string name="failedaddAddress">Oops!!Your address Not Added</string>
+    <string name="selectAddreess">Select Address</string>
+    <string name="selectedAddreess">Address Selected is </string>
 
 
 </resources>

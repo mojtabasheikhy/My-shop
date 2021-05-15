@@ -1,5 +1,6 @@
 package com.example.myshop.View.activity
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.myshop.FireStore.FireStore
 import com.example.myshop.R
+import com.example.myshop.Utils.ConstVal
 import com.example.myshop.adapter.AddressAdapter
 import com.example.myshop.databinding.ActivityAddressBinding
 import com.example.myshop.model.AddressDataClass
@@ -20,13 +22,23 @@ import java.sql.RowId
 
 class Address : Basic(), View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     lateinit var addressBinding:ActivityAddressBinding
+    var addressFromcheckout=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         addressBinding=DataBindingUtil.setContentView(this,R.layout.activity_address)
+        GetAllAddress()
+        if (intent.hasExtra(ConstVal.pushExtera_selecet_address)){
+            addressFromcheckout=intent.getBooleanExtra(ConstVal.pushExtera_selecet_address,false)
+        }
+        if (addressFromcheckout){
+            addressBinding.AddressToolbar.title = resources.getString(R.string.selectAddreess)
+        }
+
         addressBinding.addressAddAds.setOnClickListener(this)
         addressBinding.addressSwip.setOnRefreshListener (this)
         actionbarSetup()
-        GetAllAddress()
+
     }
     fun actionbarSetup() {
         setSupportActionBar(addressBinding.AddressToolbar)
@@ -47,11 +59,7 @@ class Address : Basic(), View.OnClickListener, SwipeRefreshLayout.OnRefreshListe
         FireStore().GetAllAdressOwn(this)
     }
 
-    override fun onResume() {
-        GetAllAddress()
-        super.onResume()
 
-    }
     fun  successDelete(){
         HideDialog()
         ShowSnackbar(resources.getString(R.string.deletedSuccessFully),true)
@@ -65,10 +73,20 @@ class Address : Basic(), View.OnClickListener, SwipeRefreshLayout.OnRefreshListe
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.address_add_ads->{
-                startActivity(Intent(this,AddAddress::class.java))
+                startActivityForResult(Intent(this,AddAddress::class.java),ConstVal.ActivityStartCode_selectAddress)
             }
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode==ConstVal.ActivityStartCode_selectAddress){
+            if (resultCode== Activity.RESULT_OK){
+                GetAllAddress()
+            }
+        }
+    }
+
     fun successGetMyAddressFromFireStore(address:ArrayList<AddressDataClass>){
         hideShimmer()
         addressBinding.addressSwip.isRefreshing=false
@@ -81,30 +99,34 @@ class Address : Basic(), View.OnClickListener, SwipeRefreshLayout.OnRefreshListe
             addressBinding.noadsTxt.visibility=View.GONE
             addressBinding.noaddsLottie.visibility=View.GONE
             addressBinding.addressRecycler.apply {
-                var adapter_address=AddressAdapter(this@Address)
+                var adapter_address=AddressAdapter(this@Address,addressFromcheckout)
                 adapter_address.setAllProductData(address)
                 adapter=adapter_address
                 layoutManager=LinearLayoutManager(this@Address,RecyclerView.VERTICAL,false)
             }
-            var editorHandler=object :SwipeToEditCallback (this){
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                         var adapter=addressBinding.addressRecycler.adapter as AddressAdapter
-                         adapter.NotifyEdit(this@Address,viewHolder.adapterPosition)
+
+            if (!addressFromcheckout){
+                var editorHandler=object :SwipeToEditCallback (this){
+                    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                        var adapter=addressBinding.addressRecycler.adapter as AddressAdapter
+                        adapter.NotifyEdit(this@Address,viewHolder.adapterPosition)
+
+                    }
 
                 }
+                var deleteAddressHandler=object :SwipeToDeleteCallback(this){
+                    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                        ShowDialog(resources.getString(R.string.wait))
+                        FireStore().deleteAdress(this@Address,address[viewHolder.adapterPosition].address_id)
+                    }
 
-            }
-            var deleteAddressHandler=object :SwipeToDeleteCallback(this){
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    ShowDialog(resources.getString(R.string.wait))
-                    FireStore().deleteAdress(this@Address,address[viewHolder.adapterPosition].address_id)
                 }
-
+                var editItemTouchHelper=ItemTouchHelper(editorHandler)
+                var DeleteItemTouchHelper=ItemTouchHelper(deleteAddressHandler)
+                DeleteItemTouchHelper.attachToRecyclerView(addressBinding.addressRecycler)
+                editItemTouchHelper.attachToRecyclerView(addressBinding.addressRecycler)
             }
-            var editItemTouchHelper=ItemTouchHelper(editorHandler)
-            var DeleteItemTouchHelper=ItemTouchHelper(deleteAddressHandler)
-            DeleteItemTouchHelper.attachToRecyclerView(addressBinding.addressRecycler)
-            editItemTouchHelper.attachToRecyclerView(addressBinding.addressRecycler)
+
         }
     }
     fun hideShimmer(){

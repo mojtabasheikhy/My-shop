@@ -45,6 +45,8 @@ object ConstVal {
     const val other="other"
     const val address_collection="address"
     const val addressDetailExtera="exteraDetailAddress"
+    const val pushExtera_selecet_address="selectedAddress"
+    const val ActivityStartCode_selectAddress =1004
 
 
     fun ChoseImageFromGallery(activity: Activity) {
