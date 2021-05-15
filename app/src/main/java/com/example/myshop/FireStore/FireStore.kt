@@ -327,8 +327,8 @@ class FireStore {
             .delete()
             .addOnSuccessListener {
 
-                when(activity){
-                    is cartlist ->{
+                when (activity) {
+                    is cartlist -> {
                         activity.SuccessDeleteCartItem()
 
                     }
@@ -338,40 +338,38 @@ class FireStore {
                 when (activity) {
                     is cartlist -> {
                         activity.HideDialog()
-                        activity.ShowSnackbar(it.message.toString(),false)
+                        activity.ShowSnackbar(it.message.toString(), false)
                     }
                 }
             }
     }
 
-
-
-    fun UpdateDetailCart(cartid: String,context: Context,hashMap: HashMap<String,Any>){
+    fun UpdateDetailCart(cartid: String, context: Context, hashMap: HashMap<String, Any>) {
         myFirestore.collection(ConstVal.cart_item)
             .document(cartid)
             .update(hashMap)
             .addOnSuccessListener {
-            when(context)
-            {
-                is cartlist ->{
-                    context.SuccessUpdateCart()
+                when (context) {
+                    is cartlist -> {
+                        context.SuccessUpdateCart()
+                    }
                 }
-            }
 
             }
             .addOnFailureListener {
 
-                when(context){
+                when (context) {
                     is cartlist -> {
                         context.HideDialog()
-                        context.ShowSnackbar(it.message.toString(),false)
+                        context.ShowSnackbar(it.message.toString(), false)
 
                     }
                 }
             }
 
     }
-    fun addAddressToFireStore(activity:AddAddress, address:AddressDataClass) {
+
+    fun addAddressToFireStore(activity: AddAddress, address: AddressDataClass) {
         myFirestore.collection(ConstVal.address_collection)
             .document()
             .set(address, SetOptions.merge())
@@ -386,7 +384,8 @@ class FireStore {
                 activity.failedAddAdress()
             }
     }
-    fun GetAllAdressOwn(activity: Activity){
+
+    fun GetAllAdressOwn(activity: Activity) {
         myFirestore.collection(ConstVal.address_collection)
             .whereEqualTo(ConstVal.UserId, GetCurrentUserID())
             .get()
@@ -407,15 +406,15 @@ class FireStore {
                 }
             }
             .addOnFailureListener {
-               when(activity){
-                   is Address ->{
-                       activity.HideDialog()
-                   }
-               }
+                when (activity) {
+                    is Address -> {
+                        activity.HideDialog()
+                    }
+                }
             }
     }
 
-    fun UpdateAddressDetail(activity: AddAddress,dataClass: AddressDataClass,addressid:String){
+    fun UpdateAddressDetail(activity: AddAddress, dataClass: AddressDataClass, addressid: String) {
         myFirestore.collection(ConstVal.address_collection)
             .document(addressid)
             .set(dataClass).addOnSuccessListener {
@@ -428,7 +427,8 @@ class FireStore {
             }
 
     }
-    fun deleteAdress(activity: Address,addressid: String){
+
+    fun deleteAdress(activity: Address, addressid: String) {
         myFirestore.collection(ConstVal.address_collection)
             .document(addressid)
             .delete().addOnSuccessListener {
