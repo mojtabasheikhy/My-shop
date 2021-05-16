@@ -2,6 +2,7 @@ package com.example.myshop.View.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,7 +19,7 @@ import com.example.myshop.model.ProductDataClass
 import com.google.firebase.database.core.view.View
 import kotlinx.coroutines.channels.consumesAll
 
-class Checkout : Basic() {
+class Checkout : Basic(), android.view.View.OnClickListener {
     lateinit var checkoutBinding: ActivityCheckoutBinding
     var Mproductlist: ArrayList<ProductDataClass>? = null
     var MCartlist: ArrayList<CartDataClass>? = null
@@ -28,6 +29,7 @@ class Checkout : Basic() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         checkoutBinding = DataBindingUtil.setContentView(this, R.layout.activity_checkout)
+        checkoutBinding.checkoutOrderplace.setOnClickListener(this)
         showShimer()
         actionbar_setup()
         GetAddressdata()
@@ -76,6 +78,7 @@ class Checkout : Basic() {
     }
 
     fun getproduct() {
+
         FireStore().GetallProductCartlist(this)
     }
 
@@ -133,18 +136,26 @@ class Checkout : Basic() {
     }
 
     fun placeAnOrder() {
-        ShowDialog(resources.getString(R.string.wait))
-        var order_obj = MCartlist?.let {
-            Order(
-                FireStore().GetCurrentUserID(),
-                it,
-                detailAddress!!,
-                "My order ${System.currentTimeMillis()}",
-                total.toString(),
-                "10000",
-                totalamount,
-                MCartlist!![0].Image
-            )
+        if (totalamount != "") {
+            ShowDialog(resources.getString(R.string.wait))
+            var order_obj = MCartlist?.let {
+                Order(
+                    FireStore().GetCurrentUserID(),
+                    it,
+                    detailAddress!!,
+                    "My order ${System.currentTimeMillis()}",
+                    total.toString(),
+                    "10000",
+                    totalamount,
+                    MCartlist!![0].Image
+                )
+            }
+            if (order_obj != null) {
+                FireStore().CreateOrderCollection(this, order_obj)
+            }
+        }
+        else {
+             ShowSnackbar(resources.getString(R.string.yourproductoutofstock),false)
         }
 
     }
@@ -157,9 +168,18 @@ class Checkout : Basic() {
         checkoutBinding.shimmerRecyclerView.showShimmer()
     }
     fun successAddOrder(){
-        //TODO
+     ShowSnackbar(resources.getString(R.string.successAddingOrder),true)
     }
     fun FailaddOrder(){
-
+        ShowSnackbar(resources.getString(R.string.failAddingOrder),true)
     }
+
+    override fun onClick(v: android.view.View?) {
+        when(v?.id){
+            R.id.checkout_orderplace ->{
+               placeAnOrder()
+            }
+        }
+    }
+
 }

@@ -114,6 +114,9 @@
     <string name="product_item">Product Item</string>
     <string name="PaymentMode">Payment Mode</string>
     <string name="orderPlace">Order Place</string>
+    <string name="successAddingOrder">Success Adding Order</string>
+    <string name="yourproductoutofstock">Your Product was Out Of Stock</string>
+    <string name="failAddingOrder">"Oops!! Your Oreder Adding Not Success "</string>
 
 
 </resources>
