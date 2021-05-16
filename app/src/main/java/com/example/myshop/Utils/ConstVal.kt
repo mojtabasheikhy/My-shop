@@ -50,6 +50,7 @@ object ConstVal {
     const val putExteraDetailAddressTocheckout="exteraDetailAddress"
     const val OrderCollection="order"
     const val productquantity="productQuantity"
+    const val productquantity_doc="product_quantity"
     const val profImge="profImge"
 
 

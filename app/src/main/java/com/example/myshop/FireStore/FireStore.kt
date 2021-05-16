@@ -483,7 +483,7 @@ class FireStore {
         var writeBatch=myFirestore.batch()
         for (item in arrayList){
             var newProductQuantityAfterOrder=HashMap<String,Any>()
-            newProductQuantityAfterOrder[ConstVal.productquantity]=item.productQuantity - item.card_quantity
+            newProductQuantityAfterOrder[ConstVal.productquantity_doc]=item.productQuantity - item.card_quantity
             var documnetRefrences = myFirestore.collection(ConstVal.Collection_addproduct).document(item.Productid)
             writeBatch.update(documnetRefrences,newProductQuantityAfterOrder)
         }
@@ -514,7 +514,7 @@ class FireStore {
 
     fun getAllorder(fragment: Order){
         myFirestore.collection(ConstVal.OrderCollection)
-            .whereEqualTo(ConstVal.UserId,GetCurrentUserID())
+            .whereEqualTo("userid",GetCurrentUserID())
             .get()
 
             .addOnSuccessListener {order->
@@ -524,6 +524,7 @@ class FireStore {
                     Myorder?.id = i.id
                     Myorderlist.add(Myorder!!)
                 }
+                Log.e("SD",Myorderlist.toString())
                 fragment.successGetAllOrder(Myorderlist)
             }
             .addOnFailureListener {

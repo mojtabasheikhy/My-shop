@@ -29,13 +29,21 @@ lateinit var order:FragmentOrderBinding
     ): View? {
 
         order= FragmentOrderBinding.inflate(inflater,container,false)
+        order.orderSwip.setOnRefreshListener {
+            getOrderList()
+            order.orderTextNodata.visibility=View.GONE
+            order.orderAnim.visibility=View.GONE
+            order.orderRecyclerview.visibility=View.VISIBLE
 
+
+        }
         return order.root
     }
 
     override fun onResume() {
-        super.onResume()
         getOrderList()
+        super.onResume()
+
     }
 
     fun getOrderList(){
@@ -45,23 +53,29 @@ lateinit var order:FragmentOrderBinding
 
     fun successGetAllOrder(myorderlist: ArrayList<OrderDataClass>) {
         hideshimer()
-        if (myorderlist.size.equals(0)){
-            order.orderAnim.visibility=View.VISIBLE
-            order.orderRecyclerview.visibility=View.GONE
-            order.orderTextNodata.visibility=View.VISIBLE
-        }
+        order.orderSwip.isRefreshing=false
+
+      if (myorderlist.size.equals(0)){
+          order.orderTextNodata.visibility=View.VISIBLE
+          order.orderAnim.visibility=View.VISIBLE
+          order.orderSwip.visibility=View.VISIBLE
+          order.orderRecyclerview.visibility=View.GONE
+      }
         else {
-            order.orderAnim.visibility=View.GONE
-            order.orderRecyclerview.visibility=View.VISIBLE
-            order.orderTextNodata.visibility=View.GONE
-            order.orderRecyclerview.apply {
+          order.orderTextNodata.visibility=View.GONE
+          order.orderAnim.visibility=View.GONE
+          order.orderSwip.visibility=View.VISIBLE
+          order.orderRecyclerview.visibility=View.VISIBLE
 
-                layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-                var adapter_order = orderAdapter()
-                adapter_order.setAllOrderData(myorderlist)
+          order.orderRecyclerview.apply {
 
-            }
-        }
+              var adapter_order = orderAdapter()
+              adapter = adapter_order
+              adapter_order.setAllOrderData(myorderlist)
+              layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+          }
+      }
+
 
     }
 

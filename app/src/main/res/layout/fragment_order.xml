@@ -44,14 +44,26 @@
             app:layout_constraintStart_toStartOf="@+id/order_text_nodata"
             app:layout_constraintTop_toBottomOf="@+id/order_text_nodata" />
 
-        <com.todkars.shimmer.ShimmerRecyclerView
-            android:id="@+id/order_recyclerview"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/order_swip"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <com.todkars.shimmer.ShimmerRecyclerView
+                android:id="@+id/order_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="3dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
