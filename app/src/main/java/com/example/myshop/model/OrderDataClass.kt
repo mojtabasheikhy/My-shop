@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Order(
+data class OrderDataClass(
     var userid: String = "",
     var item: ArrayList<CartDataClass> = ArrayList(),
     var address: AddressDataClass = AddressDataClass(),

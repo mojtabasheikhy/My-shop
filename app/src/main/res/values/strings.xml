@@ -117,6 +117,8 @@
     <string name="successAddingOrder">Success Adding Order</string>
     <string name="yourproductoutofstock">Your Product was Out Of Stock</string>
     <string name="failAddingOrder">"Oops!! Your Oreder Adding Not Success "</string>
+    <string name="NoOrderYet" >Oops!!No Order Placed Yet!!</string>
+    <string name="failgetAllOrder" >Oops!!error In Geting Order!!Try Again</string>
 
 
 </resources>

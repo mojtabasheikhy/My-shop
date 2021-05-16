@@ -146,7 +146,6 @@ class CompleteProfile : Basic(), View.OnClickListener {
         }
         if (downloadAble != null && !downloadAble.equals(UserDetail?.Image)) {
             UserHashMap[ConstVal.imageColumn] = downloadAble.toString()
-
         }
 
         val gender = if (Compelte_profile.CompleteRdGenderFemale.isChecked) {
@@ -162,6 +161,7 @@ class CompleteProfile : Basic(), View.OnClickListener {
 
         UserHashMap[ConstVal.usercompelete] = 1
         FireStore().Update_User_Detail(this, UserHashMap)
+
 
     }
 

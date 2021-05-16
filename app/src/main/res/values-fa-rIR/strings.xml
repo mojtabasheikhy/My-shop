@@ -117,6 +117,8 @@
     <string name="successAddingOrder">سفارش شما با موفقیت ارسال شد</string>
     <string name="yourproductoutofstock">متاسفانه کالا های انتخابی موجودی ندارد</string>
     <string name="failAddingOrder">متاسفانه سفارش کالا ارسال نشد لطفا دوباره تلاش کنید</string>
+    <string name="NoOrderYet" >هنوز سفارشی ثبت نشده است</string>
+    <string name="failgetAllOrder" >دریافت اطلاعات با مشکل مواجه شده است لطفا دوباره تلاش کنید</string>
 
 
 </resources>

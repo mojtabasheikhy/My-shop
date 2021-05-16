@@ -1,0 +1,34 @@
+package com.example.myshop.adapter
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
+import com.example.myshop.Utils.product_diff_util
+import com.example.myshop.databinding.ItemDashbordBinding
+import com.example.myshop.databinding.ItemOrderBinding
+import com.example.myshop.model.OrderDataClass
+import com.example.myshop.model.ProductDataClass
+
+class orderAdapter: RecyclerView.Adapter<orderAdapter.orderViewholder>() {
+    var Allorder= emptyList<OrderDataClass>()
+
+    inner class orderViewholder(var orderBinding: ItemOrderBinding): RecyclerView.ViewHolder(orderBinding.root){}
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): orderViewholder {
+        var view=ItemOrderBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        return orderViewholder(view)
+    }
+    override fun getItemCount(): Int =Allorder.size
+    override fun onBindViewHolder(holder: orderViewholder, position: Int) {
+        holder.orderBinding.order=Allorder[position]
+
+    }
+    fun setAllOrderData(newOrderlist:List<OrderDataClass>){
+        var difutils_obj = product_diff_util(newOrderlist, Allorder)
+        var difutils_calucate = DiffUtil.calculateDiff(difutils_obj)
+        Allorder =  newOrderlist
+        difutils_calucate.dispatchUpdatesTo(this)
+    }
+
+}

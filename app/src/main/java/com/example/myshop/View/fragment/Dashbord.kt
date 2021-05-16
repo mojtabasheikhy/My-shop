@@ -1,6 +1,8 @@
 package com.example.myshop.View.fragment
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
@@ -112,6 +114,8 @@ class Dashbord : Fragment() {
         }
 
         }
+
+
     }
         fun showshimer() {
             dashbordBinding.dashbordRecycler.showShimmer()

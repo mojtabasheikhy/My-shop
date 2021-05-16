@@ -1,6 +1,6 @@
 package com.example.myshop.View.activity
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -14,10 +14,8 @@ import com.example.myshop.adapter.CartAdapter
 import com.example.myshop.databinding.ActivityCheckoutBinding
 import com.example.myshop.model.AddressDataClass
 import com.example.myshop.model.CartDataClass
-import com.example.myshop.model.Order
+import com.example.myshop.model.OrderDataClass
 import com.example.myshop.model.ProductDataClass
-import com.google.firebase.database.core.view.View
-import kotlinx.coroutines.channels.consumesAll
 
 class Checkout : Basic(), android.view.View.OnClickListener {
     lateinit var checkoutBinding: ActivityCheckoutBinding
@@ -134,12 +132,21 @@ class Checkout : Basic(), android.view.View.OnClickListener {
 
 
     }
+    fun failedUpdateDetailProductAfterOrder(){
+        Toast.makeText(this,resources.getString(R.string.errorWhenUpadteData),Toast.LENGTH_SHORT).show()
+    }
+    fun successUpdateDetailProductAfterOrder(){
+        Toast.makeText(this,resources.getString(R.string.successAddingOrder),Toast.LENGTH_SHORT).show()
+        var intent=Intent(this,Main::class.java)
+        intent.flags=Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
 
     fun placeAnOrder() {
         if (totalamount != "") {
             ShowDialog(resources.getString(R.string.wait))
             var order_obj = MCartlist?.let {
-                Order(
+                OrderDataClass(
                     FireStore().GetCurrentUserID(),
                     it,
                     detailAddress!!,
@@ -168,7 +175,7 @@ class Checkout : Basic(), android.view.View.OnClickListener {
         checkoutBinding.shimmerRecyclerView.showShimmer()
     }
     fun successAddOrder(){
-     ShowSnackbar(resources.getString(R.string.successAddingOrder),true)
+            FireStore().updateProductDetaiAfterOrder(this,MCartlist!!)
     }
     fun FailaddOrder(){
         ShowSnackbar(resources.getString(R.string.failAddingOrder),true)

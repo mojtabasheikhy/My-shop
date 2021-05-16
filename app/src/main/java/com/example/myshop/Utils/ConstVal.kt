@@ -36,7 +36,7 @@ object ConstVal {
     const val putExtera_detail_product = "detail"
     const val PutExtera_detail_userid = "userid"
     const val cart_quantity:Int = 1
-    const val cart_item="cartItem"
+    const val cart_item_collection="cartItem"
     const val product_id="productid"
     const val cart_quantity_colmn="card_quantity"
     const val userImageuri="user_image"
@@ -49,6 +49,8 @@ object ConstVal {
     const val ActivityStartCode_selectAddress =1004
     const val putExteraDetailAddressTocheckout="exteraDetailAddress"
     const val OrderCollection="order"
+    const val productquantity="productQuantity"
+    const val profImge="profImge"
 
 
     fun ChoseImageFromGallery(activity: Activity) {

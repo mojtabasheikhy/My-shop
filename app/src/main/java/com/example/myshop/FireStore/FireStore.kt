@@ -9,12 +9,14 @@ import com.example.myshop.R
 import com.example.myshop.Utils.ConstVal
 import com.example.myshop.View.activity.*
 import com.example.myshop.View.fragment.Dashbord
+import com.example.myshop.View.fragment.Order
 import com.example.myshop.View.fragment.ProductFragment
 import com.example.myshop.model.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
+import kotlin.concurrent.fixedRateTimer
 
 class FireStore {
     var myFirestore = FirebaseFirestore.getInstance()
@@ -241,7 +243,7 @@ class FireStore {
     }
 
     fun CreateCartItem(activity: DetailProduct, cartDataclass: CartDataClass) {
-        myFirestore.collection(ConstVal.cart_item)
+        myFirestore.collection(ConstVal.cart_item_collection)
             .document()
             .set(cartDataclass, SetOptions.merge())
             .addOnSuccessListener {
@@ -254,7 +256,7 @@ class FireStore {
     }
 
     fun CheckProductExistInCart(activity: DetailProduct, productId: String) {
-        myFirestore.collection(ConstVal.cart_item)
+        myFirestore.collection(ConstVal.cart_item_collection)
             .whereEqualTo(ConstVal.UserId, GetCurrentUserID())
             .whereEqualTo(ConstVal.product_id, productId)
             .get()
@@ -270,7 +272,7 @@ class FireStore {
     }
 
     fun GetCart(activity: Activity) {
-        myFirestore.collection(ConstVal.cart_item)
+        myFirestore.collection(ConstVal.cart_item_collection)
             .whereEqualTo(ConstVal.UserId, GetCurrentUserID())
             .get()
             .addOnSuccessListener {
@@ -337,7 +339,7 @@ class FireStore {
     }
 
     fun DeleteCartItem(activity: Context, cartid: String) {
-        myFirestore.collection(ConstVal.cart_item)
+        myFirestore.collection(ConstVal.cart_item_collection)
             .document(cartid)
             .delete()
             .addOnSuccessListener {
@@ -360,7 +362,7 @@ class FireStore {
     }
 
     fun UpdateDetailCart(cartid: String, context: Context, hashMap: HashMap<String, Any>) {
-        myFirestore.collection(ConstVal.cart_item)
+        myFirestore.collection(ConstVal.cart_item_collection)
             .document(cartid)
             .update(hashMap)
             .addOnSuccessListener {
@@ -453,10 +455,10 @@ class FireStore {
                 activity.failedDelete()
             }
     }
-    fun CreateOrderCollection(activity: Activity,order: Order){
+    fun CreateOrderCollection(activity: Activity, orderDataClass: OrderDataClass){
         myFirestore.collection(ConstVal.OrderCollection)
             .document()
-            .set(order, SetOptions.merge())
+            .set(orderDataClass, SetOptions.merge())
             .addOnCompleteListener {
                 it.addOnSuccessListener {
                     when(activity){
@@ -477,6 +479,59 @@ class FireStore {
                 }
             }
     }
+    fun updateProductDetaiAfterOrder(activity: Activity,arrayList: ArrayList<CartDataClass>){
+        var writeBatch=myFirestore.batch()
+        for (item in arrayList){
+            var newProductQuantityAfterOrder=HashMap<String,Any>()
+            newProductQuantityAfterOrder[ConstVal.productquantity]=item.productQuantity - item.card_quantity
+            var documnetRefrences = myFirestore.collection(ConstVal.Collection_addproduct).document(item.Productid)
+            writeBatch.update(documnetRefrences,newProductQuantityAfterOrder)
+        }
+        for (item in arrayList){
+            val documentref=myFirestore.collection(ConstVal.cart_item_collection)
+                .document(item.cart_id)
+            writeBatch.delete(documentref)
+        }
+        writeBatch.commit().addOnSuccessListener {
+            when(activity){
+                is Checkout ->{
+                    activity.HideDialog()
+                    activity.successUpdateDetailProductAfterOrder()
+                }
+            }
+        }
+            .addOnFailureListener {
+                when(activity){
+                    is Checkout ->{
+                        activity.HideDialog()
+                        activity.failedUpdateDetailProductAfterOrder()
+
+                    }
+                }
+            }
+
+    }
+
+    fun getAllorder(fragment: Order){
+        myFirestore.collection(ConstVal.OrderCollection)
+            .whereEqualTo(ConstVal.UserId,GetCurrentUserID())
+            .get()
+
+            .addOnSuccessListener {order->
+                val Myorderlist: ArrayList<OrderDataClass> = ArrayList()
+                for (i in order.documents) {
+                    val Myorder = i.toObject(OrderDataClass::class.java)
+                    Myorder?.id = i.id
+                    Myorderlist.add(Myorder!!)
+                }
+                fragment.successGetAllOrder(Myorderlist)
+            }
+            .addOnFailureListener {
+                 fragment.failedGetAllorder()
+            }
+    }
+
+
 
 }
 
