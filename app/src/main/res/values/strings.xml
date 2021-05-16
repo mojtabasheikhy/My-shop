@@ -105,12 +105,15 @@
     <string name="add_your_address">Add Your Address</string>
     <string name="Enter_address">Please Enter Your Address</string>
     <string name="Enter_zipcode">Please Enter Your ZipCode</string>
-    <string name="Enter_additional" >Please Enter Your additional Note</string>
+    <string name="Enter_additional">Please Enter Your additional Note</string>
     <string name="Other_detail">Other Detail</string>
     <string name="successAdd">Your address Added</string>
     <string name="failedaddAddress">Oops!!Your address Not Added</string>
     <string name="selectAddreess">Select Address</string>
     <string name="selectedAddreess">Address Selected is </string>
+    <string name="product_item">Product Item</string>
+    <string name="PaymentMode">Payment Mode</string>
+    <string name="orderPlace">Order Place</string>
 
 
 </resources>

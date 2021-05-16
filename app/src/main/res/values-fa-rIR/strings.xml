@@ -111,6 +111,9 @@
     <string name="failedaddAddress" >متاسفانه آدرس  شما اضافه نشد</string>
     <string name="selectAddreess">انتخاب آدرس</string>
     <string name="selectedAddreess" >ادرس انتخاب شده </string>
+    <string name="product_item">لیست کالا ها</string>
+    <string name="PaymentMode">طریقه پرداخت</string>
+    <string name="orderPlace">محل سفارش</string>
 
 
 </resources>

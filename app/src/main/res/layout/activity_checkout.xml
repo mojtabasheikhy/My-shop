@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#F3F3F3"
+        tools:context=".View.activity.Checkout">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_background"
+
+            app:navigationIconTint="@color/white"
+            app:titleTextColor="@color/white" />
+
+        <TextView
+            android:id="@+id/textView11"
+            style="@style/viewParent.headerText"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight=".5"
+            android:layout_marginTop="6dp"
+            android:text="@string/product_item"
+            android:textColor="@color/second_text_color"
+            android:textSize="16sp" />
+
+        <com.todkars.shimmer.ShimmerRecyclerView
+            android:id="@+id/shimmerRecyclerView"
+            android:background="@color/white"
+            android:layout_weight="3.5"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+        <TextView
+            android:id="@+id/textView12"
+            style="@style/viewParent.headerText"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_weight=".5"
+            android:text="@string/selectedAddreess"
+            android:textColor="@color/second_text_color"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:background="@color/white"
+            android:layout_weight="3.4"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="6dp"
+            android:orientation="vertical"
+            android:padding="6dp"
+
+            >
+
+            <TextView
+                android:id="@+id/checkout_address_type_value"
+                style="@style/viewParent.normalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Home"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/checkout_address_tv_fullname_value"
+                style="@style/viewParent.normalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+
+                android:text="fullname"
+
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/checkout_tv_address_value"
+                style="@style/viewParent.normalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="address"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/checkout_tv_adinationalnote_value"
+                style="@style/viewParent.normalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="additional note"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/checkout_tv_otherDetail_value"
+                style="@style/viewParent.normalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@string/Other_detail"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/checkout_tv_zipcode_value"
+                style="@style/viewParent.normalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:text="zipcode"
+                android:textSize="13sp" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_weight=".5"
+            style="@style/viewParent.headerText"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:text="@string/acount"
+            android:textColor="@color/second_text_color"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.9"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="6dp"
+            android:padding="6dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView13">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/viewParent.normalText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/subtotal"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/checkout_subtotal"
+                    style="@style/viewParent.normalText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="viewEnd"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/viewParent.normalText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/shiping_charge"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/checkout_shipingCharge"
+                    style="@style/viewParent.normalText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="viewEnd"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/viewParent.normalText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/total_amount"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/checkout_totalamount"
+                    style="@style/viewParent.normalText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="viewEnd"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/viewParent.normalText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/PaymentMode"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/checkout_paymanetmode"
+                    style="@style/viewParent.normalText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="viewEnd"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/viewParent.headerText"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".9"
+            android:id="@+id/checkout_orderplace"
+            android:layout_margin="8dp"
+            android:background="@drawable/button_background"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:gravity="start"
+            android:text="@string/orderPlace"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:backgroundTint="@null"
+            app:icon="@drawable/ic_delivery_"
+            app:iconGravity="end"
+            app:iconSize="20dp"
+            app:iconTint="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    </LinearLayout>
+</layout>

@@ -28,27 +28,33 @@ class Address : Basic(), View.OnClickListener, SwipeRefreshLayout.OnRefreshListe
 
         addressBinding=DataBindingUtil.setContentView(this,R.layout.activity_address)
         GetAllAddress()
+
+        setSupportActionBar(addressBinding.AddressToolbar)
+        val actionbar_history = supportActionBar
+        actionbar_history?.setDisplayHomeAsUpEnabled(true)
+        actionbarSetup()
         if (intent.hasExtra(ConstVal.pushExtera_selecet_address)){
             addressFromcheckout=intent.getBooleanExtra(ConstVal.pushExtera_selecet_address,false)
+
         }
         if (addressFromcheckout){
-            addressBinding.AddressToolbar.title = resources.getString(R.string.selectAddreess)
+            if (actionbar_history != null) {
+                actionbar_history.setTitle(resources.getString(R.string.selectAddreess))
+            }
+        }
+        if (!addressFromcheckout){
+            if (actionbar_history != null) {
+                actionbar_history.setTitle(resources.getString(R.string.address))
+            }
         }
 
         addressBinding.addressAddAds.setOnClickListener(this)
         addressBinding.addressSwip.setOnRefreshListener (this)
-        actionbarSetup()
+
 
     }
     fun actionbarSetup() {
-        setSupportActionBar(addressBinding.AddressToolbar)
-        val actionbar_history = supportActionBar
-        if (actionbar_history != null) {
-            actionbar_history.setDisplayHomeAsUpEnabled(true)
-            actionbar_history.title = resources.getString(R.string.address)
-        }
         addressBinding.AddressToolbar.setNavigationIcon(R.drawable.ic_back)
-
         addressBinding.AddressToolbar.setNavigationOnClickListener {
             onBackPressed()
             finish()

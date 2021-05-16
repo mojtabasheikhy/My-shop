@@ -41,4 +41,15 @@ object product_adapterbinding {
         }
     }
 
+    @JvmStatic
+    @BindingAdapter("setImageprof")
+    fun setImage_product_prof(view:CircleImageView,url: String){
+        view.load(url){
+            crossfade(500)
+            error(R.drawable.ic_placeholder_product)
+            placeholder(R.drawable.ic_man)
+            crossfade(500)
+        }
+    }
+
 }

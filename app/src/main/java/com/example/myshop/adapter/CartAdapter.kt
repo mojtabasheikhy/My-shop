@@ -18,7 +18,7 @@ import com.example.myshop.databinding.ItemDashbordBinding
 import com.example.myshop.model.CartDataClass
 import com.example.myshop.model.ProductDataClass
 
-class CartAdapter(var context: Context) : RecyclerView.Adapter<CartAdapter.cartViewholder>() {
+class CartAdapter(var context: Context,var updatecart:Boolean) : RecyclerView.Adapter<CartAdapter.cartViewholder>() {
     var cartlistOld = emptyList<CartDataClass>()
 
     inner class cartViewholder(var cartitemBinding: CartitemBinding) :
@@ -39,6 +39,12 @@ class CartAdapter(var context: Context) : RecyclerView.Adapter<CartAdapter.cartV
         if (cartlistOld[position].productQuantity == 0) {
             holder.cartitemBinding.cartItemAddproduct.visibility = View.GONE
             holder.cartitemBinding.cartItemRemoveproduct.visibility = View.GONE
+            if (updatecart){
+                holder.cartitemBinding.cartItemDelete.visibility=View.VISIBLE
+            }
+            else{
+                holder.cartitemBinding.cartItemDelete.visibility=View.GONE
+            }
             holder.cartitemBinding.cartItemQuantityValue.setText(context.resources.getString(R.string.outofstock))
             holder.cartitemBinding.cartItemQuantityValue.setTextColor(
                 ContextCompat.getColor(
@@ -49,8 +55,20 @@ class CartAdapter(var context: Context) : RecyclerView.Adapter<CartAdapter.cartV
             holder.cartitemBinding.cartIv.alpha = 0.5f
             holder.cartitemBinding.cartItemPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG)
         } else {
-            holder.cartitemBinding.cartItemDelete.visibility = View.VISIBLE
-            holder.cartitemBinding.cartItemAddproduct.visibility = View.VISIBLE
+
+            if (updatecart){
+                holder.cartitemBinding.cartItemDelete.visibility = View.VISIBLE
+                holder.cartitemBinding.cartItemAddproduct.visibility = View.VISIBLE
+                holder.cartitemBinding.cartItemRemoveproduct.visibility=View.VISIBLE
+            }
+            else{
+                holder.cartitemBinding.cartItemDelete.visibility = View.GONE
+                holder.cartitemBinding.cartItemAddproduct.visibility = View.GONE
+                holder.cartitemBinding.cartItemRemoveproduct.visibility=View.GONE
+            }
+
+
+
             holder.cartitemBinding.cartItemQuantityValue.setTextColor(
                 ContextCompat.getColor(
                     context,

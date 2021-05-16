@@ -5,15 +5,12 @@ import android.content.Context
 import android.net.Uri
 import android.util.Log
 import androidx.fragment.app.Fragment
-import com.example.myshop.model.ProductDataClass
-import com.example.myshop.model.user
 import com.example.myshop.R
 import com.example.myshop.Utils.ConstVal
 import com.example.myshop.View.activity.*
 import com.example.myshop.View.fragment.Dashbord
 import com.example.myshop.View.fragment.ProductFragment
-import com.example.myshop.model.AddressDataClass
-import com.example.myshop.model.CartDataClass
+import com.example.myshop.model.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -287,6 +284,9 @@ class FireStore {
                     is cartlist -> {
                         activity.GetCartListSuccess(cartitemList)
                     }
+                    is Checkout -> {
+                        activity.GetCartListSuccessCheckout(cartitemList)
+                    }
                 }
 
             }
@@ -302,7 +302,7 @@ class FireStore {
 
     }
 
-    fun GetallProductCartlist(activity: cartlist) {
+    fun GetallProductCartlist(activity:Activity) {
         myFirestore.collection(ConstVal.Collection_addproduct)
             .get()
             .addOnSuccessListener {
@@ -313,11 +313,26 @@ class FireStore {
                     ProductList.add(product!!)
 
                 }
-                activity.SuccessGetAllProduct(productList = ProductList)
+                when(activity)
+                {
+                    is cartlist ->{
+                        activity.SuccessGetAllProduct(productList = ProductList)
+                    }
+                    is Checkout ->{
+                        activity.successGetallProduct(ProductList)
+                    }
+                }
+
 
             }
             .addOnFailureListener {
-                activity.HideDialog()
+                when(activity)
+                {
+                    is cartlist ->{
+                        activity.HideDialog()
+                    }
+                }
+
             }
     }
 
@@ -436,6 +451,30 @@ class FireStore {
             }
             .addOnFailureListener {
                 activity.failedDelete()
+            }
+    }
+    fun CreateOrderCollection(activity: Activity,order: Order){
+        myFirestore.collection(ConstVal.OrderCollection)
+            .document()
+            .set(order, SetOptions.merge())
+            .addOnCompleteListener {
+                it.addOnSuccessListener {
+                    when(activity){
+                        is Checkout ->{
+                            activity.HideDialog()
+                            activity.successAddOrder()
+                        }
+                    }
+
+                }
+            }
+            .addOnFailureListener {
+                when(activity){
+                    is Checkout ->{
+                        activity.HideDialog()
+                        activity.FailaddOrder()
+                    }
+                }
             }
     }
 

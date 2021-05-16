@@ -47,6 +47,8 @@ object ConstVal {
     const val addressDetailExtera="exteraDetailAddress"
     const val pushExtera_selecet_address="selectedAddress"
     const val ActivityStartCode_selectAddress =1004
+    const val putExteraDetailAddressTocheckout="exteraDetailAddress"
+    const val OrderCollection="order"
 
 
     fun ChoseImageFromGallery(activity: Activity) {

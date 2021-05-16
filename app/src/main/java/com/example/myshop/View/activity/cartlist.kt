@@ -48,6 +48,10 @@ class cartlist : Basic(), android.view.View.OnClickListener {
         GetproductList()
     }
 
+    fun GetallProduct(){
+        FireStore().GetallProductCartlist(this)
+    }
+
     fun GetCartList() {
         ShowDialog(resources.getString(R.string.wait))
         FireStore().GetCart(this)
@@ -75,8 +79,8 @@ class cartlist : Basic(), android.view.View.OnClickListener {
 
         if (McartList!!.size > 0) {
             cartListBinding?.cartRecycler?.apply {
-                var cartAdapter = CartAdapter(this@cartlist)
-                cartAdapter.setAllProductData(cartList)
+                var cartAdapter = CartAdapter(this@cartlist,true)
+                cartAdapter.setAllProductData(McartList!!)
                 adapter = cartAdapter
                 layoutManager = LinearLayoutManager(this@cartlist, RecyclerView.VERTICAL, false)
 
