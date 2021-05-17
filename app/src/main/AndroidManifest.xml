@@ -13,23 +13,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Myshop">
-        <activity android:name=".View.activity.Checkout"
-            android:theme="@style/Splash_Theme"
+        <activity android:name=".View.activity.DetailOrder"
             android:screenOrientation="portrait"
-            ></activity>
+            android:theme="@style/Splash_Theme">
 
+
+        </activity>
+        <activity
+            android:name=".View.activity.Checkout"
+            android:screenOrientation="portrait"
+            android:theme="@style/Splash_Theme" />
         <activity
             android:name=".View.activity.AddAddress"
             android:screenOrientation="portrait"
-            android:theme="@style/Splash_Theme"></activity>
+            android:theme="@style/Splash_Theme" />
         <activity
             android:name=".View.activity.Address"
             android:screenOrientation="portrait"
-            android:theme="@style/Splash_Theme"></activity>
+            android:theme="@style/Splash_Theme" />
         <activity
             android:name=".View.activity.cartlist"
             android:screenOrientation="portrait"
-            android:theme="@style/Splash_Theme"></activity>
+            android:theme="@style/Splash_Theme" />
         <activity
             android:name=".View.activity.DetailProduct"
             android:screenOrientation="portrait"
@@ -41,9 +46,7 @@
         <activity
             android:name=".View.activity.Settings"
             android:screenOrientation="portrait"
-            android:theme="@style/Splash_Theme">
-
-        </activity>
+            android:theme="@style/Splash_Theme"></activity>
         <activity
             android:name=".View.activity.Main"
             android:label="@string/title_activity_dashboard"
@@ -70,12 +73,12 @@
         <activity
             android:name=".View.activity.Login"
             android:screenOrientation="portrait"
-            android:theme="@style/Splash_Theme"></activity>
+            android:theme="@style/Splash_Theme" />
         <activity
             android:name=".View.activity.Splash_Screen"
             android:screenOrientation="portrait"
-            android:theme="@style/Splash_Theme"></activity>
-        <activity android:name=".MainActivity"></activity>
+            android:theme="@style/Splash_Theme" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

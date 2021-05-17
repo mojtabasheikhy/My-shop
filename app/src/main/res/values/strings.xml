@@ -117,8 +117,17 @@
     <string name="successAddingOrder">Success Adding Order</string>
     <string name="yourproductoutofstock">Your Product was Out Of Stock</string>
     <string name="failAddingOrder">"Oops!! Your Oreder Adding Not Success "</string>
-    <string name="NoOrderYet" >Oops!!No Order Placed Yet!!</string>
-    <string name="failgetAllOrder" >Oops!!error In Geting Order!!Try Again</string>
+    <string name="NoOrderYet">Oops!!No Order Placed Yet!!</string>
+    <string name="failgetAllOrder">Oops!!error In Geting Order!!Try Again</string>
+    <string name="detailOrder">Detail Order</string>
+    <string name="orderId">Order ID</string>
+    <string name="orderstatus">Order Status</string>
+    <string name="orderdate">Order Date</string>
+    <string name="orderList">Order List</string>
+    <string name="pending">Pending</string>
+    <string name="process" >Process</string>
+    <string name="delivred">Delivered</string>
+    <string name="CashOnDelivery">Cash On Delivery : </string>
 
 
 </resources>

@@ -37,14 +37,13 @@
 
         <com.todkars.shimmer.ShimmerRecyclerView
             android:id="@+id/shimmerRecyclerView"
-            android:background="@color/white"
+            android:background="#F3F3F3"
             android:layout_weight="3.5"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-
-            android:layout_marginStart="6dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="6dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -63,16 +62,16 @@
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:background="@color/white"
+            android:background="@drawable/white_back"
             android:layout_weight="3.4"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="6dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="6dp"
+            android:layout_marginEnd="8dp"
             android:orientation="vertical"
-            android:padding="6dp"
+            android:padding="8dp"
 
             >
 
@@ -151,12 +150,13 @@
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+
             android:layout_weight="1.9"
-            android:layout_marginStart="6dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="6dp"
-            android:layout_marginEnd="6dp"
-            android:padding="6dp"
-            android:background="@color/white"
+            android:layout_marginEnd="8dp"
+            android:padding="8dp"
+            android:background="@drawable/white_back"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
@@ -250,8 +250,10 @@
                     android:id="@+id/checkout_paymanetmode"
                     style="@style/viewParent.normalText"
                     android:layout_width="0dp"
+                    android:text="@string/CashOnDelivery"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/pink"
                     android:textAlignment="viewEnd"
                     android:textSize="13sp" />
             </LinearLayout>

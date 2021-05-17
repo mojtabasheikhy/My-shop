@@ -69,7 +69,7 @@ lateinit var order:FragmentOrderBinding
 
           order.orderRecyclerview.apply {
 
-              var adapter_order = orderAdapter()
+              var adapter_order = orderAdapter(requireContext())
               adapter = adapter_order
               adapter_order.setAllOrderData(myorderlist)
               layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)

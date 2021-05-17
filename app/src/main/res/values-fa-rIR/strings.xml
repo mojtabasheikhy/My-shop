@@ -119,6 +119,15 @@
     <string name="failAddingOrder">متاسفانه سفارش کالا ارسال نشد لطفا دوباره تلاش کنید</string>
     <string name="NoOrderYet" >هنوز سفارشی ثبت نشده است</string>
     <string name="failgetAllOrder" >دریافت اطلاعات با مشکل مواجه شده است لطفا دوباره تلاش کنید</string>
+    <string name="detailOrder">جزئیات سفارش </string>
+    <string name="orderId">شناسه</string>
+    <string name="orderstatus">وضعیت </string>
+    <string name="orderdate">تاریخ </string>
+    <string name="orderList">لیست سفارش</string>
+    <string name="pending">انتظار</string>
+    <string name="process" >در حال پردازش</string>
+    <string name="delivred">تحویل داده شده</string>
+    <string name="CashOnDelivery">پرداخت نقدی هنگام تحویل</string>
 
 
 </resources>

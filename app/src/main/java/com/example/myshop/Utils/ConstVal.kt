@@ -49,9 +49,9 @@ object ConstVal {
     const val ActivityStartCode_selectAddress =1004
     const val putExteraDetailAddressTocheckout="exteraDetailAddress"
     const val OrderCollection="order"
-    const val productquantity="productQuantity"
     const val productquantity_doc="product_quantity"
-    const val profImge="profImge"
+    const val putExteraOrderDetail="profImge"
+
 
 
     fun ChoseImageFromGallery(activity: Activity) {
@@ -61,7 +61,6 @@ object ConstVal {
 
     fun LoadPicByGlide(context: Context, ImageUri: Any, imageView: CircleImageView) {
         try {
-            Log.e("pic", "5")
             Glide.with(context)
                 .load(ImageUri)
                 .placeholder(R.drawable.ic_placeholder)
@@ -76,7 +75,6 @@ object ConstVal {
 
     fun LoadPicByGlide_noCircle(context: Context, ImageUri: Any, imageView: ImageView) {
         try {
-            Log.e("pic", "5")
             Glide.with(context)
                 .load(ImageUri)
                 .placeholder(R.drawable.ic_placeholder)

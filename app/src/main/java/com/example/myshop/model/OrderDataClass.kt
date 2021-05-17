@@ -13,5 +13,6 @@ data class OrderDataClass(
     var shipingCharge: String = "",
     var totalAmount: String = "",
     var cartImage:String="",
+    var orderDate:Long=0L,
     var id: String = ""
 ):Parcelable

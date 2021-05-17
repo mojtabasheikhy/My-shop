@@ -1,16 +1,21 @@
 package com.example.myshop.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myshop.Utils.ConstVal
 import com.example.myshop.Utils.product_diff_util
+import com.example.myshop.View.activity.DetailOrder
 import com.example.myshop.databinding.ItemDashbordBinding
 import com.example.myshop.databinding.ItemOrderBinding
 import com.example.myshop.model.OrderDataClass
 import com.example.myshop.model.ProductDataClass
+import kotlinx.coroutines.channels.consumesAll
 
-class orderAdapter: RecyclerView.Adapter<orderAdapter.orderViewholder>() {
+class orderAdapter(var context: Context): RecyclerView.Adapter<orderAdapter.orderViewholder>() {
     var Allorder= emptyList<OrderDataClass>()
 
     inner class orderViewholder(var orderBinding: ItemOrderBinding): RecyclerView.ViewHolder(orderBinding.root){}
@@ -22,6 +27,11 @@ class orderAdapter: RecyclerView.Adapter<orderAdapter.orderViewholder>() {
     override fun getItemCount(): Int =Allorder.size
     override fun onBindViewHolder(holder: orderViewholder, position: Int) {
         holder.orderBinding.order=Allorder[position]
+        holder.orderBinding.orderRoot.setOnClickListener{
+            var intent=Intent(context,DetailOrder::class.java)
+            intent.putExtra(ConstVal.putExteraOrderDetail,Allorder[position])
+            context.startActivity(intent)
+        }
 
     }
     fun setAllOrderData(newOrderlist:List<OrderDataClass>){

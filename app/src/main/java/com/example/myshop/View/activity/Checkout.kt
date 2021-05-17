@@ -151,10 +151,11 @@ class Checkout : Basic(), android.view.View.OnClickListener {
                     it,
                     detailAddress!!,
                     "My order ${System.currentTimeMillis()}",
-                    total.toString(),
-                    "10000",
                     totalamount,
-                    MCartlist!![0].Image
+                    "10000",
+                    total.toString(),
+                    MCartlist!![0].Image,
+                    System.currentTimeMillis()
                 )
             }
             if (order_obj != null) {
