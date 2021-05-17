@@ -27,6 +27,7 @@
             app:titleTextColor="@color/white"
             android:id="@+id/detailOrder_toolbar"/>
         <TextView
+            android:textStyle="bold"
             android:layout_marginTop="8dp"
             android:layout_width="100dp"
             android:textAlignment="center"
@@ -66,7 +67,7 @@
                     android:textAlignment="viewEnd"
                     android:layout_height="wrap_content"
                     style="@style/viewParent.normalText"
-                    android:text="s"
+                    android:text="@string/loading"
                     android:id="@+id/detail_order_id"
                     android:layout_weight="1"
                     android:textColor="@color/text_color"
@@ -102,7 +103,7 @@
                     android:textAlignment="viewEnd"
                     android:layout_height="wrap_content"
                     style="@style/viewParent.normalText"
-                    android:text="s"
+                    android:text="@string/loading"
                     android:id="@+id/detail_date"
                     android:layout_weight="1"
                     android:textColor="@color/text_color"
@@ -135,7 +136,8 @@
                     android:textAlignment="viewEnd"
                     android:layout_height="wrap_content"
                     style="@style/viewParent.normalText"
-                    android:text="s"
+                    android:text="@string/loading"
+
                     android:id="@+id/detail_order_status"
                     android:layout_weight="1"
                     android:textColor="@color/text_color"
@@ -145,7 +147,7 @@
 
         </LinearLayout>
         <TextView
-
+            android:textStyle="bold"
             android:layout_height="wrap_content"
             android:text="@string/orderList"
             android:elevation="3dp"
@@ -159,14 +161,14 @@
             android:background="@drawable/button_background"/>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:id="@+id/detail_orderList_recycler"
-            android:layout_margin="10dp"
-            android:padding="8dp"
-            android:background="@drawable/white_back"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#F3F3F3"
         />
         <TextView
-
+            android:textStyle="bold"
             android:layout_height="wrap_content"
             android:text="@string/address"
             android:elevation="3dp"
@@ -181,9 +183,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="vertical"
-
             android:background="@drawable/white_back"
             android:layout_margin="10dp">
 
@@ -264,13 +264,14 @@
 
         </LinearLayout>
         <TextView
-            android:layout_marginTop="8dp"
+
             android:layout_width="100dp"
             android:textAlignment="center"
             android:layout_height="wrap_content"
             android:text="@string/acount"
             android:elevation="3dp"
             android:padding="3dp"
+            android:textStyle="bold"
             style="@style/viewParent.normalText"
             android:textColor="@color/white"
             android:layout_gravity="center_horizontal"
@@ -302,7 +303,8 @@
                     android:textAlignment="viewEnd"
                     android:layout_height="wrap_content"
                     style="@style/viewParent.normalText"
-                    android:text="s"
+                    android:text="@string/loading"
+
                     android:id="@+id/detail_amount_value"
                     android:layout_weight="1"
                     android:textColor="@color/text_color"
@@ -338,7 +340,8 @@
                     android:textAlignment="viewEnd"
                     android:layout_height="wrap_content"
                     style="@style/viewParent.normalText"
-                    android:text="s"
+                    android:text="@string/loading"
+
                     android:id="@+id/detail_Order_shiping_value"
                     android:layout_weight="1"
                     android:textColor="@color/text_color"
@@ -371,7 +374,7 @@
                     android:textAlignment="viewEnd"
                     android:layout_height="wrap_content"
                     style="@style/viewParent.normalText"
-                    android:text="s"
+                    android:text="@string/loading"
                     android:id="@+id/detail_order_subtotal"
                     android:layout_weight="1"
                     android:textColor="@color/text_color"

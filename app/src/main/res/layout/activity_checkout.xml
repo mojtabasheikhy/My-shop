@@ -7,6 +7,13 @@
 
     </data>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:background="#F3F3F3"
+        android:layout_height="match_parent">
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,10 +34,13 @@
             android:id="@+id/textView11"
             style="@style/viewParent.headerText"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_back"
             android:layout_gravity="center"
-            android:layout_weight=".5"
+            android:layout_marginBottom="-14dp"
             android:layout_marginTop="6dp"
+            android:padding="4dp"
+            android:elevation="3dp"
             android:text="@string/product_item"
             android:textColor="@color/second_text_color"
             android:textSize="16sp" />
@@ -38,12 +48,12 @@
         <com.todkars.shimmer.ShimmerRecyclerView
             android:id="@+id/shimmerRecyclerView"
             android:background="#F3F3F3"
-            android:layout_weight="3.5"
+
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
+            android:layout_height="wrap_content"
+
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -52,10 +62,14 @@
             android:id="@+id/textView12"
             style="@style/viewParent.headerText"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:elevation="3dp"
             android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:layout_weight=".5"
+            android:background="@drawable/white_back"
+            android:layout_marginBottom="-14dp"
+            android:padding="4dp"
+            android:layout_marginTop="6dp"
+
             android:text="@string/selectedAddreess"
             android:textColor="@color/second_text_color"
             android:textSize="16sp" />
@@ -63,10 +77,10 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:background="@drawable/white_back"
-            android:layout_weight="3.4"
+
             android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
@@ -81,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="Home"
+                android:text="@string/loading"
                 android:textSize="13sp" />
 
             <TextView
@@ -91,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
 
-                android:text="fullname"
+                android:text="@string/loading"
 
                 android:textSize="13sp" />
 
@@ -101,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="address"
+                android:text="@string/loading"
                 android:textSize="13sp" />
 
             <TextView
@@ -110,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="additional note"
+                android:text="@string/loading"
                 android:textSize="13sp" />
 
             <TextView
@@ -129,7 +143,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:layout_marginBottom="6dp"
-                android:text="zipcode"
+                android:text="@string/loading"
                 android:textSize="13sp" />
 
 
@@ -137,21 +151,26 @@
 
         <TextView
             android:id="@+id/textView13"
-            android:layout_weight=".5"
+
             style="@style/viewParent.headerText"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_width="100dp"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-14dp"
+            android:elevation="3dp"
+            android:layout_marginTop="6dp"
             android:layout_gravity="center"
             android:text="@string/acount"
+            android:background="@drawable/white_back"
             android:textColor="@color/second_text_color"
             android:textSize="18sp" />
 
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
 
-            android:layout_weight="1.9"
+
             android:layout_marginStart="8dp"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="8dp"
@@ -261,11 +280,15 @@
 
         </LinearLayout>
 
+
+
+    </LinearLayout>
+
         <com.google.android.material.button.MaterialButton
             style="@style/viewParent.headerText"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".9"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:id="@+id/checkout_orderplace"
             android:layout_margin="8dp"
             android:background="@drawable/button_background"
@@ -280,9 +303,6 @@
             app:iconGravity="end"
             app:iconSize="20dp"
             app:iconTint="@color/white"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-
-    </LinearLayout>
+            />
+    </FrameLayout>
 </layout>

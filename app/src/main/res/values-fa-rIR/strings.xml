@@ -113,7 +113,7 @@
     <string name="selectedAddreess" >ادرس انتخاب شده </string>
     <string name="product_item">لیست کالا ها</string>
     <string name="PaymentMode">طریقه پرداخت</string>
-    <string name="orderPlace">محل سفارش</string>
+    <string name="orderPlace"> ثب سفارش</string>
     <string name="successAddingOrder">سفارش شما با موفقیت ارسال شد</string>
     <string name="yourproductoutofstock">متاسفانه کالا های انتخابی موجودی ندارد</string>
     <string name="failAddingOrder">متاسفانه سفارش کالا ارسال نشد لطفا دوباره تلاش کنید</string>
