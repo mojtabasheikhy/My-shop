@@ -269,11 +269,11 @@
                     android:id="@+id/checkout_paymanetmode"
                     style="@style/viewParent.normalText"
                     android:layout_width="0dp"
-                    android:text="@string/CashOnDelivery"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@color/pink"
+                    android:text="@string/CashOnDelivery"
                     android:textAlignment="viewEnd"
+                    android:textColor="@color/pink"
                     android:textSize="13sp" />
             </LinearLayout>
 

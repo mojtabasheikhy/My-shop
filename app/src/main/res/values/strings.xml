@@ -127,7 +127,7 @@
     <string name="pending">Pending</string>
     <string name="process" >Process</string>
     <string name="delivred">Delivered</string>
-    <string name="CashOnDelivery">Cash On Delivery : </string>
+    <string name="CashOnDelivery">Cash On Delivery</string>
 
 
 </resources>
