@@ -9,18 +9,21 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.myshop.MainActivity
+import com.example.myshop.FireStore.FireStore
 import com.example.myshop.R
 import com.example.myshop.databinding.ActivitySplashScreenBinding
 import com.kiprotich.japheth.TextAnim
 
 
 @Suppress("DEPRECATION")
+
 class Splash_Screen : AppCompatActivity() {
+
     lateinit var Splash_binding: ActivitySplashScreenBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Splash_binding = DataBindingUtil.setContentView(this, R.layout.activity_splash__screen)
+
         hide_statusbar()
         load_splash()
     }
@@ -42,13 +45,19 @@ class Splash_Screen : AppCompatActivity() {
             .setDelay(40)
             .setColor(Color.WHITE)
             .setConfig(TextAnim.Configuration.INTERMEDIATE)
-            .setSizeFactor(30f)
+            .setSizeFactor(40f)
             .setLetterSpacing(20f)
             .setText("MY SHOP")
             .setListener( {
                 Handler(mainLooper).postDelayed({
+                    val currentUserID = FireStore().GetCurrentUserID()
+                    if (currentUserID.isNotEmpty()){
+                        startActivity(Intent(this,Main::class.java))
+                        finish()
+                    }
+                    else{
                     startActivity(Intent(this, Login::class.java))
-                    finish()
+                    finish()}
                 }, 500)
 
             })

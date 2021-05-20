@@ -71,9 +71,7 @@ class Register : Basic(), View.OnClickListener, CompoundButton.OnCheckedChangeLi
                 ShowSnackbar(resources.getString(R.string.confirm_password), false)
                 false
             }
-            Register_Password_Edt.text.toString()
-                .trim({ it <= ' ' }) != Register_Confirmpassword_Edt.text.toString()
-                .trim({ it <= ' ' }) -> {
+            Register_Password_Edt.text.toString().trim({ it <= ' ' }) != Register_Confirmpassword_Edt.text.toString().trim({ it <= ' ' }) -> {
                 ShowSnackbar(resources.getString(R.string.Enter_match_password), false)
                 false
             }
@@ -89,19 +87,18 @@ class Register : Basic(), View.OnClickListener, CompoundButton.OnCheckedChangeLi
     }
 
     fun send_data_user() {
-        var email = register_binding.RegisterEdtEmail.text.toString().trim({ it <= ' ' })
-        var password = register_binding.RegisterEdtPassWord.text.toString().trim({ it <= ' ' })
+        var email_user = register_binding.RegisterEdtEmail.text.toString().trim({ it <= ' ' })
+        var password_user = register_binding.RegisterEdtPassWord.text.toString().trim({ it <= ' ' })
         if (check_empty_edt()) {
             ShowDialog(resources.getString(R.string.wait))
             register_binding.RegisterCbAgree.setTextColor(ContextCompat.getColor(this,R.color.green))
-            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email_user, password_user)
                 .addOnCompleteListener() {
                     if (it.isSuccessful) {
                         val name = register_binding.RegisterEdtName.text.toString().trim()
                         val emai_user = register_binding.RegisterEdtEmail.text.toString().trim()
                         val phone = register_binding.RegisterEdtPhone.text.toString().trim()
-                        val user = it.result?.user?.let { it1 ->
-                            user(it1.uid, name, "", emai_user, phone.toLong(), "", 0, "")
+                        val user = it.result?.user?.let { it1 -> user(it1.uid, name, "", emai_user, phone, "", 0, "")
                         }
                         user?.let { it1 -> FireStore().RegisterUserToFireStore(this, it1) }
 

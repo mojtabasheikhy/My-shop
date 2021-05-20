@@ -75,10 +75,7 @@ class AddProduct : Basic(), View.OnClickListener {
 
 
     fun checkpermission() {
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
         ) {
 
             ConstVal.ChoseImageFromGallery(this)
@@ -116,7 +113,6 @@ class AddProduct : Basic(), View.OnClickListener {
 
                         addproductBinding?.addproductIvAddpic?.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_edit))
                         addproductBinding?.textView5?.visibility=View.GONE
-
                         imageuri_addproduct = data.data
                         // Compelte_profile.CompleteIvUserprofile.setImageURI(Uri.parse(SelectedImage))
                         imageuri_addproduct?.let {
@@ -169,10 +165,12 @@ class AddProduct : Basic(), View.OnClickListener {
             }
         }
     }
+
     fun UploadImageSuccess(it: Uri?) {
         /**ارسال ادرس عکس کالا آپلود شده به دیتا بیس*/
-
-        downloadAble_Image_uri = it.toString()
+       if(it!=null) {
+           downloadAble_Image_uri = it.toString()
+       }
         SendProductDetial()
 
     }
@@ -186,14 +184,19 @@ class AddProduct : Basic(), View.OnClickListener {
         val username_pref=getSharedPreferences(ConstVal.MySharePref, Context.MODE_PRIVATE)
         val userimge=username_pref.getString(ConstVal.userImageuri,"")
         val username= username_pref.getString(ConstVal.UserNameKeyPref,"username")
-        val userid=FireStore().GetCurrentUserID()
-        val product_obj= ProductDataClass( userid,username!!,title, Price.toInt(), desc,quantity.toInt(),downloadAble_Image_uri?:"","",userimge ?:"")
-        FireStore().addproductToFireStore(this, product_obj)
+
+        val product_obj= username?.let {
+            ProductDataClass( FireStore().GetCurrentUserID(),userimge ?:"", it,title, Price.toInt(), desc,quantity.toInt(),downloadAble_Image_uri?:"","")
+        }
+        if (product_obj != null) {
+            FireStore().addproductToFireStore(this, product_obj)
+        }
 
     }
     fun successAddproduct(){
         HideDialog()
         ShowSnackbar(resources.getString(R.string.success_addProduct),true)
+        onBackPressed()
     }
     fun failedAddproduct(){
         HideDialog()

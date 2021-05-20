@@ -1,7 +1,6 @@
 package com.example.myshop.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +21,7 @@ class DashbordAdapter:RecyclerView.Adapter<DashbordAdapter.dashbordViewholder>()
     override fun getItemCount(): Int =AllProduct.size
     override fun onBindViewHolder(holder: dashbordViewholder, position: Int) {
      holder.dashbordbinding.dashbord=AllProduct[position]
-     holder.dashbordbinding.textView.setText(AllProduct[position].product_pricce.toString())
+     holder.dashbordbinding.textView.setText(AllProduct[position].product_price.toString())
         holder.itemView.setOnClickListener {
             clickListener?.onclickListener(AllProduct[position],position)
         }

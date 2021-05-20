@@ -1,8 +1,8 @@
 package com.example.myshop.View.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +13,6 @@ import com.example.myshop.adapter.CartAdapter
 import com.example.myshop.databinding.ActivityCartlistBinding
 import com.example.myshop.model.CartDataClass
 import com.example.myshop.model.ProductDataClass
-import com.google.firebase.database.core.view.View
 
 class cartlist : Basic(), android.view.View.OnClickListener {
     var cartListBinding: ActivityCartlistBinding? = null
@@ -23,6 +22,7 @@ class cartlist : Basic(), android.view.View.OnClickListener {
         super.onCreate(savedInstanceState)
         cartListBinding = DataBindingUtil.setContentView(this, R.layout.activity_cartlist)
         cartListBinding!!.cartCheckoutBtn.setOnClickListener(this)
+        ShowDialog(resources.getString(R.string.wait))
         actionbarSetup()
 
     }
@@ -66,8 +66,8 @@ class cartlist : Basic(), android.view.View.OnClickListener {
         HideDialog()
         for (i in MproductList!!) {
             for (y in cartList) {
-                if (i.product_id == y.Productid) {
-                    y.productQuantity = i.product_quantity
+                if (i.product_id == y.User_id_Seller) {
+                    y.product_Quantity = i.product_quantity
                     if (i.product_quantity == 0) {
                         y.card_quantity = i.product_quantity
                     }
@@ -78,6 +78,7 @@ class cartlist : Basic(), android.view.View.OnClickListener {
 
 
         if (McartList!!.size > 0) {
+            cartListBinding?.checkoutLinearLayout?.visibility=View.VISIBLE
             cartListBinding?.cartRecycler?.apply {
                 var cartAdapter = CartAdapter(this@cartlist,true)
                 cartAdapter.setAllProductData(McartList!!)
@@ -87,7 +88,8 @@ class cartlist : Basic(), android.view.View.OnClickListener {
             }
             var total: Int = 0
             for (item in McartList!!) {
-                var avaiblequantity = item.productQuantity
+
+                var avaiblequantity = item.product_Quantity
                 if (avaiblequantity > 0) {
                     var price: Int = item.price
                     var quantity = item.card_quantity

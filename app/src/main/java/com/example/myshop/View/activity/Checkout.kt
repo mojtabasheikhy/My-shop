@@ -24,6 +24,7 @@ class Checkout : Basic(), android.view.View.OnClickListener {
     var detailAddress: AddressDataClass? = null
     var total: Int = 0
     var totalamount:String=""
+    var order_obj:OrderDataClass? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         checkoutBinding = DataBindingUtil.setContentView(this, R.layout.activity_checkout)
@@ -76,7 +77,6 @@ class Checkout : Basic(), android.view.View.OnClickListener {
     }
 
     fun getproduct() {
-
         FireStore().GetallProductCartlist(this)
     }
 
@@ -88,13 +88,13 @@ class Checkout : Basic(), android.view.View.OnClickListener {
         MCartlist = cartItem
         for (i in Mproductlist!!) {
             for (y in MCartlist!!) {
-                if (i.product_id == y.Productid) {
-                    y.productQuantity = i.product_quantity
+                if (i.product_id == y.User_id_Seller) {
+                    y.product_Quantity = i.product_quantity
                 }
             }
         }
 
-        var adapter_obj = CartAdapter(this, false)
+        val adapter_obj = CartAdapter(this, false)
         adapter_obj.setAllProductData(MCartlist!!)
         checkoutBinding.shimmerRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@Checkout, RecyclerView.VERTICAL, false)
@@ -104,19 +104,19 @@ class Checkout : Basic(), android.view.View.OnClickListener {
 
         total = 0
         for (item in MCartlist!!) {
-            var avaiblequantity = item.productQuantity
+            var avaiblequantity = item.product_Quantity
             if (avaiblequantity > 0) {
                 var price: Int = item.price
                 var quantity = item.card_quantity
                 total += (price * quantity)
             }
         }
-        checkoutBinding.checkoutSubtotal?.text = total.toString() + resources.getString(R.string.price_value)
-        checkoutBinding.checkoutShipingCharge?.text = "10000" + resources.getString(R.string.price_value)
+        checkoutBinding.checkoutSubtotal.text = total.toString() + resources.getString(R.string.price_value)
+        checkoutBinding.checkoutShipingCharge.text = "10000" + resources.getString(R.string.price_value)
         if (total > 0) {
 
             totalamount=(total + 10000).toString() + resources.getString(R.string.price_value)
-            checkoutBinding?.checkoutTotalamount?.text =totalamount
+            checkoutBinding.checkoutTotalamount.text =totalamount
             checkoutBinding.checkoutOrderplace.isEnabled = true
 
         } else {
@@ -145,7 +145,7 @@ class Checkout : Basic(), android.view.View.OnClickListener {
     fun placeAnOrder() {
         if (totalamount != "") {
             ShowDialog(resources.getString(R.string.wait))
-            var order_obj = MCartlist?.let {
+         order_obj = MCartlist?.let {
                 OrderDataClass(
                     FireStore().GetCurrentUserID(),
                     it,
@@ -154,12 +154,13 @@ class Checkout : Basic(), android.view.View.OnClickListener {
                     totalamount,
                     "10000",
                     total.toString(),
-                    MCartlist!![0].Image,
+                    MCartlist!![0].Image_product,
                     System.currentTimeMillis()
                 )
             }
             if (order_obj != null) {
-                FireStore().CreateOrderCollection(this, order_obj)
+
+                FireStore().CreateOrderCollection(this, order_obj!!)
             }
         }
         else {
@@ -176,7 +177,7 @@ class Checkout : Basic(), android.view.View.OnClickListener {
         checkoutBinding.shimmerRecyclerView.showShimmer()
     }
     fun successAddOrder(){
-            FireStore().updateProductDetaiAfterOrder(this,MCartlist!!)
+            FireStore().updateProductDetaiAfterOrder(this,MCartlist!!,order_obj!!)
     }
     fun FailaddOrder(){
         ShowSnackbar(resources.getString(R.string.failAddingOrder),true)

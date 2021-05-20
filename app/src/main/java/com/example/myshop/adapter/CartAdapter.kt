@@ -13,7 +13,8 @@ import com.example.myshop.R
 import com.example.myshop.Utils.ConstVal
 import com.example.myshop.Utils.product_diff_util
 import com.example.myshop.View.activity.cartlist
-import com.example.myshop.databinding.CartitemBinding
+
+import com.example.myshop.databinding.ItemCartBinding
 import com.example.myshop.databinding.ItemDashbordBinding
 import com.example.myshop.model.CartDataClass
 import com.example.myshop.model.ProductDataClass
@@ -21,11 +22,11 @@ import com.example.myshop.model.ProductDataClass
 class CartAdapter(var context: Context,var updatecart:Boolean) : RecyclerView.Adapter<CartAdapter.cartViewholder>() {
     var cartlistOld = emptyList<CartDataClass>()
 
-    inner class cartViewholder(var cartitemBinding: CartitemBinding) :
+    inner class cartViewholder(var cartitemBinding: ItemCartBinding) :
         RecyclerView.ViewHolder(cartitemBinding.root) {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): cartViewholder {
-        var view = CartitemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        var view = ItemCartBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return cartViewholder(view)
     }
 
@@ -36,7 +37,7 @@ class CartAdapter(var context: Context,var updatecart:Boolean) : RecyclerView.Ad
         holder.cartitemBinding.cartItemQuantityValue.text = cartlistOld[position].card_quantity.toString()
 
 
-        if (cartlistOld[position].productQuantity == 0) {
+        if (cartlistOld[position].product_Quantity == 0) {
             holder.cartitemBinding.cartItemAddproduct.visibility = View.GONE
             holder.cartitemBinding.cartItemRemoveproduct.visibility = View.GONE
             if (updatecart){
@@ -104,7 +105,7 @@ class CartAdapter(var context: Context,var updatecart:Boolean) : RecyclerView.Ad
         }
         holder.cartitemBinding.cartItemAddproduct.setOnClickListener {
             var cartquantity: Int = cartlistOld[position].card_quantity
-            if (cartlistOld[position].card_quantity < cartlistOld[position].productQuantity) {
+            if (cartlistOld[position].card_quantity < cartlistOld[position].product_Quantity) {
                 var itemHashMap = HashMap<String, Any>()
                 itemHashMap[ConstVal.cart_quantity_colmn] = cartquantity + 1
                 if (context is cartlist) {

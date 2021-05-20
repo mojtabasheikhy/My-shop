@@ -66,7 +66,7 @@
                 <TextView
                     android:id="@+id/product_price_tv"
                     style="@style/viewParent.normalText"
-                    setprice="@{product.product_pricce,default=Loading}"
+                    setprice="@{product.product_price,default=Loading}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"

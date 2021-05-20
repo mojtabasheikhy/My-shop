@@ -24,7 +24,8 @@ class Main : Basic() {
         supportActionBar?.setBackgroundDrawable(ContextCompat.getDrawable(this,R.drawable.main_background))
 
         var appbar_configurration =
-            AppBarConfiguration(setOf(R.id.navigation_dashboard, R.id.navigation_home, R.id.navigation_notifications))
+            AppBarConfiguration(setOf(R.id.navigation_dashboard, R.id.navigation_home, R.id.navigation_notifications
+            ,R.id.sold2))
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 

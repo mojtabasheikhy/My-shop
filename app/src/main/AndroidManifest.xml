@@ -13,12 +13,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Myshop">
-        <activity android:name=".View.activity.DetailOrder"
-            android:screenOrientation="portrait"
-            android:theme="@style/Splash_Theme">
+        <activity android:name=".View.activity.Splash_Screen"
+            android:theme="@style/Splash_Theme"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity android:name=".View.activity.Sold_Detail"
+            android:screenOrientation="portrait"
+            android:theme="@style/Splash_Theme"
+            ></activity>
+        <activity
+            android:name=".View.activity.DetailOrder"
+            android:screenOrientation="portrait"
+            android:theme="@style/Splash_Theme" />
         <activity
             android:name=".View.activity.Checkout"
             android:screenOrientation="portrait"
@@ -46,16 +57,12 @@
         <activity
             android:name=".View.activity.Settings"
             android:screenOrientation="portrait"
-            android:theme="@style/Splash_Theme"></activity>
+            android:theme="@style/Splash_Theme" />
         <activity
             android:name=".View.activity.Main"
             android:label="@string/title_activity_dashboard"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".View.activity.CompleteProfile"
@@ -73,12 +80,9 @@
         <activity
             android:name=".View.activity.Login"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/Splash_Theme" />
-        <activity
-            android:name=".View.activity.Splash_Screen"
-            android:screenOrientation="portrait"
-            android:theme="@style/Splash_Theme" />
-        <activity android:name=".MainActivity" />
+
     </application>
 
 </manifest>

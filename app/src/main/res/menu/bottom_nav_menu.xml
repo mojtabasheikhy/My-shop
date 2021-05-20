@@ -16,5 +16,8 @@
 
         android:icon="@drawable/order_ic_selector"
         android:title="@string/title_notifications" />
+    <item android:id="@+id/sold2"
+        android:icon="@drawable/sold_selector"
+        android:title="@string/sold"/>
 
 </menu>

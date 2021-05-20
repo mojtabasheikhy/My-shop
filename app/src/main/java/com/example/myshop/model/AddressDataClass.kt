@@ -5,10 +5,10 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class AddressDataClass (
-    var fullname:String="" ,
-    var id:String="",
+    var fullname:String="",
+    var user_id:String="",
     var phonenumber:Int =0,
-    var address:String="" ,
+    var address:String="",
     var otherDetail:String="",
     var additional_note:String="",
     var zipcode:Int=0,

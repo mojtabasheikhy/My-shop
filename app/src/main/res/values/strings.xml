@@ -51,7 +51,7 @@
     <string name="edit">Edit</string>
     <string name="logout">Logout</string>
     <string name="address">Address</string>
-    <string name="Compeleteprofile">Complete Profile </string>
+    <string name="Compeleteprofile">Complete</string>
     <string name="welcome">Welcome</string>
     <string name="add_product">Add Product</string>
     <string name="Product_title">Product Title : </string>
@@ -125,9 +125,27 @@
     <string name="orderdate">Order Date</string>
     <string name="orderList">Order List</string>
     <string name="pending">Pending</string>
-    <string name="process" >Process</string>
+    <string name="process">Process</string>
     <string name="delivred">Delivered</string>
     <string name="CashOnDelivery">Cash On Delivery</string>
+    <string name="sold">Sold</string>
+    <string name="NoproductSoldYEt">No Product Sold Yet</string>
+    <string name="date">Date Order</string>
+    <string name="Buyer">Buyer</string>
+    <string name="Sold_date">Sold Date</string>
+    <string name="Sales_Invoice">Sales Invoice</string>
+    <string name="address_buyer">Buyer Address</string>
+    <string name="Sold_Qauntity">Sold Quantity</string>
+    <string name="soldPrice">Sold  Price</string>
+    <string name="soldDetail">Sold Detail</string>
+    <string name="soldImage">Sold Image</string>
+    <string name="myshop">MY SHOP</string>
+    <string name="addressList">Address List</string>
+    <string name="Email">Email</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="swipdownTorefresh">Swip Down To Refresh</string>
+    <string name="errorinaddtocart">Some Error In adding To Cart Try Again</string>
 
 
 </resources>

@@ -22,12 +22,13 @@ class Login : Basic(), View.OnClickListener {
         setOnClickListener()
 
     }
-
     fun setOnClickListener() {
         login_binding.loginGoToRegisterBtn.setOnClickListener(this)
         login_binding.loginGoToRegisterTv.setOnClickListener(this)
         login_binding.LoginBtnLogin.setOnClickListener(this)
         login_binding.LoginEdtForgotPassword.setOnClickListener(this)
+        login_binding.LoginIvGoogle.setOnClickListener(this)
+        login_binding.LoginIvFacebook.setOnClickListener(this)
 
     }
 
@@ -48,6 +49,12 @@ class Login : Basic(), View.OnClickListener {
             R.id.Login_Edt_ForgotPassword -> {
                 startActivity(Intent(this, Forgot_PassWord::class.java))
             }
+            R.id.Login_Iv_Google->{
+                  //TODO Using google athu for login
+            }
+            R.id.Login_Iv_Facebook -> {
+                //TODO Using facebook athu for login
+            }
         }
     }
 
@@ -55,7 +62,7 @@ class Login : Basic(), View.OnClickListener {
 
         val Email_Login = login_binding.LoginEdtEmail.text?.trim().toString()
         val Password_Login = login_binding.LoginEdtPassWord.text?.trim().toString()
-        if (check_empty_edt_register()==true) {
+        if (Validation_login()==true) {
             ShowDialog(resources.getString(R.string.wait))
             FirebaseAuth.getInstance().signInWithEmailAndPassword(Email_Login, Password_Login)
                 .addOnCompleteListener {
@@ -70,7 +77,7 @@ class Login : Basic(), View.OnClickListener {
         }
     }
 
-    fun check_empty_edt_register(): Boolean {
+    fun Validation_login(): Boolean {
         val Email_Edt = login_binding.LoginEdtEmail
         val Password_Edt = login_binding.LoginEdtPassWord
         return when {
@@ -94,29 +101,25 @@ class Login : Basic(), View.OnClickListener {
         val editor=pref.edit()
         editor.putString(ConstVal.UserNameKeyPref,user.FirstName)
         editor.apply()
+
+
        if (!this@Login.isFinishing) {
            HideDialog()
        }
-        if (user.profile_Compelete == 0) {
-            val intent_com = Intent(this, CompleteProfile::class.java)
-            intent_com.putExtra(ConstVal.putExtra_UserDetail,user)
-            intent_com.flags=Intent.FLAG_ACTIVITY_CLEAR_TASK or  Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent_com)
+            if (user.profile_Compelete == 0) {
+                val intent_com = Intent(this, CompleteProfile::class.java)
+                intent_com.putExtra(ConstVal.PutExtra_UserDetail, user)
+                intent_com.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent_com)
 
-        } else if (user.profile_Compelete==1) {
-            val intent_dashbord = Intent(this, Main::class.java)
-            intent_dashbord.flags=Intent.FLAG_ACTIVITY_CLEAR_TASK or  Intent.FLAG_ACTIVITY_NEW_TASK
-
-            startActivity(intent_dashbord)
-
-
+            } else if (user.profile_Compelete == 1) {
+                val intent_dashbord = Intent(this, Main::class.java)
+                intent_dashbord.flags =
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent_dashbord)
+            } else {
+                HideDialog()
+                Toast.makeText(this, "please register by another acount", Toast.LENGTH_SHORT).show()
+            }
         }
-        else
-        {
-            HideDialog()
-            Toast.makeText(this,"please register by another acount",Toast.LENGTH_SHORT).show()
-        }
-
-
-    }
 }

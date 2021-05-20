@@ -37,7 +37,7 @@ class Product_adapter(var context: android.content.Context,var fragment:ProductF
         holder.ProductItem.productMatrialroot.setOnClickListener {
              val intent_detail=Intent(context,DetailProduct::class.java)
              intent_detail.putExtra(ConstVal.putExtera_detail_product,ProductList[position].product_id)
-             intent_detail.putExtra(ConstVal.PutExtera_detail_userid,ProductList[position].id)
+             intent_detail.putExtra(ConstVal.PutExtera_detail_userid,ProductList[position].user_id_Seller)
              context.startActivity(intent_detail)
             
         }

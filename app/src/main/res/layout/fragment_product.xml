@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:text="@string/No_product_Add"
             android:textColor="@color/second_text_color"
+            android:textSize="20sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

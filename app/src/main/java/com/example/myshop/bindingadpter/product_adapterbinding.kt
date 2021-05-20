@@ -50,6 +50,11 @@ object product_adapterbinding {
             placeholder(R.drawable.ic_man)
             crossfade(500)
         }
+    }   @JvmStatic
+    @BindingAdapter("setdate")
+    fun chaneFloatToString(textView: TextView,price:Long) {
+        textView.setText(price.toString())
     }
+
 
 }

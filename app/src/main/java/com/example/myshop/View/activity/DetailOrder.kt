@@ -1,6 +1,5 @@
 package com.example.myshop.View.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -42,18 +41,18 @@ class DetailOrder :Basic() {
         }
     }
     fun GetDetail(){
-        if (intent.hasExtra(ConstVal.putExteraOrderDetail)){
-            var GetDetail=intent.getParcelableExtra<OrderDataClass>(ConstVal.putExteraOrderDetail)
+        if (intent.hasExtra(ConstVal.PutExtra_OrderDetail)){
+            var GetDetail=intent.getParcelableExtra<OrderDataClass>(ConstVal.PutExtra_OrderDetail)
             if (GetDetail!=null){
                 DetailOrderBinding.detailAmountValue.setText(GetDetail.totalAmount)
                 DetailOrderBinding.detailOrderShipingValue.setText(GetDetail.shipingCharge)
                 DetailOrderBinding.detailOrderSubtotal.setText(GetDetail.subtotal)
 
-                DetailOrderBinding.detailOrderId.setText(GetDetail.id)
-                DetailOrderBinding.detialOrderAddress.setText(GetDetail.address.address)
-                DetailOrderBinding.detialOrderFullname.setText(GetDetail.address.fullname)
-                DetailOrderBinding.detialOrderZipcode.setText(GetDetail.address.zipcode.toString())
-                DetailOrderBinding.detialOrderMobilenumber.setText(GetDetail.address.phonenumber.toString())
+                DetailOrderBinding.detailOrderId.setText(GetDetail.order_id)
+                DetailOrderBinding.detialOrderAddress.setText(GetDetail.address_buyer.address)
+                DetailOrderBinding.detialOrderFullname.setText(GetDetail.address_buyer.fullname)
+                DetailOrderBinding.detialOrderZipcode.setText(GetDetail.address_buyer.zipcode.toString())
+                DetailOrderBinding.detialOrderMobilenumber.setText(GetDetail.address_buyer.phonenumber.toString())
 
 
 
@@ -91,7 +90,7 @@ class DetailOrder :Basic() {
 
                 }
                 val adapterDetail=CartAdapter(this,false)
-                adapterDetail.setAllProductData(GetDetail.item)
+                adapterDetail.setAllProductData(GetDetail.cartitem)
                 DetailOrderBinding.detailOrderListRecycler.adapter=adapterDetail
 
 

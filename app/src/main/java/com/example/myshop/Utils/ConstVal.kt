@@ -11,14 +11,35 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.example.myshop.R
 import com.example.myshop.View.activity.AddProduct
+import com.example.myshop.model.SoldDataClass
 import de.hdodenhof.circleimageview.CircleImageView
 import java.lang.reflect.Executable
 
 object ConstVal {
+
+    //collections Name
     const val Collection_Users = "Users"
+    const val collection_address="address"
+    const val Collection_product = "product"
+    const val Collection_SoldProduct="Sold_Product"
+    const val Collection_Order="order"
+    const val collection_cart="cart"
+
+
+   //Put Extera Detail
+    const val PutExtra_UserDetail = "Userdetail"
+    const val PutExtra_OrderDetail="profImge"
+
+    //
+    const val user_id="user_id"
+    const val user_id_seller="user_id_Seller"
+    const val user_id_buyer="user_id_buyer"
+
+    const val product_id="product_Id"
+
+
     const val MySharePref = "MYSharePref"
     const val UserNameKeyPref = "username"
-    const val putExtra_UserDetail = "Userdetail"
     const val RequestCode_Gallery = 1002
     const val RequestCode_Permission = 1003
     const val Male = "Male"
@@ -31,26 +52,28 @@ object ConstVal {
     const val AddProductImage = "Add_Product_Image"
     const val imageColumn: String = "image"
     const val usercompelete = "profile_Compelete"
-    const val Collection_addproduct = "product"
-    const val UserId = "id"
+
+
     const val putExtera_detail_product = "detail"
     const val PutExtera_detail_userid = "userid"
     const val cart_quantity:Int = 1
-    const val cart_item_collection="cartItem"
-    const val product_id="productid"
+
+
     const val cart_quantity_colmn="card_quantity"
     const val userImageuri="user_image"
     const val Home="home"
     const val office="office"
     const val other="other"
-    const val address_collection="address"
+
     const val addressDetailExtera="exteraDetailAddress"
     const val pushExtera_selecet_address="selectedAddress"
     const val ActivityStartCode_selectAddress =1004
     const val putExteraDetailAddressTocheckout="exteraDetailAddress"
-    const val OrderCollection="order"
-    const val productquantity_doc="product_quantity"
-    const val putExteraOrderDetail="profImge"
+
+
+
+
+    const val putExteraSolddetail: String="soldDetail"
 
 
 

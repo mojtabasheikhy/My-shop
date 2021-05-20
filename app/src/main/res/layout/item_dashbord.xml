@@ -132,7 +132,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_dashbord_prof"
             android:layout_width="50dp"
-            setImageprof="@{dashbord.profImge}"
+            setImageprof="@{dashbord.profImge_Seller}"
             android:layout_height="50dp"
             android:elevation="50dp"
             android:layout_marginTop="3dp"

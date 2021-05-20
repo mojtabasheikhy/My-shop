@@ -27,7 +27,7 @@
     <string name="success_register">ثبت نام شما با موفقیت انجام شد</string>
     <string name="success_login">ورود شما با موفقیت انجام شد</string>
     <string name="forgot_password_screen">صفحه فراموشی رمز عبور</string>
-    <string name="forgot_password_detail">آدرس ایمیل خود را وارد کنید! ما برای تنظیم مجدد رمز عبور ایمیل ارسال می کنیم</string>
+    <string name="forgot_password_detail">آدرس ایمیل خود را وارد کنید! ما برای تنظیم مجدد رمز عبور ایمیلی ارسال خواهیم کرد</string>
     <string name="send">ارسال</string>
     <string name="send_forgot_password_email">ایمیل برای بازنشانی گذرواژه شما با موفقیت ارسال شد!!</string>
     <string name="sending">در حال ارسال</string>
@@ -51,7 +51,7 @@
     <string name="edit">ویرایش</string>
     <string name="logout" >خروج از حساب کاربری</string>
     <string name="address" >آدرس</string>
-    <string name="Compeleteprofile">تکمیل اطلاعات کاربری</string>
+    <string name="Compeleteprofile">تکمیل</string>
     <string name="welcome">خوش آمدین</string>
     <string name="add_product">اضافه کردن</string>
     <string name="Product_title" >عنوان کالا : </string>
@@ -76,9 +76,9 @@
     <string name="detail">جزئیات</string>
     <string name="addtocart" >اضافه کردن</string>
     <string name="price_value" > تومان</string>
-    <string name="gotocart" >رفتن به کارت</string>
+    <string name="gotocart" >رفتن به سبد خرید</string>
     <string name="outofstock" >اتمام موجودی</string>
-    <string name="outofstockmessage" >متاسفیم این کالادر حال حاضر موجودی ندارد</string>
+    <string name="outofstockmessage" >متاسفیم این کالا در حال حاضر موجودی ندارد</string>
     <string name="ownproduct" >کالای خودتان</string>
     <string name="cartitem" >موجود در سبد خرید</string>
     <string name="successaddtocart" >کالا با موفقیت به سبد کالا اضافه شد</string>
@@ -113,7 +113,7 @@
     <string name="selectedAddreess" >ادرس انتخاب شده </string>
     <string name="product_item">لیست کالا ها</string>
     <string name="PaymentMode">طریقه پرداخت</string>
-    <string name="orderPlace"> ثب سفارش</string>
+    <string name="orderPlace"> ثبت سفارش</string>
     <string name="successAddingOrder">سفارش شما با موفقیت ارسال شد</string>
     <string name="yourproductoutofstock">متاسفانه کالا های انتخابی موجودی ندارد</string>
     <string name="failAddingOrder">متاسفانه سفارش کالا ارسال نشد لطفا دوباره تلاش کنید</string>
@@ -128,6 +128,24 @@
     <string name="process" >در حال پردازش</string>
     <string name="delivred">تحویل داده شده</string>
     <string name="CashOnDelivery">پرداخت نقدی هنگام تحویل</string>
+    <string name="sold">فروخته شده</string>
+    <string name="NoproductSoldYEt">کالایی تا به حال فروخته نشده!!</string>
+    <string name="date">زمان سفارش</string>
+    <string name="Buyer">خریدار</string>
+    <string name="Sold_date">زمان فروش</string>
+    <string name="Sales_Invoice">فاکتور فروش</string>
+    <string name="address_buyer">آدرس خریدار</string>
+    <string name="Sold_Qauntity">تعداد فروش</string>
+    <string name="soldPrice">قیمت فروخته شده</string>
+    <string name="soldDetail">جزئیات فروش </string>
+    <string name="soldImage">تصویر کالا</string>
+    <string name="myshop">فروشگاه من</string>
+    <string name="addressList">لیست آدرس ها</string>
+    <string name="Email">ایمیل</string>
+    <string name="male">مرد</string>
+    <string name="female">زن</string>
+    <string name="swipdownTorefresh">برای تازه سازی اطلاعات لطفا صفحه را به پایین بکشید</string>
+    <string name="errorinaddtocart">کالای مورد نظر به سبد خرید اضافه نشد لطفا دوباره تلاش کنید</string>
 
 
 </resources>

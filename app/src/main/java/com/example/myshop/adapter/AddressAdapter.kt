@@ -19,7 +19,7 @@ import com.example.myshop.View.activity.AddAddress
 import com.example.myshop.View.activity.Address
 import com.example.myshop.View.activity.Checkout
 import com.example.myshop.View.activity.cartlist
-import com.example.myshop.databinding.CartitemBinding
+
 import com.example.myshop.databinding.ItemAddressBinding
 import com.example.myshop.databinding.ItemDashbordBinding
 import com.example.myshop.model.AddressDataClass

@@ -1,13 +1,10 @@
 package com.example.myshop.View.fragment
 
-import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.os.Message
 import android.view.*
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myshop.FireStore.FireStore
@@ -15,7 +12,6 @@ import com.example.myshop.model.ProductDataClass
 import com.example.myshop.R
 import com.example.myshop.View.BasicFragment
 import com.example.myshop.View.activity.AddProduct
-import com.example.myshop.View.activity.Basic
 import com.example.myshop.adapter.Product_adapter
 import com.example.myshop.databinding.FragmentProductBinding
 
@@ -66,7 +62,7 @@ class ProductFragment : BasicFragment() {
 
 
     fun GetMyProductFromFireStore() {
-        FireStore().GetMYProduct(this)
+        FireStore().GetMyProduct(this)
     }
 
     override fun onResume() {
@@ -79,26 +75,32 @@ class ProductFragment : BasicFragment() {
     fun successGetMyProductFromFireStore(MyProductList: ArrayList<ProductDataClass>) {
         hideshimer()
         ProductBinding.productSwiprefresh.isRefreshing = false
-        var productAdapter =Product_adapter(requireContext(),this) 
-        productAdapter?.setdata(MyProductList)
+        var productAdapter =Product_adapter(requireContext(),this)
+        if (MyProductList.isNotEmpty()) {
+            productAdapter.setdata(MyProductList)
+            if (MyProductList.size == 0) {
+                ProductBinding.ProductNoData.visibility = View.VISIBLE
+                ProductBinding.noaddedProduct.visibility = View.VISIBLE
+                ProductBinding.ProdcutRecycler.visibility = View.GONE
 
-        if (MyProductList.size == 0) {
-            ProductBinding.ProductNoData.visibility = View.VISIBLE
-            ProductBinding.noaddedProduct.visibility = View.VISIBLE
-            ProductBinding.ProdcutRecycler.visibility=View.GONE
-
-
-        }
-        if (MyProductList.size > 0) {
-            ProductBinding.ProductNoData.visibility = View.GONE
-            ProductBinding.noaddedProduct.visibility = View.GONE
-            ProductBinding.ProdcutRecycler.apply {
-                setHasFixedSize(true)
-                visibility = View.VISIBLE
-                layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-                adapter = productAdapter
 
             }
+            if (MyProductList.size > 0) {
+                ProductBinding.ProductNoData.visibility = View.GONE
+                ProductBinding.noaddedProduct.visibility = View.GONE
+                ProductBinding.ProdcutRecycler.apply {
+                    setHasFixedSize(true)
+                    visibility = View.VISIBLE
+                    layoutManager =
+                        LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+                    adapter = productAdapter
+
+                }
+            }
+        }
+        else{
+            hideshimer()
+            show_snackbar(resources.getString(R.string.swipdownTorefresh),false)
         }
     }
 
@@ -151,6 +153,10 @@ class ProductFragment : BasicFragment() {
 
     fun deleteItem(productId: String) {
         showalertDelete(productId)
+    }
+
+    fun failedgetproduct() {
+        show_snackbar(resources.getString(R.string.swipdownTorefresh),false)
     }
 
 

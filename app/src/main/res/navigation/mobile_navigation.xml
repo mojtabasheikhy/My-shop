@@ -22,4 +22,9 @@
         android:name="com.example.myshop.View.fragment.Order"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_order" />
+    <fragment
+        android:id="@+id/sold2"
+        android:name="com.example.myshop.View.fragment.sold"
+        android:label="@string/sold"
+        tools:layout="@layout/fragment_sold" />
 </navigation>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+        <variable
+            name="sold"
+            type="com.example.myshop.model.SoldDataClass" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:background="#F6F6F6"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/Sold_root"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/white"
+            android:clickable="true"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/second_text_color"
+            app:strokeWidth=".3dp"
+            android:focusable="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/order_constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/sold_circleImageView"
+                    setImageNoCircleImageView="@{sold.image_product}"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+                <TextView
+                    android:id="@+id/sold_amount"
+                    style="@style/viewParent.normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    setdate="@{sold.order_date}"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/sold_textView9"
+                    app:layout_constraintStart_toEndOf="@+id/sold_textView9"
+                    app:layout_constraintTop_toTopOf="@+id/sold_textView9" />
+
+                <ImageView
+                    android:id="@+id/soldimageView"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/sold_imageView11"
+                    app:layout_constraintEnd_toEndOf="@+id/order_imageView2"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/sold_circleImageView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_calendar_today_24" />
+
+
+
+
+
+                <TextView
+                    android:id="@+id/sold_textView9"
+                    style="@style/viewParent.normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:text="@string/date"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/soldimageView"
+                    app:layout_constraintStart_toEndOf="@+id/soldimageView"
+                    app:layout_constraintTop_toTopOf="@+id/soldimageView" />
+
+                <ImageView
+                    android:id="@+id/sold_imageView11"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/soldimageView"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/soldimageView"
+                    app:layout_constraintTop_toBottomOf="@+id/soldimageView"
+                    app:srcCompat="@drawable/ic_dollar" />
+
+                <TextView
+                    android:id="@+id/sold_textView10"
+                    style="@style/viewParent.normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:text="@string/subtotal"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/sold_imageView11"
+                    app:layout_constraintStart_toEndOf="@+id/sold_imageView11"
+                    app:layout_constraintTop_toTopOf="@+id/sold_imageView11" />
+
+                <TextView
+                    android:id="@+id/sold_item_product_subtotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:text="@{sold.subtotal_amount}"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/sold_textView10"
+                    app:layout_constraintStart_toEndOf="@+id/sold_textView10"
+                    app:layout_constraintTop_toTopOf="@+id/sold_textView10" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+</layout>

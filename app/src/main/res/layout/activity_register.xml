@@ -59,8 +59,9 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    app:cardBackgroundColor="@color/whiteTextColor"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="#FAFAFA"
+
                     app:cardCornerRadius="10dp">
 
                     <LinearLayout
@@ -72,15 +73,20 @@
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/textInputName"
                             style="@style/parent"
+                            app:counterEnabled="true"
                             app:counterMaxLength="15"
+                            app:boxBackgroundColor="@color/white"
                             android:layout_marginTop="8dp">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/Register_Edt_Name"
                                 style="@style/modifiedEditText"
                                 android:maxLength="15"
+                                android:textSize="11sp"
+
                                 android:drawableEnd="@drawable/ic_volunteer"
                                 android:hint="@string/name"
+                                android:textAlignment="viewStart"
                                 android:inputType="textPersonName"
                                 android:maxLines="1" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -88,6 +94,8 @@
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/textInputEmail"
                             style="@style/parent"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="35"
                             android:layout_marginTop="@dimen/loginViewsMargin">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -95,13 +103,16 @@
                                 style="@style/modifiedEditText"
                                 android:drawableEnd="@drawable/ic_email"
                                 android:hint="@string/login_email_hint"
+                                android:maxLength="35"
                                 android:inputType="textEmailAddress"
+                                android:textSize="11sp"
                                 android:maxLines="1" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/textInputMobile"
                             style="@style/parent"
+
                             app:counterOverflowTextAppearance="@color/red"
                             app:counterEnabled="true"
                             app:counterMaxLength="11"
@@ -112,6 +123,7 @@
                                 style="@style/modifiedEditText"
                                 android:drawableEnd="@drawable/ic_calling"
                                 android:hint="@string/mobile_number"
+                                android:textSize="11sp"
                                 android:maxLength="11"
                                 android:inputType="phone"
                                 android:maxLines="1" />
@@ -120,13 +132,16 @@
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/textInputPassword"
                             style="@style/parent"
+                            app:passwordToggleEnabled="true"
+                            app:passwordToggleTint="@color/second_text_color"
                             android:layout_marginTop="@dimen/loginViewsMargin">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/Register_Edt_PassWord"
                                 style="@style/modifiedEditText"
-                                android:drawableEnd="@drawable/ic_password"
                                 android:hint="@string/login_password_hint"
+
+                                android:textSize="11sp"
                                 android:inputType="textPassword"
                                 android:maxLines="1" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -134,14 +149,17 @@
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/textInputConfirmPassword"
                             style="@style/parent"
+                            app:passwordToggleEnabled="true"
+                            app:passwordToggleTint="@color/second_text_color"
                             android:layout_marginTop="@dimen/loginViewsMargin">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/Register_Edt_ConfirmPassword"
                                 style="@style/modifiedEditText"
-                                android:drawableEnd="@drawable/ic_password"
                                 android:hint="@string/confirm_password"
+
                                 android:inputType="textPassword"
+                                android:textSize="11sp"
                                 android:maxLines="1" />
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -151,7 +169,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="1dp"
+                            android:textSize="11sp"
                             android:checked="false"
                             android:text="@string/condition"
                             android:textColor="#9A9595" />
@@ -162,6 +181,7 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="8dp"
                             android:text="@string/register"
+                            android:foreground="?attr/selectableItemBackgroundBorderless"
                             app:initialCornerAngle="27dp"
                             app:spinning_bar_color="#FFF"
                             app:spinning_bar_padding="6dp"
@@ -265,7 +285,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="3dp"
             android:layout_marginBottom="30dp"
             android:adjustViewBounds="false"
             android:src="@drawable/ic_back_img" />

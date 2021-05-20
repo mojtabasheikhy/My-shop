@@ -37,7 +37,6 @@ open class BasicFragment : Fragment() {
     fun ShowAlertDialog(title:String, message: String, icon:Int): AlertDialog.Builder{
         var alerdialog = AlertDialog.Builder(requireActivity())
             .setTitle(title)
-
             .setMessage(message)
             .setIcon(icon)
         return alerdialog

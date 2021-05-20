@@ -27,7 +27,7 @@
                 android:orientation="horizontal">
                 <ImageView
                     android:id="@+id/cart_iv"
-                    setImageNoCircleImageView="@{cartitemdata.image}"
+                    setImageNoCircleImageView="@{cartitemdata.image_product}"
                     tools:src="@android:drawable/ic_menu_manage"
                     android:layout_weight=".6"
                     android:scaleType="centerCrop"

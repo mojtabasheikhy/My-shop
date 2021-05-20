@@ -4,7 +4,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/login_bk_color"
+        android:background="#FAFAFA"
         android:focusableInTouchMode="true"
         android:gravity="center"
         android:layout_gravity="center">
@@ -46,7 +46,7 @@
                         android:layout_toEndOf="@+id/header_title_tv"
                         app:lottie_autoPlay="true"
                         app:lottie_rawRes="@raw/user_login"
-                        app:lottie_repeatCount="3" />
+                        app:lottie_repeatCount="15" />
                 </RelativeLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -66,13 +66,16 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputPassword"
                     style="@style/parent"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/second_text_color"
                     android:layout_marginTop="@dimen/loginViewsMargin">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/Login_Edt_PassWord"
-                        android:drawableEnd="@drawable/ic_password"
+
                         style="@style/modifiedEditText"
-                        android:hint="@string/login_password_hint"
+                         android:hint="@string/login_password_hint"
+
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,20 +83,12 @@
                     android:id="@+id/Login_Edt_ForgotPassword"
                     style="@style/viewParent.normalText"
                     android:layout_gravity="start"
+
                     android:layout_marginTop="12dp"
                     android:text="@string/forgot_password"
-                    android:textSize="@dimen/newsMoreTextSize" />
+                    android:textSize="12sp" />
 
-                <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
-                    android:id="@+id/Login_Btn_Login"
-                    style="@style/loginButton"
-                    app:spinning_bar_width="4dp"
-                    app:spinning_bar_color="#FFF"
-                    android:text="@string/login"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="40dp"
-                    app:spinning_bar_padding="6dp"
-                    app:initialCornerAngle="27dp" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:orientation="horizontal"
@@ -178,6 +173,7 @@
             android:layout_marginTop="20dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
+            android:layout_marginBottom="80dp"
             android:layout_width="13dp"
             android:layout_height="match_parent"
             android:background="@drawable/ic_side_left_bg" />
@@ -187,10 +183,27 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
+            android:layout_marginBottom="80dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_add_img"
             android:layout_marginRight="5dp"
 
+             />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/Login_Btn_Login"
+            app:backgroundTint="@null"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            style="@style/viewParent.headerText"
+            android:textSize="18sp"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:textColor="@color/white"
+            android:background="@drawable/main_background"
+            android:text="@string/login"
              />
     </RelativeLayout>
 </layout>
