@@ -40,12 +40,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+                <com.devbrackets.android.exomedia.ui.widget.VideoView
+                    android:id="@+id/detail_Product_video_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="10"
+                    android:visibility="gone"
+                    app:videoScale="fitCenter"
+                    app:useDefaultControls="true" />
+
+                <TextView
+                    android:id="@+id/detail_nopic_tv"
+                    style="@style/viewParent.normalText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+
+                    android:text="@string/userdontuploadthepic"
+                    android:textAlignment="center"
+                    android:textColor="@color/second_text_color" />
 
                 <ImageView
                     android:id="@+id/detail_iv_product"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="10" />
+
+
+
 
                 <TextView
                     android:id="@+id/detail_title"

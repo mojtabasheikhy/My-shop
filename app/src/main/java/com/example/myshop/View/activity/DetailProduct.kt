@@ -2,6 +2,7 @@ package com.example.myshop.View.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -21,8 +22,8 @@ class DetailProduct : Basic(), View.OnClickListener {
     var productDetailGetsuccess: ProductDataClass? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        detailProductBinding =
-            DataBindingUtil.setContentView(this, R.layout.activity_detail_product)
+        detailProductBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail_product)
+
         detailProductBinding.DetailAddtocart.setOnClickListener(this)
         detailProductBinding.DetailGotocart.setOnClickListener(this)
         GetDetailFromProduct()
@@ -70,13 +71,29 @@ class DetailProduct : Basic(), View.OnClickListener {
 
         productDetailGetsuccess = product
         product.let  {
-            ConstVal.LoadPicByGlide_noCircle(this, it.product_image, detailProductBinding.detailIvProduct)
             detailProductBinding.detailDescValue.text = product.product_desc
             detailProductBinding.detailPriceValue.setText(it.product_price.toString() + resources.getString(
                     R.string.price_value
                 ))
             detailProductBinding.detailTitle.text = it.product_title
             detailProductBinding.detailQuantityValue.text = it.product_quantity.toString()
+            productDetailGetsuccess!!.product_Video.let {
+                detailProductBinding.detailIvProduct.visibility=View.GONE
+                detailProductBinding.detailProductVideoView.visibility=View.VISIBLE
+                setvideo_to_view(it)
+            }
+            if((productDetailGetsuccess!!.product_image=="" || productDetailGetsuccess!!.product_image.isEmpty()) && productDetailGetsuccess!!.product_Video.isEmpty() ){
+                detailProductBinding.detailNopicTv.visibility=View.VISIBLE
+                detailProductBinding.detailIvProduct.visibility=View.VISIBLE
+                detailProductBinding.detailProductVideoView.visibility=View.GONE
+                detailProductBinding.detailIvProduct.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.ic_baseline_image_chose))
+                detailProductBinding.detailIvProduct.setColorFilter(ContextCompat.getColor(this,R.color.second_text_color))
+            }
+            else
+                ConstVal.LoadPicByGlide_noCircle(this, it.product_image, detailProductBinding.detailIvProduct)
+
+
+
 
 
             if (it.product_quantity == 0) {
@@ -143,6 +160,9 @@ class DetailProduct : Basic(), View.OnClickListener {
         detailProductBinding.DetailAddtocart.setBackgroundColor(ContextCompat.getColor(this, R.color.second_text_color))
         detailProductBinding.DetailAddtocart.setText(resources.getString(R.string.cartitem))
         detailProductBinding.DetailAddtocart.isEnabled = false
+    }
+    private fun setvideo_to_view(videouriAddproduct: String?) {
+        detailProductBinding?.detailProductVideoView?.setVideoURI(Uri.parse(videouriAddproduct))
     }
 
 

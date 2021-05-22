@@ -10,20 +10,27 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import com.devbrackets.android.exomedia.listener.OnPreparedListener
 import com.example.myshop.FireStore.FireStore
 import com.example.myshop.model.ProductDataClass
 import com.example.myshop.R
 import com.example.myshop.Utils.ConstVal
 import com.example.myshop.databinding.ActivityAddproductBinding
+import com.vmadalin.easypermissions.EasyPermissions
 import java.lang.Exception
 
-class AddProduct : Basic(), View.OnClickListener {
+class AddProduct : Basic(), View.OnClickListener{
     var addproductBinding: ActivityAddproductBinding? = null
     var imageuri_addproduct: Uri? = null
+    var videouri_addproduct:Uri?=null
     var downloadAble_Image_uri:String?=null
+    var downloadAble_video_uri:String?=null
+
+    var flag_chose_vide_or_pic:Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         addproductBinding = DataBindingUtil.setContentView(this, R.layout.activity_addproduct)
@@ -34,6 +41,9 @@ class AddProduct : Basic(), View.OnClickListener {
     private fun OnClickListener() {
         addproductBinding?.AddproductBtnSend?.setOnClickListener(this)
         addproductBinding?.addproductIvAddpic?.setOnClickListener(this)
+        addproductBinding?.addVideoBtn?.setOnClickListener(this)
+        addproductBinding?.changeVideBtn?.setOnClickListener(this)
+        addproductBinding?.addProductChangeToPic?.setOnClickListener(this)
     }
 
     fun actionbar_setup() {
@@ -58,27 +68,47 @@ class AddProduct : Basic(), View.OnClickListener {
                }
             }
             R.id.addproduct_iv_addpic -> {
+                flag_chose_vide_or_pic=false
+                checkpermission()
+            }
+            R.id.addVideo_btn->{
+                flag_chose_vide_or_pic=true
+                checkpermission()
+            }
+            R.id.changeVide_btn ->{
+                flag_chose_vide_or_pic=true
+                checkpermission()
+            }
+            R.id.add_product_change_to_pic ->{
+                flag_chose_vide_or_pic=false
                 checkpermission()
             }
         }
     }
 
     private fun SendDataAddProductToFireStore() {
-        if (imageuri_addproduct!=null){
-            ShowDialog(resources.getString(R.string.WaitToUpadteAndSendPic))
+        ShowDialog(resources.getString(R.string.WaitToUpadteAndSendPic))
+        if (videouri_addproduct!=null&&imageuri_addproduct==null){
+            FireStore().UploadvideoToCloudStore(this, videouri_addproduct!!,ConstVal.AddProductVideo)
+            Toast.makeText(this,videouri_addproduct.toString(),Toast.LENGTH_SHORT).show()
+        }
+        if (imageuri_addproduct!=null && videouri_addproduct==null){
             FireStore().UploadImageToCloudStore(this, imageuri_addproduct!!,ConstVal.AddProductImage)
 
         }
-        else
+        if (videouri_addproduct==null && imageuri_addproduct==null){
             SendProductDetial()
+        }
+        if (videouri_addproduct!=null && imageuri_addproduct!=null){
+            FireStore().UploadvideoToCloudStore(this, videouri_addproduct!!,ConstVal.AddProductVideo)
+            FireStore().UploadImageToCloudStore(this, imageuri_addproduct!!,ConstVal.AddProductImage)
+        }
     }
-
 
     fun checkpermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
         ) {
-
-            ConstVal.ChoseImageFromGallery(this)
+            chooseImageOrvideo()
         } else {
             ActivityCompat.requestPermissions(
                 this,
@@ -88,52 +118,13 @@ class AddProduct : Basic(), View.OnClickListener {
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == ConstVal.RequestCode_Permission) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                ConstVal.ChoseImageFromGallery(this)
-            } else {
-                ShowSnackbar(resources.getString(R.string.pleaseAllowPermision), false)
-            }
+    fun chooseImageOrvideo(){
+        if (flag_chose_vide_or_pic){
+            ConstVal.choseVideoFromgallery(this)
         }
-    }
+        else{
+            ConstVal.ChoseImageFromGallery(this)}
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == ConstVal.RequestCode_Gallery) {
-
-                if (data != null) {
-                    try {
-
-                        addproductBinding?.addproductIvAddpic?.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_edit))
-                        addproductBinding?.textView5?.visibility=View.GONE
-                        imageuri_addproduct = data.data
-                        // Compelte_profile.CompleteIvUserprofile.setImageURI(Uri.parse(SelectedImage))
-                        imageuri_addproduct?.let {
-
-                            ConstVal.LoadPicByGlide_noCircle(
-                                this,
-                                it,
-                                addproductBinding!!.addproductIvShow
-                            )
-                            ShowSnackbar(resources.getString(R.string.alerttouploadpic), true)
-                        }
-
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        ShowSnackbar(resources.getString(R.string.faildSelectedImage), false)
-
-                    }
-
-                }
-            }
-        }
     }
 
     fun Validation(): Boolean {
@@ -186,22 +177,109 @@ class AddProduct : Basic(), View.OnClickListener {
         val username= username_pref.getString(ConstVal.UserNameKeyPref,"username")
 
         val product_obj= username?.let {
-            ProductDataClass( FireStore().GetCurrentUserID(),userimge ?:"", it,title, Price.toInt(), desc,quantity.toInt(),downloadAble_Image_uri?:"","")
+            ProductDataClass( FireStore().GetCurrentUserID(),userimge ?:"", it,title, Price.toInt(), desc,quantity.toInt(),downloadAble_Image_uri?:"","",downloadAble_video_uri?:"")
         }
         if (product_obj != null) {
             FireStore().addproductToFireStore(this, product_obj)
         }
 
     }
+
     fun successAddproduct(){
         HideDialog()
         ShowSnackbar(resources.getString(R.string.success_addProduct),true)
         onBackPressed()
     }
+
     fun failedAddproduct(){
         HideDialog()
         ShowSnackbar(resources.getString(R.string.failed_addProduct),false)
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        addproductBinding=null
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == ConstVal.RequestCode_Permission) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                chooseImageOrvideo()
+            } else {
+                ShowSnackbar(resources.getString(R.string.pleaseAllowPermision), false)
+            }
+        }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == ConstVal.RequestCode_Gallery) {
+
+                if (data != null) {
+                    try {
+
+                        addproductBinding?.addproductIvAddpic?.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_edit))
+                        addproductBinding?.textView5?.visibility=View.GONE
+                        addproductBinding?.addProductChangeToPic?.visibility=View.GONE
+                        imageuri_addproduct = data.data
+                        // Compelte_profile.CompleteIvUserprofile.setImageURI(Uri.parse(SelectedImage))
+                        imageuri_addproduct?.let {
+
+                            ConstVal.LoadPicByGlide_noCircle(this, it, addproductBinding!!.addproductIvShow)
+                            ShowSnackbar(resources.getString(R.string.alerttouploadpic), true)
+                        }
+                        addproductBinding?.changeVideBtn?.visibility=View.GONE
+                        addproductBinding?.addProductVideoView?.visibility=View.GONE
+                        videouri_addproduct=null
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        ShowSnackbar(resources.getString(R.string.faildSelectedImage), false)
+
+                    }
+
+                }
+            }
+            if (requestCode==ConstVal.RequestCode_Pick_Video_from_Gallery){
+                if (data!=null) {
+                    try {
+                        addproductBinding?.addProductVideoView?.visibility = View.VISIBLE
+                        addproductBinding?.addproductIvShow?.visibility = View.GONE
+                        addproductBinding?.changeVideBtn?.visibility = View.VISIBLE
+                        addproductBinding?.addProductChangeToPic?.visibility = View.VISIBLE
+                        imageuri_addproduct = null
+                        videouri_addproduct = data.data
+                        setvideo_to_view(videouri_addproduct)
+                    }
+                    catch (e:Exception){
+                        e.printStackTrace()
+                        ShowSnackbar(resources.getString(R.string.faildSelectedImage), false)
+                    }
+                }
+
+            }
+        }
+    }
+
+    private fun setvideo_to_view(videouriAddproduct: Uri?) {
+
+        addproductBinding?.addProductVideoView?.setVideoURI(videouriAddproduct)
+
+    }
+
+    fun UploadVideoSuccess(uri: Uri?) {
+        Toast.makeText(this,"1",Toast.LENGTH_SHORT).show()
+        if(uri!=null) {
+            downloadAble_video_uri = uri.toString()
+
+        }
+
+        SendProductDetial()
     }
 
 

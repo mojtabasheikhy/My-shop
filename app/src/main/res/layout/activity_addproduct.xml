@@ -33,30 +33,114 @@
                     app:navigationIconTint="@color/white"
                     app:titleTextColor="@color/white" />
 
-                <ImageView
-                    android:id="@+id/addproduct_iv_show"
-                    android:layout_width="0dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="240dp"
-                    android:scaleType="fitCenter"
-                    android:src="@color/second_text_color"
+                    android:id="@+id/add_product_child"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Addproduct_toolbar" />
+                    app:layout_constraintTop_toBottomOf="@+id/Addproduct_toolbar">
 
-                <ImageView
-                    android:id="@+id/addproduct_iv_addpic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
-                    app:layout_constraintBottom_toBottomOf="@+id/addproduct_iv_show"
-                    app:layout_constraintStart_toStartOf="@+id/addproduct_iv_show"
-                    app:layout_constraintTop_toBottomOf="@+id/Addproduct_toolbar"
-                    app:layout_constraintVertical_bias="0.994"
-                    app:srcCompat="@drawable/ic_add_pic"
-                    app:tint="@color/white" />
+                    <ImageView
+                        android:id="@+id/addproduct_iv_show"
+                        android:layout_width="0dp"
+                        android:layout_height="240dp"
+
+                        android:scaleType="fitCenter"
+                        android:src="@color/second_text_color"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:id="@+id/addproduct_iv_addpic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintVertical_bias="0.994"
+                        app:srcCompat="@drawable/ic_add_pic"
+                        app:tint="@color/white" />
+                    <TextView
+                        android:id="@+id/textView5"
+                        style="@style/viewParent.normalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="@string/chose"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/addproduct_iv_addpic"
+                        app:layout_constraintStart_toEndOf="@+id/addproduct_iv_addpic"
+                        app:layout_constraintTop_toTopOf="@+id/addproduct_iv_addpic" />
+
+                    <ImageView
+                        android:id="@+id/addVideo_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toTopOf="@+id/addproduct_iv_addpic"
+                        app:layout_constraintEnd_toEndOf="@+id/addproduct_iv_addpic"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:srcCompat="@drawable/ic_baseline_video" />
+
+                    <TextView
+                        android:id="@+id/textView14"
+                        style="@style/viewParent.normalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chosevide"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:layout_marginStart="6dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/addVideo_btn"
+                        app:layout_constraintStart_toEndOf="@+id/addVideo_btn"
+                        app:layout_constraintTop_toTopOf="@+id/addVideo_btn" />
+                    <com.devbrackets.android.exomedia.ui.widget.VideoView
+                        android:id="@+id/addProduct_video_view"
+                        android:layout_width="0dp"
+                        android:layout_height="240dp"
+                        android:visibility="gone"
+                        app:videoScale="fitCenter"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:useDefaultControls="true" />
+
+                    <ImageView
+                        android:id="@+id/changeVide_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:tint="@color/orange"
+                        android:visibility="gone"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_edit" />
+
+                    <ImageView
+                        android:id="@+id/add_product_change_to_pic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginEnd="16dp"
+                        app:tint="@color/orange"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_baseline_image_chose" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -70,7 +154,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.49"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/addproduct_iv_show">
+                    app:layout_constraintTop_toBottomOf="@+id/add_product_child">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/AddProduct_title_edt"
@@ -188,18 +272,7 @@
                     app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
                     app:layout_constraintTop_toBottomOf="@+id/Addnew_desc_layout" />
 
-                <TextView
-                    android:id="@+id/textView5"
-                    style="@style/viewParent.normalText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:text="@string/chose"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/addproduct_iv_addpic"
-                    app:layout_constraintStart_toEndOf="@+id/addproduct_iv_addpic"
-                    app:layout_constraintTop_toTopOf="@+id/addproduct_iv_addpic" />
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -146,6 +146,8 @@
     <string name="female">Female</string>
     <string name="swipdownTorefresh">Swip Down To Refresh</string>
     <string name="errorinaddtocart">Some Error In adding To Cart Try Again</string>
+    <string name="chosevide">Choose a video of your product</string>
+    <string name="userdontuploadthepic">The user has not selected a photo or video for their product</string>
 
 
 </resources>

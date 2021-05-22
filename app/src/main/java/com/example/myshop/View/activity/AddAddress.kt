@@ -13,24 +13,24 @@ import com.example.myshop.databinding.ActivityAddAddressBinding
 import com.example.myshop.model.AddressDataClass
 
 class AddAddress : Basic(), View.OnClickListener {
-    lateinit var addaddressbind: ActivityAddAddressBinding
+    var addaddressbind: ActivityAddAddressBinding?=null
     var getExteraDetail:AddressDataClass?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         addaddressbind = DataBindingUtil.setContentView(this, R.layout.activity_add_address)
-        addaddressbind.AddadsSendBtn.setOnClickListener(this)
-        addaddressbind.AddadsHome.isChecked = true
+        addaddressbind?.AddadsSendBtn?.setOnClickListener(this)
+        addaddressbind?.AddadsHome?.isChecked = true
        if (intent.hasExtra(ConstVal.addressDetailExtera)){
           getExteraDetail = intent.getParcelableExtra(ConstVal.addressDetailExtera)
            setdata()
        }
-       addaddressbind.AddadsChoseType.setOnCheckedChangeListener {_, isChecked ->
+       addaddressbind?.AddadsChoseType?.setOnCheckedChangeListener {_, isChecked ->
               if (isChecked == R.id.Addads_other){
-                  addaddressbind.addadsLytOtherdetail.visibility=View.VISIBLE
-                  addaddressbind.addadsOtherdetail.visibility=View.VISIBLE
+                  addaddressbind?.addadsLytOtherdetail?.visibility=View.VISIBLE
+                  addaddressbind?.addadsOtherdetail?.visibility=View.VISIBLE
               }
-           else{        addaddressbind.addadsLytOtherdetail.visibility=View.GONE
-                  addaddressbind.addadsOtherdetail.visibility=View.GONE
+           else{        addaddressbind?.addadsLytOtherdetail?.visibility=View.GONE
+                  addaddressbind?.addadsOtherdetail?.visibility=View.GONE
 
               }
 
@@ -51,40 +51,39 @@ class AddAddress : Basic(), View.OnClickListener {
     }
     private fun setdata() {
         if (getExteraDetail!=null){
-            addaddressbind.AddadressToolbar.title=resources.getString(R.string.edit)
+            addaddressbind?.AddadressToolbar?.title=resources.getString(R.string.edit)
 
-            addaddressbind.addAdsFullname.setText( getExteraDetail!!.fullname)
-            addaddressbind.AddadsPhonenumber.setText( getExteraDetail!!.phonenumber.toString())
-            addaddressbind.AddadsAddress.setText( getExteraDetail!!.address)
-            addaddressbind.addadsZipcode.setText( getExteraDetail!!.zipcode.toString())
-            addaddressbind.addadsAdditional.setText( getExteraDetail!!.additional_note)
+            addaddressbind?.addAdsFullname?.setText( getExteraDetail!!.fullname)
+            addaddressbind?.AddadsPhonenumber?.setText( getExteraDetail!!.phonenumber.toString())
+            addaddressbind?.AddadsAddress?.setText( getExteraDetail!!.address)
+            addaddressbind?.addadsZipcode?.setText( getExteraDetail!!.zipcode.toString())
+            addaddressbind?.addadsAdditional?.setText( getExteraDetail!!.additional_note)
             if (getExteraDetail!!.typeAddress.equals(ConstVal.Home)){
-                addaddressbind.AddadsHome.isChecked=true
+                addaddressbind?.AddadsHome?.isChecked=true
             }
            else if (getExteraDetail!!.typeAddress.equals(ConstVal.office)){
-                addaddressbind.AddadsOffice.isChecked=true
+                addaddressbind?.AddadsOffice?.isChecked=true
             }
             if (getExteraDetail!!.typeAddress.equals(ConstVal.other)){
-                addaddressbind.AddadsOther.isChecked=true
+                addaddressbind?.AddadsOther?.isChecked=true
                 if (getExteraDetail!!.otherDetail.isNotEmpty()) {
-                    addaddressbind.AddadsOther.isChecked=true
-                    addaddressbind.addadsOtherdetail.setText(getExteraDetail!!.otherDetail)
-                    addaddressbind.addadsOtherdetail.visibility=View.VISIBLE
+                    addaddressbind?.AddadsOther?.isChecked=true
+                    addaddressbind?.addadsOtherdetail?.setText(getExteraDetail!!.otherDetail)
+                    addaddressbind?.addadsOtherdetail?.visibility=View.VISIBLE
                 }
             }
         }
     }
 
     fun actionbarSetup() {
-        setSupportActionBar(addaddressbind.AddadressToolbar)
+        setSupportActionBar(addaddressbind?.AddadressToolbar)
         val actionbar_history = supportActionBar
         if (actionbar_history != null) {
             actionbar_history.setDisplayHomeAsUpEnabled(true)
             actionbar_history.title = resources.getString(R.string.add_address)
         }
-        addaddressbind.AddadressToolbar.setNavigationIcon(R.drawable.ic_back)
-
-        addaddressbind.AddadressToolbar.setNavigationOnClickListener {
+        addaddressbind?.AddadressToolbar?.setNavigationIcon(R.drawable.ic_back)
+        addaddressbind?.AddadressToolbar?.setNavigationOnClickListener {
             onBackPressed()
             finish()
         }
@@ -92,11 +91,11 @@ class AddAddress : Basic(), View.OnClickListener {
 
     fun validate_add_address(): Boolean {
 
-        val fullname = addaddressbind.addAdsFullname.text.toString()
-        val phonenumber = addaddressbind.AddadsPhonenumber.text.toString()
-        val address = addaddressbind.AddadsAddress.text.toString()
-        val zipcode = addaddressbind.addadsZipcode.text.toString()
-        val additional = addaddressbind.addadsAdditional.text.toString()
+        val fullname = addaddressbind?.addAdsFullname?.text.toString()
+        val phonenumber = addaddressbind?.AddadsPhonenumber?.text.toString()
+        val address = addaddressbind?.AddadsAddress?.text.toString()
+        val zipcode = addaddressbind?.addadsZipcode?.text.toString()
+        val additional = addaddressbind?.addadsAdditional?.text.toString()
         return when {
             TextUtils.isEmpty(fullname.trim({ it <= ' ' })) -> {
                 ShowSnackbar(resources.getString(R.string.Enter_Name), false)
@@ -136,16 +135,16 @@ class AddAddress : Basic(), View.OnClickListener {
 
     private fun SendDataAddress() {
         ShowDialog(resources.getString(R.string.wait))
-        val fullname = addaddressbind.addAdsFullname.text.toString().trim()
-        val phonenumber = addaddressbind.AddadsPhonenumber.text.toString().trim()
-        val address = addaddressbind.AddadsAddress.text.toString().trim()
-        val zipcode = addaddressbind.addadsZipcode.text.toString().trim()
-        val additional = addaddressbind.addadsAdditional.text.toString().trim()
-        val otherdetail = addaddressbind.addadsOtherdetail.text.toString().trim()
+        val fullname = addaddressbind?.addAdsFullname?.text.toString().trim()
+        val phonenumber = addaddressbind?.AddadsPhonenumber?.text.toString().trim()
+        val address = addaddressbind?.AddadsAddress?.text.toString().trim()
+        val zipcode = addaddressbind?.addadsZipcode?.text.toString().trim()
+        val additional = addaddressbind?.addadsAdditional?.text.toString().trim()
+        val otherdetail = addaddressbind?.addadsOtherdetail?.text.toString().trim()
 
-        val Address_Type = if (addaddressbind.AddadsHome.isChecked) {
+        val Address_Type = if (addaddressbind?.AddadsHome!!.isChecked) {
             ConstVal.Home
-        } else if (addaddressbind.AddadsOffice.isChecked) {
+        } else if (addaddressbind?.AddadsOffice!!.isChecked) {
             ConstVal.office
         } else {
             ConstVal.other
@@ -176,6 +175,10 @@ class AddAddress : Basic(), View.OnClickListener {
     fun failedAddAdress() {
         Toast.makeText(this, resources.getString(R.string.failedaddAddress), Toast.LENGTH_SHORT)
             .show()
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        addaddressbind=null
     }
 
 }

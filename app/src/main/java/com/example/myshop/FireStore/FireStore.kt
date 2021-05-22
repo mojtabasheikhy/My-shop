@@ -147,6 +147,29 @@ class FireStore {
                 }
             }
     }
+    fun UploadvideoToCloudStore(activity: Activity, Videouri: Uri, videoType: String) {
+
+        val sref = FirebaseStorage.getInstance().reference.child(videoType + System.currentTimeMillis() + "." + ConstVal.GetFileExtention(activity, Videouri))
+        sref.putFile(Videouri)
+
+            .addOnSuccessListener {
+                it.metadata!!.reference!!.downloadUrl.addOnSuccessListener { uri ->
+                    when (activity) {
+                        is AddProduct -> {
+                            activity.UploadVideoSuccess(uri)
+                        }
+                    }
+                }
+            }
+            .addOnFailureListener {
+                when (activity) {
+
+                    is AddProduct -> {
+                        activity.HideDialog()
+                    }
+                }
+            }
+    }
 
     fun addproductToFireStore(activity: AddProduct, productDataClass: ProductDataClass) {
         myFirestore.collection(ConstVal.Collection_product)

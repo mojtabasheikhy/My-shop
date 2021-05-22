@@ -14,4 +14,5 @@ data class ProductDataClass(
     var product_quantity: Int = 1,
     var product_image: String = "",
     var product_id: String = "",
+    var product_Video:String=""
     ) : Parcelable
