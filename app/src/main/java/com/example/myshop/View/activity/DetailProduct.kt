@@ -90,7 +90,7 @@ class DetailProduct : Basic(), View.OnClickListener {
                 detailProductBinding.detailIvProduct.setColorFilter(ContextCompat.getColor(this,R.color.second_text_color))
             }
             else
-                ConstVal.LoadPicByGlide_noCircle(this, it.product_image, detailProductBinding.detailIvProduct)
+            {ConstVal.LoadPicByGlide_noCircle(this, it.product_image, detailProductBinding.detailIvProduct)}
 
 
 
