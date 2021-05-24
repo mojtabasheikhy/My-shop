@@ -148,6 +148,18 @@
     <string name="errorinaddtocart">Some Error In adding To Cart Try Again</string>
     <string name="chosevide">Choose a video of your product</string>
     <string name="userdontuploadthepic">The user has not selected a photo or video for their product</string>
+    <string name="tour_home">In this tab you can see all the goods for sale</string>
+    <string name="tour_home_main">All Product for Sell</string>
+    <string name="tour_product_main">Your Product</string>
+    <string name="tour_product">In this tab, you can see your product that you want to sell</string>
+    <string name="tour_order_main">List  of Your Order</string>
+    <string name="tour_order">In this tab you can see the list of your orders</string>
+    <string name="tour_sold">In this tab, you can see the list of your sold goods with details</string>
+    <string name="tour_sold_main">List of your own goods sold</string>
+    <string name="tour_settins_main">Your profile Data</string>
+    <string name="tour_settins">Your account settings and addresses are recorded in this section</string>
+    <string name="tour_cart_main">Your Cart</string>
+    <string name="tour_cart">Your shopping cart is waiting for the purchase to be finalized</string>
 
 
 </resources>

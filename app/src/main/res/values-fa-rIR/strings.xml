@@ -148,6 +148,18 @@
     <string name="errorinaddtocart">کالای مورد نظر به سبد خرید اضافه نشد لطفا دوباره تلاش کنید</string>
     <string name="chosevide">برای کالای خود یک ویدیو انتخاب نمایید</string>
     <string name="userdontuploadthepic">کاربر عکس یا فیلمی برای کالای خود انتخاب نکرده است</string>
+    <string name="tour_home">در این قسمت شما میتوانید تمام کالا های برای فروش را مشاهده کنید</string>
+    <string name="tour_home_main">کالاهای برای فروش</string>
+    <string name="tour_product_main">کالاهای شما</string>
+    <string name="tour_product">در این قسمت شما میتوانید کالای خودتان که قصد فروش دارید را مشاهده کنید</string>
+    <string name="tour_order_main">لیست سفارش های شما</string>
+    <string name="tour_order">در این قسمت شما میتوانید لیست سفارش های خود را ببینید</string>
+    <string name="tour_sold">در این تب شما میتوانید لیست کالاهای فروش رفته خودتان را همراه جزییات مشاهده کنید</string>
+    <string name="tour_sold_main">لیست کالای فروش رفته خودتان</string>
+    <string name="tour_settins_main">اطلاعات پروفایل</string>
+    <string name="tour_settins">تنظیمات حساب کاربری و آدرس های شما در این بخش ثبت شده است</string>
+    <string name="tour_cart_main">سبد خرید شما</string>
+    <string name="tour_cart">سبد خرید شما که برای نهایی شدن خرید منتظر است</string>
 
 
 </resources>

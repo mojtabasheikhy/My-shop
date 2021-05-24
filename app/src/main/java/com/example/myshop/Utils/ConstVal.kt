@@ -18,6 +18,11 @@ import java.lang.reflect.Executable
 
 object ConstVal {
 
+    val fristLoginYes: String="firstLoginyes"
+
+    //SharePrefName
+    val fristLogin: String?="firstLogin"
+
     //collections Name
     const val Collection_Users = "Users"
     const val collection_address="address"
