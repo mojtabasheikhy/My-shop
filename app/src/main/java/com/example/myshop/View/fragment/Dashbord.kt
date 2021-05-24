@@ -24,9 +24,11 @@ import com.example.myshop.databinding.ItemProductBinding
 import com.example.myshop.model.ProductDataClass
 
 class Dashbord : Fragment() {
+    lateinit var pref:SharedPreferences
     lateinit var dashbordBinding: FragmentDashbordBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pref = requireActivity().getSharedPreferences(ConstVal.fristLogin, Context.MODE_PRIVATE)
         setHasOptionsMenu(true)
     }
 
@@ -61,14 +63,16 @@ class Dashbord : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.dashbord_menu_settings -> {
-                val intent = Intent(activity, Settings::class.java)
-                startActivity(intent)
-                return true
+
+                   val intent = Intent(activity, Settings::class.java)
+                   startActivity(intent)
+                   return true
+
             }
             R.id.dashbord_menu_cart -> {
-                val intent_cart = Intent(activity, cartlist::class.java)
-                startActivity(intent_cart)
-                return true
+                    val intent_cart = Intent(activity, cartlist::class.java)
+                    startActivity(intent_cart)
+                    return true
             }
         }
         return super.onOptionsItemSelected(item)
