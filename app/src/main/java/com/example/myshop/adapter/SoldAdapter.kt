@@ -10,6 +10,9 @@ import com.example.myshop.Utils.product_diff_util
 import com.example.myshop.View.activity.Sold_Detail
 import com.example.myshop.databinding.ItemSoldBinding
 import com.example.myshop.model.SoldDataClass
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class SoldAdapter(var context: android.content.Context) : RecyclerView.Adapter<SoldAdapter.SoldViewholder>() {
@@ -35,6 +38,13 @@ class SoldAdapter(var context: android.content.Context) : RecyclerView.Adapter<S
             intent.putExtra(ConstVal.putExteraSolddetail,sold_List[position])
             context.startActivity(intent)
         }
+        val date="dd MMM yyyy HH:mm"
+        val formater= SimpleDateFormat(date, Locale.getDefault())
+        val calendar= Calendar.getInstance()
+        calendar.timeInMillis =sold_List[position].order_date
+        val orderTime=formater.format(calendar.time)
+        holder.sold_item.soldTextView9.setText(orderTime)
+
 
     }
 
