@@ -57,7 +57,12 @@ class Settings : Basic(), View.OnClickListener {
             ConstVal.LoadPicByGlide(this,user.Image,settings_bind.settingsIvProfile)
             settings_bind.settingsTvEmail.text = user.Email
             settings_bind.settingsTvName.text = user.FirstName
-            settings_bind.settingsTvPhone.text = user.Mobile
+            if (user.Mobile.equals("null")){
+                settings_bind.settingsTvPhone.setText(resources.getString(R.string.Enter_phone))
+            }
+            else {
+                settings_bind.settingsTvPhone.text = user.Mobile
+            }
             if (user.gender == ConstVal.Male) {
                 settings_bind.settingsIvGender.setImageDrawable(
                     ContextCompat.getDrawable(

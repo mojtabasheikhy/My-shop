@@ -22,17 +22,34 @@ class FireStore {
 
     var myFirestore = FirebaseFirestore.getInstance()
 
-    fun RegisterUserToFireStore(activity: Register, userinfo: user) {
+    fun RegisterUserToFireStore(activity: Activity, userinfo: user) {
         myFirestore.collection(ConstVal.Collection_Users)
             .document(userinfo.user_id)
             .set(userinfo, SetOptions.merge())
             .addOnCompleteListener {
                 it.addOnSuccessListener {
-                    activity.RegisterSuccess()
+                    when(activity){
+                        is Register ->{
+                            activity.RegisterSuccess()
+                        }
+                        is Login->{
+                            activity.HideDialog()
+                            activity.successRegsiterByfaceBook(userinfo)
+                        }
+                    }
+
                 }
             }
             .addOnFailureListener {
-                activity.RegisterFailed()
+                when(activity){
+                    is Register-> {
+                        activity.RegisterFailed()
+                    }
+                    is Login ->{
+                        activity.HideDialog()
+                        activity.failedToLogin(it)
+                    }
+                }
             }
     }
 

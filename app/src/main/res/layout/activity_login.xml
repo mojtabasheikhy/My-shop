@@ -145,26 +145,43 @@
 
                 </LinearLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_marginTop="15dp"
                     >
 
-                    <ImageView
+                    <com.facebook.login.widget.LoginButton
                         android:id="@+id/Login_Iv_Facebook"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:src="@drawable/ic_facebook" />
+                        android:drawableEnd="@null"
+                        android:alpha="0"
+                        android:drawableStart="@null"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+
+
+                        android:layout_marginStart="-40dp"
+                        android:textColor="@color/white"
+                        android:backgroundTint="@null"
+                        xmlns:facebook="http://schemas.android.com/apk/res-auto"
+                         />
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="-40dp"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
+                        android:background="@drawable/ic_facebook"
+                     />
 
                     <ImageView
                         android:id="@+id/Login_Iv_Google"
                         android:layout_width="40dp"
+                        android:layout_marginEnd="-40dp"
                         android:layout_height="40dp"
                         android:layout_marginStart="10dp"
                         android:src="@drawable/ic_google_plus" />
-                </LinearLayout>
+                </RelativeLayout>
 
             </LinearLayout>
         </ScrollView>

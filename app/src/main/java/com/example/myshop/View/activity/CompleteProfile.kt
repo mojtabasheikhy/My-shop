@@ -65,6 +65,9 @@ class CompleteProfile : Basic(), View.OnClickListener {
                     Disable_Edt_Which_HasData()
                     Complete_profile.CompleteRdGenderFemale.isChecked = true
                     actionbar_complete?.setTitle(resources.getString(R.string.Compeleteprofile))
+                    if (UserDetail?.Image!!.isNotEmpty()){
+                        ConstVal.LoadPicByGlide(this,UserDetail!!.Image,Complete_profile.CompleteIvUserprofile)
+                    }
 
                 } else {
                     Complete_profile.completeEdtEmail.isEnabled = false
@@ -95,7 +98,15 @@ class CompleteProfile : Basic(), View.OnClickListener {
     private fun SetDataToEdtGiveBefore(userDetail: user?) {
         Complete_profile.completeEdtEmail.setText(userDetail?.Email)
         Complete_profile.CompleteEdtName.setText(userDetail?.FirstName)
-        Complete_profile.completeEdtPhoneNumber.setText(userDetail?.Mobile.toString())
+        if (userDetail?.Mobile.equals("null")){
+            Complete_profile.completeEdtPhoneNumber.setText("")
+            Complete_profile.completeEdtPhoneNumber.isEnabled=true
+        }
+        else{
+            Complete_profile.completeEdtPhoneNumber.setText(userDetail?.Mobile.toString())
+        }
+
+
         if (userDetail?.profile_Compelete == 1) {
             Complete_profile.completeEdtLastName.setText(userDetail.lastName)
         }

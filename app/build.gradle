@@ -84,4 +84,8 @@ dependencies {
     implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
     //tour guide
     implementation 'uk.co.samuelwall:material-tap-target-prompt:3.2.0'
+    //login with facebook
+    implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
+    implementation platform('com.google.firebase:firebase-bom:28.0.1')
+    implementation 'com.google.firebase:firebase-auth'
 }

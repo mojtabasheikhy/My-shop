@@ -4,24 +4,34 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.myshop.FireStore.FireStore
 import com.example.myshop.R
+import com.example.myshop.Utils.ConstVal
 import com.example.myshop.databinding.ActivityLoginBinding
 import com.example.myshop.model.user
-import com.example.myshop.Utils.ConstVal
+import com.facebook.*
+import com.facebook.login.LoginResult
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import java.lang.Exception
+import kotlin.math.log
 
 class Login : Basic(), View.OnClickListener {
     lateinit var login_binding: ActivityLoginBinding
+    private lateinit var auth: FirebaseAuth
+    lateinit var callbackManager: CallbackManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         login_binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+
         setOnClickListener()
 
     }
+
     fun setOnClickListener() {
         login_binding.loginGoToRegisterBtn.setOnClickListener(this)
         login_binding.loginGoToRegisterTv.setOnClickListener(this)
@@ -49,11 +59,11 @@ class Login : Basic(), View.OnClickListener {
             R.id.Login_Edt_ForgotPassword -> {
                 startActivity(Intent(this, Forgot_PassWord::class.java))
             }
-            R.id.Login_Iv_Google->{
-                  //TODO Using google athu for login
+            R.id.Login_Iv_Google -> {
+                //TODO Using google athu for login
             }
             R.id.Login_Iv_Facebook -> {
-                //TODO Using facebook athu for login
+                loginbyfacebook()
             }
         }
     }
@@ -62,7 +72,7 @@ class Login : Basic(), View.OnClickListener {
 
         val Email_Login = login_binding.LoginEdtEmail.text?.trim().toString()
         val Password_Login = login_binding.LoginEdtPassWord.text?.trim().toString()
-        if (Validation_login()==true) {
+        if (Validation_login() == true) {
             ShowDialog(resources.getString(R.string.wait))
             FirebaseAuth.getInstance().signInWithEmailAndPassword(Email_Login, Password_Login)
                 .addOnCompleteListener {
@@ -81,11 +91,11 @@ class Login : Basic(), View.OnClickListener {
         val Email_Edt = login_binding.LoginEdtEmail
         val Password_Edt = login_binding.LoginEdtPassWord
         return when {
-            TextUtils.isEmpty(Email_Edt.text.toString().trim{ it <= ' ' }) -> {
+            TextUtils.isEmpty(Email_Edt.text.toString().trim { it <= ' ' }) -> {
                 ShowSnackbar(resources.getString(R.string.Enter_Email), false)
                 false
             }
-            TextUtils.isEmpty(Password_Edt.text.toString().trim{ it <= ' ' }) -> {
+            TextUtils.isEmpty(Password_Edt.text.toString().trim { it <= ' ' }) -> {
                 ShowSnackbar(resources.getString(R.string.Enter_passwrod), false)
                 false
             }
@@ -97,29 +107,115 @@ class Login : Basic(), View.OnClickListener {
 
     fun UserLoginSuccess(user: user) {
 
-        val pref=getSharedPreferences(ConstVal.MySharePref, Context.MODE_PRIVATE)
-        val editor=pref.edit()
-        editor.putString(ConstVal.UserNameKeyPref,user.FirstName)
+        val pref = getSharedPreferences(ConstVal.MySharePref, Context.MODE_PRIVATE)
+        val editor = pref.edit()
+        editor.putString(ConstVal.UserNameKeyPref, user.FirstName)
         editor.apply()
 
 
-       if (!this@Login.isFinishing) {
-           HideDialog()
-       }
-            if (user.profile_Compelete == 0) {
-                val intent_com = Intent(this, CompleteProfile::class.java)
-                intent_com.putExtra(ConstVal.PutExtra_UserDetail, user)
-                intent_com.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent_com)
-
-            } else if (user.profile_Compelete == 1) {
-                val intent_dashbord = Intent(this, Main::class.java)
-                intent_dashbord.flags =
-                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent_dashbord)
-            } else {
-                HideDialog()
-                Toast.makeText(this, "please register by another acount", Toast.LENGTH_SHORT).show()
-            }
+        if (!this@Login.isFinishing) {
+            HideDialog()
         }
+        if (user.profile_Compelete == 0) {
+            val intent_com = Intent(this, CompleteProfile::class.java)
+            intent_com.putExtra(ConstVal.PutExtra_UserDetail, user)
+            intent_com.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent_com)
+
+        } else if (user.profile_Compelete == 1) {
+            val intent_dashbord = Intent(this, Main::class.java)
+            intent_dashbord.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent_dashbord)
+        } else {
+            HideDialog()
+            Toast.makeText(this, "please register by another acount", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun loginbyfacebook() {
+        // Initialize Facebook Login button
+        callbackManager = CallbackManager.Factory.create()
+        auth = FirebaseAuth.getInstance()
+        FacebookSdk.sdkInitialize(this)
+        login_binding.LoginIvFacebook.setReadPermissions("email", "public_profile")
+        login_binding.LoginIvFacebook.registerCallback(callbackManager, object :
+            FacebookCallback<LoginResult> {
+            override fun onSuccess(loginResult: LoginResult) {
+                Log.d("TAG", "facebook:onSuccess:$loginResult")
+                handleFacebookAccessToken(loginResult.accessToken)
+            }
+
+            override fun onCancel() {
+                Log.d("TAG", "facebook:onCancel")
+            }
+
+            override fun onError(error: FacebookException) {
+                Log.d("TAG", "facebook:onError", error)
+            }
+        })
+    }
+
+
+    private fun handleFacebookAccessToken(token: AccessToken) {
+        val credential = FacebookAuthProvider.getCredential(token.token)
+        ShowDialog(resources.getString(R.string.wait))
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    Log.e("face", auth.currentUser?.displayName.toString())
+
+                    val userdetail = com.example.myshop.model.user(
+                        user!!.uid,
+                        user.displayName.toString(),
+                        "",
+                        user.email.toString(),
+                        user.phoneNumber.toString(),
+                        "",
+                        0,
+                        user.photoUrl.toString()
+                    )
+                    userdetail.let {
+                        Log.e("face", "1")
+                        FireStore().RegisterUserToFireStore(this@Login, userdetail)
+
+                    }
+                }
+
+
+            }.addOnFailureListener {
+                Log.e("face", it.message.toString())
+            }
+    }
+
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // Pass the activity result back to the Facebook SDK
+        callbackManager.onActivityResult(requestCode, resultCode, data)
+    }
+
+    fun successRegsiterByfaceBook(userinf: user) {
+
+     if (userinf.profile_Compelete == 0) {
+      val intent_com = Intent(this, CompleteProfile::class.java)
+      intent_com.putExtra(ConstVal.PutExtra_UserDetail, userinf)
+      intent_com.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+      startActivity(intent_com)
+
+     } else if (userinf.profile_Compelete == 1) {
+      val intent_dashbord = Intent(this, Main::class.java)
+      intent_dashbord.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+      startActivity(intent_dashbord)
+     }
+
+    }
+
+    fun failedToLogin(it: Exception) {
+        ShowSnackbar(it.message.toString(),false)
+    }
 }
