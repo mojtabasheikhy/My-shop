@@ -54,7 +54,23 @@ class Main : Basic() {
     override fun onBackPressed() {
         CheckDoubleBackToExit(dashboardBinding!!.navView)
     }
-
+      fun showpromt_addproduct(){
+          MaterialTapTargetPrompt.Builder(this)
+              .setTarget(R.id.product_add_new)
+              .setFocalColour(ContextCompat.getColor(this, R.color.pink))
+              .setBackgroundColour(ContextCompat.getColor(this, R.color.orange))
+              .setPrimaryText(resources.getString(R.string.addnewproduct_main))
+              .setBackButtonDismissEnabled(false)
+              .setPromptFocal(RectanglePromptFocal())
+              .setPromptStateChangeListener(PromptStateChangeListener { prompt, state ->
+                  if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED|| state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED) {
+                      showpromt_order()
+                      dashboardBinding?.navView?.selectedItemId = R.id.navigation_notifications
+                      // User has pressed the prompt target
+                  }
+              })
+              .show()
+      }
 
     fun TourGuide() {
 
@@ -88,10 +104,10 @@ class Main : Basic() {
             .setBackButtonDismissEnabled(false)
             .setPromptFocal(RectanglePromptFocal())
             .setPromptStateChangeListener(PromptStateChangeListener { prompt, state ->
-                if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED || state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED) {
-                    showpromt_order()
+                if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED|| state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED) {
+                    showpromt_addproduct()
                     Log.e("s","1")
-                    dashboardBinding?.navView?.selectedItemId = R.id.navigation_notifications
+
                     // User has pressed the prompt target
                 }
             })
@@ -109,7 +125,7 @@ class Main : Basic() {
             .setBackButtonDismissEnabled(false)
             .setPromptFocal(RectanglePromptFocal())
             .setPromptStateChangeListener(PromptStateChangeListener { prompt, state ->
-                if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED || state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED) {
+                if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED|| state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED) {
                     showpromt_sold()
                     Log.e("s","2")
                     dashboardBinding?.navView?.selectedItemId = R.id.sold2
@@ -131,7 +147,7 @@ class Main : Basic() {
             .setBackButtonDismissEnabled(false)
             .setPromptFocal(RectanglePromptFocal())
             .setPromptStateChangeListener(PromptStateChangeListener { prompt, state ->
-                if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED || state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED) {
+                if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED|| state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED) {
                     showpromt_profile()
                     Log.e("s","3")
                     val editor = pref.edit()
@@ -154,7 +170,7 @@ class Main : Basic() {
             .setSecondaryText(resources.getString(R.string.tour_settins))
             .setPromptFocal(RectanglePromptFocal())
             .setPromptStateChangeListener(PromptStateChangeListener { prompt, state ->
-                if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED || state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED) {
+                if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED|| state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED) {
                     showpromt_cart()
                     // User has pressed the prompt target
                 }

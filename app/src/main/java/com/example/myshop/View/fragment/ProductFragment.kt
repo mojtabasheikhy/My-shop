@@ -74,18 +74,17 @@ class ProductFragment : BasicFragment() {
 
     fun successGetMyProductFromFireStore(MyProductList: ArrayList<ProductDataClass>) {
         hideshimer()
-        ProductBinding.productSwiprefresh.isRefreshing = false
-        var productAdapter =Product_adapter(requireContext(),this)
-        if (MyProductList.isNotEmpty()) {
-            productAdapter.setdata(MyProductList)
+
             if (MyProductList.size == 0) {
+
+                show_snackbar(resources.getString(R.string.swipdownTorefresh),true)
                 ProductBinding.ProductNoData.visibility = View.VISIBLE
                 ProductBinding.noaddedProduct.visibility = View.VISIBLE
                 ProductBinding.ProdcutRecycler.visibility = View.GONE
-
-
             }
             if (MyProductList.size > 0) {
+                var productAdapter =Product_adapter(requireContext(),this)
+                productAdapter.setdata(MyProductList)
                 ProductBinding.ProductNoData.visibility = View.GONE
                 ProductBinding.noaddedProduct.visibility = View.GONE
                 ProductBinding.ProdcutRecycler.apply {
@@ -97,11 +96,9 @@ class ProductFragment : BasicFragment() {
 
                 }
             }
-        }
-        else{
-            hideshimer()
-            show_snackbar(resources.getString(R.string.swipdownTorefresh),false)
-        }
+        ProductBinding.productSwiprefresh.isRefreshing = false
+
+
     }
 
     fun showshimer() {

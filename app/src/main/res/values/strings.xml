@@ -160,6 +160,7 @@
     <string name="tour_settins">Your account settings and addresses are recorded in this section</string>
     <string name="tour_cart_main">Your Cart</string>
     <string name="tour_cart">Your shopping cart is waiting for the purchase to be finalized</string>
+    <string name="addnewproduct_main">Add Your product For sell</string>
 
 
 </resources>

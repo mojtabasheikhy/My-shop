@@ -160,6 +160,7 @@
     <string name="tour_settins">تنظیمات حساب کاربری و آدرس های شما در این بخش ثبت شده است</string>
     <string name="tour_cart_main">سبد خرید شما</string>
     <string name="tour_cart">سبد خرید شما که برای نهایی شدن خرید منتظر است</string>
+    <string name="addnewproduct_main">محصول خود را برای فروش اضافه کنید</string>
 
 
 </resources>
