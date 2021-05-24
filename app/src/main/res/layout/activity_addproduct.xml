@@ -45,7 +45,7 @@
                         android:id="@+id/addproduct_iv_show"
                         android:layout_width="0dp"
                         android:layout_height="240dp"
-
+                        android:foreground="?attr/selectableItemBackground"
                         android:scaleType="fitCenter"
                         android:src="@color/second_text_color"
                         app:layout_constraintEnd_toEndOf="parent"

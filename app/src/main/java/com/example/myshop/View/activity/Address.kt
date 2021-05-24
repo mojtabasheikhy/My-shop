@@ -112,23 +112,23 @@ class Address : Basic(), View.OnClickListener, SwipeRefreshLayout.OnRefreshListe
             }
 
             if (!addressFromcheckout){
-                var editorHandler=object :SwipeToEditCallback (this){
+                val editorHandler=object :SwipeToEditCallback (this){
                     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                        var adapter=addressBinding.addressRecycler.adapter as AddressAdapter
+                        val adapter=addressBinding.addressRecycler.adapter as AddressAdapter
                         adapter.NotifyEdit(this@Address,viewHolder.adapterPosition)
 
                     }
 
                 }
-                var deleteAddressHandler=object :SwipeToDeleteCallback(this){
+                val deleteAddressHandler=object :SwipeToDeleteCallback(this){
                     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                         ShowDialog(resources.getString(R.string.wait))
                         FireStore().deleteAdress(this@Address,address[viewHolder.adapterPosition].address_id)
                     }
 
                 }
-                var editItemTouchHelper=ItemTouchHelper(editorHandler)
-                var DeleteItemTouchHelper=ItemTouchHelper(deleteAddressHandler)
+                val editItemTouchHelper=ItemTouchHelper(editorHandler)
+                val DeleteItemTouchHelper=ItemTouchHelper(deleteAddressHandler)
                 DeleteItemTouchHelper.attachToRecyclerView(addressBinding.addressRecycler)
                 editItemTouchHelper.attachToRecyclerView(addressBinding.addressRecycler)
             }

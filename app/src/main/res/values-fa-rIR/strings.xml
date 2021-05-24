@@ -146,8 +146,8 @@
     <string name="female">زن</string>
     <string name="swipdownTorefresh">برای تازه سازی اطلاعات لطفا صفحه را به پایین بکشید</string>
     <string name="errorinaddtocart">کالای مورد نظر به سبد خرید اضافه نشد لطفا دوباره تلاش کنید</string>
-    <string name="chosevide">Choose a video of your product</string>
-    <string name="userdontuploadthepic">The user has not selected a photo or video for their product</string>
+    <string name="chosevide">برای کالای خود یک ویدیو انتخاب نمایید</string>
+    <string name="userdontuploadthepic">کاربر عکس یا فیلمی برای کالای خود انتخاب نکرده است</string>
 
 
 </resources>
