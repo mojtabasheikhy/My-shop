@@ -44,13 +44,12 @@
 
                     <com.airbnb.lottie.LottieAnimationView
                         android:layout_width="200dp"
-                        android:layout_height="150dp"
+                        android:layout_height="140dp"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentEnd="true"
                         android:layout_marginStart="0dp"
 
                         android:layout_toEndOf="@+id/header_title_register"
-                        android:scaleType="centerCrop"
                         app:lottie_autoPlay="true"
                         app:lottie_rawRes="@raw/register"
                         app:lottie_repeatCount="3" />
@@ -179,7 +178,7 @@
                             android:id="@+id/Register_Btn_Register"
                             style="@style/loginButton"
                             android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="8dp"
+
                             android:text="@string/register"
                             android:foreground="?attr/selectableItemBackgroundBorderless"
                             app:initialCornerAngle="27dp"
@@ -216,58 +215,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:gravity="center"
-                    android:weightSum="12">
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="3"
-                        android:background="@color/whiteTextColor" />
-
-                    <TextView
-                        style="@style/viewParent.headerText.NoMode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="6"
-                        android:text="@string/use_other_methods"
-                        android:textAlignment="center"
-                        android:textColor="@color/whiteTextColor"
-                        android:textSize="12sp" />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="3"
-                        android:background="@color/whiteTextColor" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="20dp"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:id="@+id/Register_Iv_Facebook"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:src="@drawable/ic_facebook" />
-
-                    <ImageView
-                        android:id="@+id/Register_Iv_Google"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="10dp"
-                        android:src="@drawable/ic_google_plus" />
-                </LinearLayout>
             </LinearLayout>
         </ScrollView>
 

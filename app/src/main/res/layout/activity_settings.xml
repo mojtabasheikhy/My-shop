@@ -87,27 +87,7 @@
                 app:rippleColor="@color/black" />
 
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/settings_Btn_logout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/settings_mat"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/button_background"
-                android:drawableEnd="@drawable/ic_exit"
-                android:drawablePadding="3dp"
-                android:drawableTint="@color/white"
-                android:fontFamily="@font/iranyekanwebbold"
-                android:gravity="start"
-                android:padding="5dp"
-                android:text="@string/logout"
-                android:textColor="@color/white"
-                app:backgroundTint="@null"
-                app:cornerRadius="10dp" />
+
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/settings_mat"
@@ -250,7 +230,39 @@
                             android:textSize="13sp"
                             tools:ignore="RtlCompat" />
 
+
                     </LinearLayout>
+                    <View
+                        android:id="@+id/settings_devider_below_delete"
+                        android:layout_width="match_parent"
+                        android:layout_height=".3dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/second_text_color" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp">
+
+
+                        <ImageView
+                            android:id="@+id/settings_iv_deleteAcout"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_delete" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/deleteAcount"
+                            android:textColor="@color/orange"
+                            android:layout_marginStart="6dp"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="13sp"/>
+
+
+                    </LinearLayout>
+
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/settings_Edt_addressList"
                         style="@style/viewParent.normalText"
@@ -272,7 +284,24 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/settings_Btn_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/settings_mat"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/main_background"
+                android:drawableEnd="@drawable/ic_exit"
+                android:drawablePadding="3dp"
+                android:drawableTint="@color/white"
+                android:fontFamily="@font/iranyekanwebbold"
+                android:gravity="start"
+                android:padding="5dp"
+                android:text="@string/logout"
+                android:textColor="@color/white"
+                app:backgroundTint="@null"
+                app:cornerRadius="10dp" />
         </RelativeLayout>
     </ScrollView>
 </layout>

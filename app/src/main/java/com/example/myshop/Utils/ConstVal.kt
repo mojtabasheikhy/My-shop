@@ -5,18 +5,14 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
-import android.util.Log
 import android.webkit.MimeTypeMap
 import android.widget.ImageView
-import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
 import com.example.myshop.R
-import com.example.myshop.View.activity.AddProduct
-import com.example.myshop.model.SoldDataClass
 import de.hdodenhof.circleimageview.CircleImageView
-import java.lang.reflect.Executable
 
 object ConstVal {
+
 
     val fristLoginYes: String="firstLoginyes"
 
@@ -53,6 +49,7 @@ object ConstVal {
     const val ActivityStartCode_selectAddress =1004
     const val RequestCode_Pick_Video_from_Gallery=1005
     const val RequestCode_Pick_Video_from_camera=1006
+    val googleLogin: Int =1007
 
     const val Male = "Male"
     const val phonenumber = "mobile"

@@ -1,5 +1,6 @@
 package com.example.myshop.View.activity
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -15,21 +16,25 @@ import com.example.myshop.databinding.ActivityLoginBinding
 import com.example.myshop.model.user
 import com.facebook.*
 import com.facebook.login.LoginResult
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
-import java.lang.Exception
-import kotlin.math.log
+import com.google.firebase.auth.GoogleAuthProvider
+
 
 class Login : Basic(), View.OnClickListener {
     lateinit var login_binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
-    lateinit var callbackManager: CallbackManager
+    var callbackManager: CallbackManager?=null
+    var intentgoogle:Intent? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         login_binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-
         setOnClickListener()
-
     }
 
     fun setOnClickListener() {
@@ -41,6 +46,7 @@ class Login : Basic(), View.OnClickListener {
         login_binding.LoginIvFacebook.setOnClickListener(this)
 
     }
+
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -60,7 +66,7 @@ class Login : Basic(), View.OnClickListener {
                 startActivity(Intent(this, Forgot_PassWord::class.java))
             }
             R.id.Login_Iv_Google -> {
-                //TODO Using google athu for login
+                googleLogin()
             }
             R.id.Login_Iv_Facebook -> {
                 loginbyfacebook()
@@ -194,28 +200,104 @@ class Login : Basic(), View.OnClickListener {
         data: Intent?
     ) {
         super.onActivityResult(requestCode, resultCode, data)
+        Log.e("sd", "2")
+        if (requestCode==ConstVal.googleLogin){
+            Log.e("sd", "2.5")
 
-        // Pass the activity result back to the Facebook SDK
-        callbackManager.onActivityResult(requestCode, resultCode, data)
+            var acoutnTask = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                Log.e("sd", "3")
+
+                var acount = acoutnTask.getResult(ApiException::class.java)
+                Toast.makeText(this, acount?.displayName.toString(), Toast.LENGTH_LONG).show()
+                firebaseSignUpGoogle(acount)
+
+            } catch (E: java.lang.Exception) {
+                Log.e("sd",E.message.toString())
+            }
+            if(resultCode== Activity.RESULT_CANCELED){
+                Log.e("sd", "cancel")
+            }
+            if(resultCode== Activity.RESULT_FIRST_USER){
+                Log.e("sd", "firs")
+            }
+        }
+
+
     }
 
-    fun successRegsiterByfaceBook(userinf: user) {
+    fun successRegsiterByfaceBook(userinf:user) {
 
-     if (userinf.profile_Compelete == 0) {
-      val intent_com = Intent(this, CompleteProfile::class.java)
-      intent_com.putExtra(ConstVal.PutExtra_UserDetail, userinf)
-      intent_com.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-      startActivity(intent_com)
+        if (userinf.profile_Compelete == 0) {
+            val intent_com = Intent(this, CompleteProfile::class.java)
+            intent_com.putExtra(ConstVal.PutExtra_UserDetail, userinf)
+            intent_com.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent_com)
 
-     } else if (userinf.profile_Compelete == 1) {
-      val intent_dashbord = Intent(this, Main::class.java)
-      intent_dashbord.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-      startActivity(intent_dashbord)
-     }
-
+        } else if (userinf.profile_Compelete == 1) {
+            val intent_dashbord = Intent(this, Main::class.java)
+            intent_dashbord.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent_dashbord)
+        }
     }
 
     fun failedToLogin(it: Exception) {
-        ShowSnackbar(it.message.toString(),false)
+        ShowSnackbar(it.message.toString(), false)
     }
+
+
+    fun googleLogin() {
+        Log.e("sd","1")
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(resources.getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        var GoogleSignINclient = GoogleSignIn.getClient(this, gso)
+        auth = FirebaseAuth.getInstance()
+        intentgoogle = GoogleSignINclient.signInIntent
+        setResult(Activity.RESULT_OK)
+        startActivityForResult(intentgoogle,ConstVal.googleLogin)
+     }
+    private fun firebaseSignUpGoogle(acount: GoogleSignInAccount?) {
+        Log.e("sd","4")
+
+
+        var credential = GoogleAuthProvider.getCredential(acount?.idToken, null)
+        ShowDialog(resources.getString(R.string.wait))
+        auth.signInWithCredential(credential)
+
+            .addOnCompleteListener {
+                if (it.isSuccessful()) {
+                    Log.e("sd","5")
+                    // Sign in success, update UI with the signed-in user's information
+                    var user = auth.getCurrentUser()
+
+                    val userdetail = user(
+                        user!!.uid,
+                        user.displayName.toString(),
+                        "",
+                        user.email.toString(),
+                        user.phoneNumber.toString(),
+                        "",
+                        0,
+                        user.photoUrl.toString()
+                    )
+                    userdetail.let {
+                        FireStore().RegisterUserToFireStore(this@Login, userdetail)
+                    }
+
+                }
+            }.addOnFailureListener {
+
+                it.printStackTrace()
+            }
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        setResult(Activity.RESULT_CANCELED)
+    }
+
 }

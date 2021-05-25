@@ -22,6 +22,17 @@ class FireStore {
 
     var myFirestore = FirebaseFirestore.getInstance()
 
+    fun deleteUserFormFireStore(settings: Settings){
+        myFirestore.collection(ConstVal.Collection_Users).document(GetCurrentUserID())
+            .delete().addOnSuccessListener {
+                settings.successDeleteAcount()
+            }
+            .addOnFailureListener {
+                settings.failedDeleteuser()
+            }
+    }
+
+
     fun RegisterUserToFireStore(activity: Activity, userinfo: user) {
         myFirestore.collection(ConstVal.Collection_Users)
             .document(userinfo.user_id)

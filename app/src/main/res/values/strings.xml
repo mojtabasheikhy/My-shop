@@ -163,6 +163,7 @@
     <string name="addnewproduct_main">Add Your product For sell</string>
     <string name="facebook_app_id" translatable="false">626846374938550</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb626846374938550</string>
+    <string name="deleteAcount">Delete your Acount</string>
 
 
 </resources>

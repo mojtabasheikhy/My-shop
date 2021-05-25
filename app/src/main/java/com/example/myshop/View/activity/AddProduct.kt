@@ -8,20 +8,16 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import com.devbrackets.android.exomedia.listener.OnPreparedListener
 import com.example.myshop.FireStore.FireStore
-import com.example.myshop.model.ProductDataClass
 import com.example.myshop.R
 import com.example.myshop.Utils.ConstVal
 import com.example.myshop.databinding.ActivityAddproductBinding
-import com.vmadalin.easypermissions.EasyPermissions
-import java.lang.Exception
+import com.example.myshop.model.ProductDataClass
 
 class AddProduct : Basic(), View.OnClickListener{
     var addproductBinding: ActivityAddproductBinding? = null

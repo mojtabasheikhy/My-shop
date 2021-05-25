@@ -3,13 +3,14 @@ package com.example.myshop.View.activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.myshop.FireStore.FireStore
-import com.example.myshop.model.user
 import com.example.myshop.R
 import com.example.myshop.Utils.ConstVal
 import com.example.myshop.databinding.ActivitySettingsBinding
+import com.example.myshop.model.user
 import com.google.firebase.auth.FirebaseAuth
 
 class Settings : Basic(), View.OnClickListener {
@@ -41,6 +42,7 @@ class Settings : Basic(), View.OnClickListener {
         settings_bind.settingsBtnEdit.setOnClickListener(this)
         settings_bind.settingsBtnLogout.setOnClickListener(this)
         settings_bind.settingsEdtAddressList.setOnClickListener (this)
+        settings_bind.settingsIvDeleteAcout.setOnClickListener(this)
     }
 
     fun GetUserDetailSettings(){
@@ -105,6 +107,23 @@ class Settings : Basic(), View.OnClickListener {
                 val intent=Intent(this,Address::class.java)
                 startActivity(intent)
             }
+            R.id.settings_iv_deleteAcout -> {
+               FireStore().deleteUserFormFireStore(this)
+            }
         }
     }
+    fun failedDeleteuser(){
+        Toast.makeText(this,"delete not success",Toast.LENGTH_LONG).show()
+    }
+   fun successDeleteAcount(){
+       var user=FirebaseAuth.getInstance().currentUser
+           user?.delete()?.addOnCompleteListener {
+               HideDialog()
+               FirebaseAuth.getInstance().signOut()
+               val intent=Intent(this,Login::class.java)
+               intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TASK or  Intent.FLAG_ACTIVITY_NEW_TASK
+               startActivity(intent)
+               finish()
+           }
+   }
 }
