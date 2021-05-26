@@ -83,7 +83,7 @@ class AddProduct : Basic(), View.OnClickListener{
     }
 
     private fun SendDataAddProductToFireStore() {
-        ShowDialog(resources.getString(R.string.WaitToUpadteAndSendPic))
+        ShowDialog(resources.getString(R.string.WaitToUpadteAndSendPicProduct))
         if (videouri_addproduct!=null&&imageuri_addproduct==null){
             FireStore().UploadvideoToCloudStore(this, videouri_addproduct!!,ConstVal.AddProductVideo)
             Toast.makeText(this,videouri_addproduct.toString(),Toast.LENGTH_SHORT).show()

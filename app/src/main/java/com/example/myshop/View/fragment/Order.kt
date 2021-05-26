@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,11 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myshop.FireStore.FireStore
 import com.example.myshop.R
 import com.example.myshop.adapter.orderAdapter
-import com.example.myshop.databinding.FragmentDashbordBinding
 import com.example.myshop.databinding.FragmentOrderBinding
-import com.example.myshop.databinding.ItemOrderBinding
 import com.example.myshop.model.OrderDataClass
-import java.util.ArrayList
+import java.util.*
 
 
 class Order : Fragment() {
@@ -66,7 +62,7 @@ lateinit var order:FragmentOrderBinding
           order.orderAnim.visibility=View.GONE
           order.orderSwip.visibility=View.VISIBLE
           order.orderRecyclerview.visibility=View.VISIBLE
-
+          var size_notifiaction=myorderlist.size
           order.orderRecyclerview.apply {
 
               var adapter_order = orderAdapter(requireContext())

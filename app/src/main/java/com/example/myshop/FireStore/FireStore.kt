@@ -22,7 +22,7 @@ class FireStore {
 
     var myFirestore = FirebaseFirestore.getInstance()
 
-    fun deleteUserFormFireStore(settings: Settings){
+    fun deleteUserFormFireStore(settings: Settings) {
         myFirestore.collection(ConstVal.Collection_Users).document(GetCurrentUserID())
             .delete().addOnSuccessListener {
                 settings.successDeleteAcount()
@@ -39,11 +39,11 @@ class FireStore {
             .set(userinfo, SetOptions.merge())
             .addOnCompleteListener {
                 it.addOnSuccessListener {
-                    when(activity){
-                        is Register ->{
+                    when (activity) {
+                        is Register -> {
                             activity.RegisterSuccess()
                         }
-                        is Login->{
+                        is Login -> {
                             activity.HideDialog()
                             activity.successRegsiterByfaceBook(userinfo)
                         }
@@ -52,11 +52,11 @@ class FireStore {
                 }
             }
             .addOnFailureListener {
-                when(activity){
-                    is Register-> {
+                when (activity) {
+                    is Register -> {
                         activity.RegisterFailed()
                     }
-                    is Login ->{
+                    is Login -> {
                         activity.HideDialog()
                         activity.failedToLogin(it)
                     }
@@ -175,9 +175,15 @@ class FireStore {
                 }
             }
     }
+
     fun UploadvideoToCloudStore(activity: Activity, Videouri: Uri, videoType: String) {
 
-        val sref = FirebaseStorage.getInstance().reference.child(videoType + System.currentTimeMillis() + "." + ConstVal.GetFileExtention(activity, Videouri))
+        val sref = FirebaseStorage.getInstance().reference.child(
+            videoType + System.currentTimeMillis() + "." + ConstVal.GetFileExtention(
+                activity,
+                Videouri
+            )
+        )
         sref.putFile(Videouri)
 
             .addOnSuccessListener {
@@ -599,6 +605,66 @@ class FireStore {
     }
 
     fun GetAllSoldMyProduct(soldfragment: sold) {
+        myFirestore.collection(ConstVal.Collection_SoldProduct)
+            .whereEqualTo(ConstVal.user_id_seller, GetCurrentUserID())
+            .get().addOnSuccessListener {
+                val myproductSoldList = ArrayList<SoldDataClass>()
+                for (i in it) {
+                    val soldOneitem = i.toObject(SoldDataClass::class.java)
+                    soldOneitem.order_id = i.id
+                    myproductSoldList.add(soldOneitem)
+                }
+                soldfragment.successgetAllproductSold(myproductSoldList)
+
+
+            }
+            .addOnFailureListener {
+                soldfragment.failedgetAllsoldOwnList()
+            }
+    }
+
+
+    fun getAllorderMain(activity: Main) {
+        myFirestore.collection(ConstVal.Collection_Order)
+            .whereEqualTo(ConstVal.user_id_buyer, GetCurrentUserID())
+            .get()
+
+            .addOnSuccessListener { order ->
+                val Myorderlist: ArrayList<OrderDataClass> = ArrayList()
+                for (i in order.documents) {
+                    val Myorder = i.toObject(OrderDataClass::class.java)
+                    Myorder?.order_id = i.id
+                    Myorderlist.add(Myorder!!)
+                }
+                activity.successGetAllOrder(Myorderlist)
+            }
+            .addOnFailureListener {
+                activity.failedGetAllorder()
+            }
+    }
+
+    fun GetMyProductmain(activity: Main) {
+        myFirestore.collection(ConstVal.Collection_product)
+            .whereEqualTo(ConstVal.user_id_seller, GetCurrentUserID())
+            .get()
+            .addOnCompleteListener {
+                it.addOnSuccessListener { Products ->
+                    val MyProductList: ArrayList<ProductDataClass> = ArrayList()
+                    for (i in Products.documents) {
+                        val Myproduct = i.toObject(ProductDataClass::class.java)
+                        Myproduct?.product_id = i.id
+                        MyProductList.add(Myproduct!!)
+                    }
+                    activity.successGetMyProductFromFireStore(MyProductList)
+                }
+            }
+            .addOnFailureListener {
+                activity.failedgetproduct()
+
+            }
+    }
+
+    fun GetAllSoldMyProductmain(soldfragment: Main) {
         myFirestore.collection(ConstVal.Collection_SoldProduct)
             .whereEqualTo(ConstVal.user_id_seller, GetCurrentUserID())
             .get().addOnSuccessListener {

@@ -164,6 +164,7 @@
     <string name="facebook_app_id" translatable="false">626846374938550</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb626846374938550</string>
     <string name="deleteAcount">Delete your Acount</string>
+    <string name="WaitToUpadteAndSendPicProduct">Please wait for sending your product Detail</string>
 
 
 </resources>

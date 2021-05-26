@@ -4,16 +4,15 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myshop.FireStore.FireStore
-import com.example.myshop.model.ProductDataClass
 import com.example.myshop.R
 import com.example.myshop.View.BasicFragment
 import com.example.myshop.View.activity.AddProduct
 import com.example.myshop.adapter.Product_adapter
 import com.example.myshop.databinding.FragmentProductBinding
+import com.example.myshop.model.ProductDataClass
 
 class ProductFragment : BasicFragment() {
 
@@ -76,8 +75,6 @@ class ProductFragment : BasicFragment() {
         hideshimer()
 
             if (MyProductList.size == 0) {
-
-                show_snackbar(resources.getString(R.string.swipdownTorefresh),true)
                 ProductBinding.ProductNoData.visibility = View.VISIBLE
                 ProductBinding.noaddedProduct.visibility = View.VISIBLE
                 ProductBinding.ProdcutRecycler.visibility = View.GONE

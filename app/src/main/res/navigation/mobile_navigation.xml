@@ -12,18 +12,18 @@
         tools:layout="@layout/fragment_dashbord" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_product"
         android:name="com.example.myshop.View.fragment.ProductFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_product" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_order"
         android:name="com.example.myshop.View.fragment.Order"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_order" />
     <fragment
-        android:id="@+id/sold2"
+        android:id="@+id/navigation_sold"
         android:name="com.example.myshop.View.fragment.sold"
         android:label="@string/sold"
         tools:layout="@layout/fragment_sold" />

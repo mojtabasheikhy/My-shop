@@ -7,15 +7,15 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_product"
         android:icon="@drawable/product_ic_selector"
         android:title="@string/title_dashboard" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_order"
         android:icon="@drawable/order_ic_selector"
         android:title="@string/title_notifications" />
-    <item android:id="@+id/sold2"
+    <item android:id="@+id/navigation_sold"
         android:icon="@drawable/sold_selector"
         android:title="@string/sold"/>
 
