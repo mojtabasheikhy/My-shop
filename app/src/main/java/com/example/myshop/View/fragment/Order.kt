@@ -27,6 +27,9 @@ lateinit var order:FragmentOrderBinding
         order= FragmentOrderBinding.inflate(inflater,container,false)
         order.orderSwip.setOnRefreshListener {
             getOrderList()
+            var random=(0..5).random()
+            var color= arrayOf(R.color.Golden,R.color.blue,R.color.pink,R.color.green,R.color.orange,R.color.teal_700)
+            order.orderSwip.setColorSchemeResources(color[random])
             order.orderTextNodata.visibility=View.GONE
             order.orderAnim.visibility=View.GONE
             order.orderRecyclerview.visibility=View.VISIBLE

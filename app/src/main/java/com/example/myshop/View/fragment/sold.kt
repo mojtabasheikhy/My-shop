@@ -1,11 +1,11 @@
 package com.example.myshop.View.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myshop.FireStore.FireStore
@@ -25,6 +25,9 @@ class sold : Fragment() {
         // Inflate the layout for this fragment
         soldBinding = FragmentSoldBinding.inflate(layoutInflater, container, false)
         soldBinding.soldSwip.setOnRefreshListener {
+            var random=(0..5).random()
+            var color= arrayOf(R.color.Golden,R.color.blue,R.color.pink,R.color.green,R.color.orange,R.color.teal_700)
+            soldBinding.soldSwip.setColorSchemeResources(color[random])
             GetallSoldItem()
             showShimer()
             soldBinding.soldRecycler.visibility=View.VISIBLE

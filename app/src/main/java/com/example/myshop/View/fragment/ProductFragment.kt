@@ -32,6 +32,9 @@ class ProductFragment : BasicFragment() {
 
         ProductBinding = FragmentProductBinding.inflate(inflater, container, false)
         ProductBinding.productSwiprefresh.setOnRefreshListener {
+            var random=(0..5).random()
+            var color= arrayOf(R.color.Golden,R.color.blue,R.color.pink,R.color.green,R.color.orange,R.color.teal_700)
+            ProductBinding.productSwiprefresh.setColorSchemeResources(color[random])
             ProductBinding.ProductNoData.visibility = View.GONE
             ProductBinding.noaddedProduct.visibility = View.GONE
             ProductBinding.ProdcutRecycler.visibility = View.VISIBLE
