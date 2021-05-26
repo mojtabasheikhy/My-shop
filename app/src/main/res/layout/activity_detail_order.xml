@@ -22,7 +22,7 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="45dp"
             android:background="@drawable/main_background"
             app:titleTextColor="@color/white"
             android:id="@+id/detailOrder_toolbar"/>

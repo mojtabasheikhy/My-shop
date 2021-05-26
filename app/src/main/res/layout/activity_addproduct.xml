@@ -13,6 +13,7 @@
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
+            android:background="#F0F0F1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -25,7 +26,7 @@
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/Addproduct_toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="45dp"
                     android:background="@drawable/main_background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -35,16 +36,16 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="240dp"
+                    android:layout_height="450dp"
                     android:id="@+id/add_product_child"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Addproduct_toolbar">
 
-                    <ImageView
+                    <com.github.chrisbanes.photoview.PhotoView
                         android:id="@+id/addproduct_iv_show"
                         android:layout_width="0dp"
-                        android:layout_height="240dp"
+                        android:layout_height="450dp"
                         android:foreground="?attr/selectableItemBackground"
                         android:scaleType="fitCenter"
                         android:src="@color/second_text_color"
@@ -102,7 +103,7 @@
                     <com.devbrackets.android.exomedia.ui.widget.VideoView
                         android:id="@+id/addProduct_video_view"
                         android:layout_width="0dp"
-                        android:layout_height="240dp"
+                        android:layout_height="450dp"
                         android:visibility="gone"
                         app:videoScale="fitCenter"
                         app:layout_constraintEnd_toEndOf="parent"

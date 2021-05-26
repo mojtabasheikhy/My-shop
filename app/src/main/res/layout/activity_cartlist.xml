@@ -30,7 +30,7 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/cartlist_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:background="@drawable/main_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
