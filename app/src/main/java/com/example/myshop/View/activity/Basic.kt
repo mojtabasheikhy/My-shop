@@ -2,10 +2,10 @@ package com.example.myshop.View.activity
 
 import android.app.Dialog
 import android.graphics.Typeface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.myshop.R
@@ -54,7 +54,7 @@ open class Basic : AppCompatActivity() {
     }
     fun CheckDoubleBackToExit(view: View) {
         if (DoubleBackClickToExit + 2000 > System.currentTimeMillis()) {
-            super.onBackPressed()
+            finish()
         } else {
 
             Snackbar.make(findViewById(android.R.id.content),resources.getString(R.string.backtoExit),Snackbar.LENGTH_SHORT)

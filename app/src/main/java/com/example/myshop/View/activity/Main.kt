@@ -12,7 +12,6 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.myshop.FireStore.FireStore
 import com.example.myshop.R
 import com.example.myshop.Utils.ConstVal
@@ -66,10 +65,11 @@ class Main : Basic(),
         setupActionBarWithNavController(navController!!, appbar_configurration)
 
 
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 
-        navView.setupWithNavController(navController!!)
+
         navView.setOnNavigationItemSelectedListener(this)
         TourGuide()
 
@@ -259,6 +259,7 @@ class Main : Basic(),
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navigation_order -> {
+
                 badageDrawable_order?.clearNumber()
                 badageDrawable_order?.setVisible(false)
                 navController?.navigate(R.id.navigation_order)
@@ -270,15 +271,18 @@ class Main : Basic(),
                 return true
             }
             R.id.navigation_product -> {
+
                 badageDrawable_ownproduct?.clearNumber()
                 badageDrawable_ownproduct?.setVisible(false)
                 navController?.navigate(R.id.navigation_product)
                 return true
             }
             R.id.navigation_sold -> {
+
                 badageDrawable_sold?.clearNumber()
                 badageDrawable_sold?.setVisible(false)
                 navController?.navigate(R.id.navigation_sold)
+
                 return true
             }
             else -> {
