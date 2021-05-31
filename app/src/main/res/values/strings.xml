@@ -165,6 +165,15 @@
     <string name="fb_login_protocol_scheme" translatable="false">fb626846374938550</string>
     <string name="deleteAcount">Delete your Acount</string>
     <string name="WaitToUpadteAndSendPicProduct">Please wait for sending your product Detail</string>
+    <string name="English">English</string>
+
+    <string-array name="lanquages">
+        <item>English</item>
+        <item>Persian</item>
+    </string-array>
+
+    <string name="ApiKey_google" translatable="false">AIzaSyBAWL7kLvkD61tcz3o2kXIJ_aR7mhBSFPY</string>
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>

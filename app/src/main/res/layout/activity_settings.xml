@@ -2,9 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
 
     <ScrollView
         android:layout_width="match_parent"
+        android:layout_above="@id/settings_Btn_logout"
+        android:id="@+id/settings_root_scroll"
         android:layout_height="match_parent"
         android:background="#FAFAFA">
 
@@ -93,6 +99,7 @@
                 android:id="@+id/settings_mat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:layout_below="@id/settings_btn_edit"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
@@ -284,24 +291,28 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/settings_Btn_logout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/settings_mat"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/main_background"
-                android:drawableEnd="@drawable/ic_exit"
-                android:drawablePadding="3dp"
-                android:drawableTint="@color/white"
-                android:fontFamily="@font/iranyekanwebbold"
-                android:gravity="start"
-                android:padding="5dp"
-                android:text="@string/logout"
-                android:textColor="@color/white"
-                app:backgroundTint="@null"
-                app:cornerRadius="10dp" />
+
         </RelativeLayout>
-    </ScrollView>
+    </ScrollView>   <com.google.android.material.button.MaterialButton
+        android:id="@+id/settings_Btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_centerHorizontal="true"
+
+        android:background="@drawable/main_background"
+        android:drawableEnd="@drawable/ic_exit"
+        android:drawablePadding="3dp"
+        android:drawableTint="@color/white"
+        android:fontFamily="@font/iranyekanwebbold"
+        android:gravity="start"
+        android:layout_alignParentBottom="true"
+        android:padding="5dp"
+        android:text="@string/logout"
+        android:textColor="@color/white"
+        app:backgroundTint="@null"
+        app:cornerRadius="10dp" />
+
+    </RelativeLayout>
+
 </layout>

@@ -3,10 +3,13 @@ package com.example.myshop.View.activity
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.myshop.FireStore.FireStore
@@ -23,18 +26,46 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import java.util.*
 
 
-class Login : Basic(), View.OnClickListener {
+class Login : Basic(), View.OnClickListener, AdapterView.OnItemClickListener {
     lateinit var login_binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
-    var callbackManager: CallbackManager?=null
-    var intentgoogle:Intent? = null
+    var callbackManager: CallbackManager? = null
+    var language:Array<String>? = null
+    var intentgoogle: Intent? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         login_binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+
         setOnClickListener()
+        chose_languages()
+
+    }
+
+
+    private fun loadLanguages() {
+        language = resources.getStringArray(R.array.lanquages)
+        var arrayadapter = ArrayAdapter(this, R.layout.languages_dropdown, language!!)
+        login_binding.loginChoseLan.setAdapter(arrayadapter)
+        login_binding.loginChoseLan.setOnItemClickListener(this)
+
+        var getlangues=getSharedPreferences(ConstVal.MySharePref, Context.MODE_PRIVATE)
+        var languagesValues=getlangues.getString(ConstVal.Language,"en")
+        Toast.makeText(this, languagesValues, Toast.LENGTH_SHORT).show()
+        if (languagesValues.equals("en")){
+            loadLanguage("en")
+
+
+        }
+        else{
+            loadLanguage("fa")
+            login_binding.loginChoseLan.completionHint = language!![1]
+
+
+        }
     }
 
     fun setOnClickListener() {
@@ -46,7 +77,6 @@ class Login : Basic(), View.OnClickListener {
         login_binding.LoginIvFacebook.setOnClickListener(this)
 
     }
-
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -92,6 +122,13 @@ class Login : Basic(), View.OnClickListener {
                 }
         }
     }
+
+    fun chose_languages() {
+
+
+
+    }
+
 
     fun Validation_login(): Boolean {
         val Email_Edt = login_binding.LoginEdtEmail
@@ -161,6 +198,12 @@ class Login : Basic(), View.OnClickListener {
         })
     }
 
+    override fun onResume() {
+        loadLanguages()
+        super.onResume()
+
+    }
+
 
     private fun handleFacebookAccessToken(token: AccessToken) {
         val credential = FacebookAuthProvider.getCredential(token.token)
@@ -201,7 +244,7 @@ class Login : Basic(), View.OnClickListener {
     ) {
         super.onActivityResult(requestCode, resultCode, data)
         Log.e("sd", "2")
-        if (requestCode==ConstVal.googleLogin){
+        if (requestCode == ConstVal.googleLogin) {
             Log.e("sd", "2.5")
 
             var acoutnTask = GoogleSignIn.getSignedInAccountFromIntent(data)
@@ -213,12 +256,12 @@ class Login : Basic(), View.OnClickListener {
                 firebaseSignUpGoogle(acount)
 
             } catch (E: java.lang.Exception) {
-                Log.e("sd",E.message.toString())
+                Log.e("sd", E.message.toString())
             }
-            if(resultCode== Activity.RESULT_CANCELED){
+            if (resultCode == Activity.RESULT_CANCELED) {
                 Log.e("sd", "cancel")
             }
-            if(resultCode== Activity.RESULT_FIRST_USER){
+            if (resultCode == Activity.RESULT_FIRST_USER) {
                 Log.e("sd", "firs")
             }
         }
@@ -226,7 +269,7 @@ class Login : Basic(), View.OnClickListener {
 
     }
 
-    fun successRegsiterByfaceBook(userinf:user) {
+    fun successRegsiterByfaceBook(userinf: user) {
 
         if (userinf.profile_Compelete == 0) {
             val intent_com = Intent(this, CompleteProfile::class.java)
@@ -247,7 +290,7 @@ class Login : Basic(), View.OnClickListener {
 
 
     fun googleLogin() {
-        Log.e("sd","1")
+        Log.e("sd", "1")
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(resources.getString(R.string.default_web_client_id))
             .requestEmail()
@@ -257,10 +300,11 @@ class Login : Basic(), View.OnClickListener {
         auth = FirebaseAuth.getInstance()
         intentgoogle = GoogleSignINclient.signInIntent
         setResult(Activity.RESULT_OK)
-        startActivityForResult(intentgoogle,ConstVal.googleLogin)
-     }
+        startActivityForResult(intentgoogle, ConstVal.googleLogin)
+    }
+
     private fun firebaseSignUpGoogle(acount: GoogleSignInAccount?) {
-        Log.e("sd","4")
+        Log.e("sd", "4")
 
 
         var credential = GoogleAuthProvider.getCredential(acount?.idToken, null)
@@ -269,7 +313,7 @@ class Login : Basic(), View.OnClickListener {
 
             .addOnCompleteListener {
                 if (it.isSuccessful()) {
-                    Log.e("sd","5")
+                    Log.e("sd", "5")
                     // Sign in success, update UI with the signed-in user's information
                     var user = auth.getCurrentUser()
 
@@ -299,5 +343,49 @@ class Login : Basic(), View.OnClickListener {
         super.onBackPressed()
         setResult(Activity.RESULT_CANCELED)
     }
+
+
+     fun loadLanguage(Mylocale:String){
+         var LocaleSelected = Locale(Mylocale)
+         Locale.setDefault(LocaleSelected)
+         var Configuration = Configuration()
+         Configuration.locale=LocaleSelected
+         baseContext.resources.updateConfiguration(Configuration,baseContext.resources.displayMetrics)
+     }
+
+    fun setlocale(Mylocale: String) {
+        var LocaleSelected = Locale(Mylocale)
+        Locale.setDefault(LocaleSelected)
+        var Configuration = Configuration()
+        Configuration.locale=LocaleSelected
+
+        baseContext.resources.updateConfiguration(Configuration,baseContext.resources.displayMetrics)
+        var shareprf=getSharedPreferences(ConstVal.MySharePref, Context.MODE_PRIVATE )
+        var editor=shareprf.edit()
+        editor.putString(ConstVal.Language,Mylocale)
+        editor.apply()
+
+    }
+
+    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        when(position){
+            0 -> {
+                setlocale("en")
+
+                var intent=Intent(this,Login::class.java)
+                startActivity(intent)
+                finish()
+
+            }
+            1 -> {
+                setlocale("fa")
+                var intent=Intent(this,Login::class.java)
+                startActivity(intent)
+                finish()
+
+            }
+        }
+    }
+
 
 }

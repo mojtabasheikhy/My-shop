@@ -28,8 +28,7 @@ import uk.co.samuelwall.materialtaptargetprompt.extras.focals.RectanglePromptFoc
 import java.util.*
 
 
-class Main : Basic(),
-    BottomNavigationView.OnNavigationItemSelectedListener {
+class Main : Basic(), BottomNavigationView.OnNavigationItemSelectedListener {
 
     var badageDrawable_order: BadgeDrawable? = null
     var badageDrawable_sold: BadgeDrawable? = null

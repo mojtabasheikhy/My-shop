@@ -16,8 +16,10 @@ object ConstVal {
 
     val fristLoginYes: String="firstLoginyes"
 
+
     //SharePrefName
     val fristLogin: String?="firstLogin"
+    val Language: String?="yourLanques"
 
     //collections Name
     const val Collection_Users = "Users"
@@ -44,6 +46,7 @@ object ConstVal {
     const val UserNameKeyPref = "username"
 
     //request Code
+    const val requestCode_AccessLocation=1008
     const val RequestCode_Gallery = 1002
     const val RequestCode_Permission = 1003
     const val ActivityStartCode_selectAddress =1004

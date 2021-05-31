@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "585661446368",
+    "firebase_url": "https://myshop2-c1df9-default-rtdb.firebaseio.com",
     "project_id": "myshop2-c1df9",
     "storage_bucket": "myshop2-c1df9.appspot.com"
   },
@@ -14,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "585661446368-421vs0cmbbhqa7s5o16s78v185dbg7b1.apps.googleusercontent.com",
+          "client_id": "585661446368-vhmpkeigp1imtds1bc62kg35i8ms4qbt.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.myshop",
-            "certificate_hash": "665034a3298209a9b9e7026cfef4d1d483d91211"
+            "certificate_hash": "3a995f080b78b7e2efbee78f0d605e3e4f25358f"
           }
         },
         {

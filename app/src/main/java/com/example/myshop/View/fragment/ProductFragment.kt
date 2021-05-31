@@ -18,6 +18,7 @@ class ProductFragment : BasicFragment() {
 
 
     lateinit var ProductBinding: FragmentProductBinding
+    var productAdapter:Product_adapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -83,11 +84,11 @@ class ProductFragment : BasicFragment() {
                 ProductBinding.ProdcutRecycler.visibility = View.GONE
             }
             if (MyProductList.size > 0) {
-                var productAdapter =Product_adapter(requireContext(),this)
-                productAdapter.setdata(MyProductList)
-                ProductBinding.ProductNoData.visibility = View.GONE
-                ProductBinding.noaddedProduct.visibility = View.GONE
-                ProductBinding.ProdcutRecycler.apply {
+                productAdapter = Product_adapter(requireContext(),this)
+                productAdapter?.setdata(MyProductList)
+                ProductBinding?.ProductNoData.visibility = View.GONE
+                ProductBinding?.noaddedProduct.visibility = View.GONE
+                ProductBinding?.ProdcutRecycler.apply {
                     setHasFixedSize(true)
                     visibility = View.VISIBLE
                     layoutManager =
@@ -125,15 +126,16 @@ class ProductFragment : BasicFragment() {
 
     }
 
-    fun showalertDelete(productId: String) {
-        var alert = ShowAlertDialog(
-            resources.getString(R.string.deleteitem),
-            resources.getString(R.string.Are_you_sure), R.drawable.ic_delete
-        )
+    fun showalertDelete(productId: String,position: Int) {
+        var alert = ShowAlertDialog(resources.getString(R.string.deleteitem), resources.getString(R.string.Are_you_sure), R.drawable.ic_delete)
         alert.setPositiveButton(resources.getString(R.string.yes),
             { dialog: DialogInterface?, which: Int ->
                 //TODO delete item
+                productAdapter?.notifyItemRemoved(position)
+                productAdapter?.notifyDataSetChanged()
                 FireStore().deleteMyProduct(this, productId)
+
+
             })
         alert.setNegativeButton(resources.getString(R.string.no),
             { dialog: DialogInterface?, which: Int ->
@@ -148,8 +150,8 @@ class ProductFragment : BasicFragment() {
 
     }
 
-    fun deleteItem(productId: String) {
-        showalertDelete(productId)
+    fun deleteItem(productId: String,position: Int) {
+        showalertDelete(productId,position)
     }
 
     fun failedgetproduct() {

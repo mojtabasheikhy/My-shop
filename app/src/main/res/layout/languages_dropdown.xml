@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textview.MaterialTextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:text="@string/English"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="3dp"
+    android:padding="10dp"
+    android:textSize="14sp"
+    android:layout_height="wrap_content"
+    style="@style/viewParent.headerText"
+    />

@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myshop.Utils.ConstVal
-import com.example.myshop.model.ProductDataClass
 import com.example.myshop.Utils.product_diff_util
 import com.example.myshop.View.activity.DetailProduct
 import com.example.myshop.View.fragment.ProductFragment
 import com.example.myshop.databinding.ItemProductBinding
+import com.example.myshop.model.ProductDataClass
 
 class Product_adapter(var context: android.content.Context,var fragment:ProductFragment) : RecyclerView.Adapter<Product_adapter.ProductViewholder>() {
     var ProductList = emptyList<ProductDataClass>()
@@ -29,16 +29,22 @@ class Product_adapter(var context: android.content.Context,var fragment:ProductF
     override fun getItemCount(): Int = ProductList.size
 
     override fun onBindViewHolder(holder: ProductViewholder, position: Int) {
+
+
         holder.ProductItem.product = ProductList[position]
         holder.ProductItem.productDelete.setOnClickListener{
             //TODO show alertDialog
-            fragment.deleteItem(ProductList[position].product_id)
+
+
+            fragment.deleteItem(ProductList[position].product_id,position)
+
         }
         holder.ProductItem.productMatrialroot.setOnClickListener {
              val intent_detail=Intent(context,DetailProduct::class.java)
              intent_detail.putExtra(ConstVal.putExtera_detail_product,ProductList[position].product_id)
              intent_detail.putExtra(ConstVal.PutExtera_detail_userid,ProductList[position].user_id_Seller)
              context.startActivity(intent_detail)
+
             
         }
     }

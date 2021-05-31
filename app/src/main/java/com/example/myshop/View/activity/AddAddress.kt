@@ -1,10 +1,15 @@
 package com.example.myshop.View.activity
 
+import android.Manifest
 import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.myshop.FireStore.FireStore
 import com.example.myshop.R
@@ -13,63 +18,108 @@ import com.example.myshop.databinding.ActivityAddAddressBinding
 import com.example.myshop.model.AddressDataClass
 
 class AddAddress : Basic(), View.OnClickListener {
-    var addaddressbind: ActivityAddAddressBinding?=null
-    var getExteraDetail:AddressDataClass?=null
+    var addaddressbind: ActivityAddAddressBinding? = null
+    var getExteraDetail: AddressDataClass? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         addaddressbind = DataBindingUtil.setContentView(this, R.layout.activity_add_address)
-        addaddressbind?.AddadsSendBtn?.setOnClickListener(this)
-        addaddressbind?.AddadsHome?.isChecked = true
-       if (intent.hasExtra(ConstVal.addressDetailExtera)){
-          getExteraDetail = intent.getParcelableExtra(ConstVal.addressDetailExtera)
-           setdata()
-       }
-       addaddressbind?.AddadsChoseType?.setOnCheckedChangeListener {_, isChecked ->
-              if (isChecked == R.id.Addads_other){
-                  addaddressbind?.addadsLytOtherdetail?.visibility=View.VISIBLE
-                  addaddressbind?.addadsOtherdetail?.visibility=View.VISIBLE
-              }
-           else{        addaddressbind?.addadsLytOtherdetail?.visibility=View.GONE
-                  addaddressbind?.addadsOtherdetail?.visibility=View.GONE
-
-              }
-
-       }
+        setonclickListener()
 
 
         actionbarSetup()
     }
 
-    fun successUpdate(){
-        Toast.makeText(this, resources.getString(R.string.SuccessWhenUpadteData),Toast.LENGTH_SHORT).show()
-       setResult(Activity.RESULT_OK)
+    fun setonclickListener() {
+        addaddressbind?.AddadsSendBtn?.setOnClickListener(this)
+        addaddressbind?.AddadsHome?.isChecked = true
+        if (intent.hasExtra(ConstVal.addressDetailExtera)) {
+            getExteraDetail = intent.getParcelableExtra(ConstVal.addressDetailExtera)
+            setdata()
+        }
+        addaddressbind?.AddadsChoseType?.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked == R.id.Addads_other) {
+                addaddressbind?.addadsLytOtherdetail?.visibility = View.VISIBLE
+                addaddressbind?.addadsOtherdetail?.visibility = View.VISIBLE
+            } else {
+                addaddressbind?.addadsLytOtherdetail?.visibility = View.GONE
+                addaddressbind?.addadsOtherdetail?.visibility = View.GONE
+
+            }
+
+        }
+        addaddressbind?.AddadsLytAds?.setEndIconOnClickListener{
+              CheckLocationPermisson()
+
+        }
+
+    }
+
+    private fun CheckLocationPermisson() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        ) {
+            GiveLocation()
+        } else {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), ConstVal.requestCode_AccessLocation)
+        }
+    }
+
+    private fun GiveLocation() {
+     startActivity(Intent(this,MapsActivity::class.java))
+
+    }
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == ConstVal.requestCode_AccessLocation) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                GiveLocation()
+            } else {
+                ShowSnackbar(resources.getString(R.string.pleaseAllowPermision), false)
+            }
+        }
+    }
+
+
+
+    fun successUpdate() {
+        Toast.makeText(
+            this,
+            resources.getString(R.string.SuccessWhenUpadteData),
+            Toast.LENGTH_SHORT
+        ).show()
+        setResult(Activity.RESULT_OK)
         finish()
     }
-    fun failed(){
-        Toast.makeText(this, resources.getString(R.string.errorWhenUpadteData),Toast.LENGTH_SHORT).show()
+
+    fun failed() {
+        Toast.makeText(this, resources.getString(R.string.errorWhenUpadteData), Toast.LENGTH_SHORT)
+            .show()
 
     }
-    private fun setdata() {
-        if (getExteraDetail!=null){
-            addaddressbind?.AddadressToolbar?.title=resources.getString(R.string.edit)
 
-            addaddressbind?.addAdsFullname?.setText( getExteraDetail!!.fullname)
-            addaddressbind?.AddadsPhonenumber?.setText( getExteraDetail!!.phonenumber.toString())
-            addaddressbind?.AddadsAddress?.setText( getExteraDetail!!.address)
-            addaddressbind?.addadsZipcode?.setText( getExteraDetail!!.zipcode.toString())
-            addaddressbind?.addadsAdditional?.setText( getExteraDetail!!.additional_note)
-            if (getExteraDetail!!.typeAddress.equals(ConstVal.Home)){
-                addaddressbind?.AddadsHome?.isChecked=true
+    private fun setdata() {
+        if (getExteraDetail != null) {
+            addaddressbind?.AddadressToolbar?.title = resources.getString(R.string.edit)
+
+            addaddressbind?.addAdsFullname?.setText(getExteraDetail!!.fullname)
+            addaddressbind?.AddadsPhonenumber?.setText(getExteraDetail!!.phonenumber.toString())
+            addaddressbind?.AddadsAddress?.setText(getExteraDetail!!.address)
+            addaddressbind?.addadsZipcode?.setText(getExteraDetail!!.zipcode.toString())
+            addaddressbind?.addadsAdditional?.setText(getExteraDetail!!.additional_note)
+            if (getExteraDetail!!.typeAddress.equals(ConstVal.Home)) {
+                addaddressbind?.AddadsHome?.isChecked = true
+            } else if (getExteraDetail!!.typeAddress.equals(ConstVal.office)) {
+                addaddressbind?.AddadsOffice?.isChecked = true
             }
-           else if (getExteraDetail!!.typeAddress.equals(ConstVal.office)){
-                addaddressbind?.AddadsOffice?.isChecked=true
-            }
-            if (getExteraDetail!!.typeAddress.equals(ConstVal.other)){
-                addaddressbind?.AddadsOther?.isChecked=true
+            if (getExteraDetail!!.typeAddress.equals(ConstVal.other)) {
+                addaddressbind?.AddadsOther?.isChecked = true
                 if (getExteraDetail!!.otherDetail.isNotEmpty()) {
-                    addaddressbind?.AddadsOther?.isChecked=true
+                    addaddressbind?.AddadsOther?.isChecked = true
                     addaddressbind?.addadsOtherdetail?.setText(getExteraDetail!!.otherDetail)
-                    addaddressbind?.addadsOtherdetail?.visibility=View.VISIBLE
+                    addaddressbind?.addadsOtherdetail?.visibility = View.VISIBLE
                 }
             }
         }
@@ -130,6 +180,9 @@ class AddAddress : Basic(), View.OnClickListener {
                     SendDataAddress()
                 }
             }
+            R.id.Addads_lyt_ads ->{
+
+            }
         }
     }
 
@@ -159,11 +212,11 @@ class AddAddress : Basic(), View.OnClickListener {
             zipcode.toInt(),
             Address_Type
         )
-        if(getExteraDetail!=null && getExteraDetail!!.address_id.isNotEmpty()){
-           FireStore().UpdateAddressDetail(this,address_obj,getExteraDetail!!.address_id)
+        if (getExteraDetail != null && getExteraDetail!!.address_id.isNotEmpty()) {
+            FireStore().UpdateAddressDetail(this, address_obj, getExteraDetail!!.address_id)
+        } else {
+            FireStore().addAddressToFireStore(this, address_obj)
         }
-        else{
-        FireStore().addAddressToFireStore(this,address_obj)}
     }
 
     fun successAddAddress() {
@@ -176,9 +229,10 @@ class AddAddress : Basic(), View.OnClickListener {
         Toast.makeText(this, resources.getString(R.string.failedaddAddress), Toast.LENGTH_SHORT)
             .show()
     }
+
     override fun onDestroy() {
         super.onDestroy()
-        addaddressbind=null
+        addaddressbind = null
     }
 
 }

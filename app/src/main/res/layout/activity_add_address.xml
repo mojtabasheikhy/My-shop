@@ -80,10 +80,11 @@
                     app:boxCornerRadiusBottomStart="10dp"
                     app:boxCornerRadiusTopEnd="10dp"
                     app:boxCornerRadiusTopStart="10dp"
+                    app:endIconDrawable="@drawable/ic_location"
                     android:layout_marginTop="8dp"
                     app:hintTextColor="@color/text_color"
                     app:boxStrokeColor="@color/second_text_color"
-
+                    app:endIconMode="custom"
 
                     >
 
@@ -95,7 +96,7 @@
                         android:layout_height="match_parent"
                         android:fontFamily="@font/iranyekanweblight"
                         android:layout_width="match_parent"
-                        android:drawableEnd="@drawable/ic_location"
+
                         android:drawableTint="@color/second_text_color"
                         android:hint="@string/address"
                         android:inputType="textMultiLine"
