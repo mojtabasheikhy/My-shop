@@ -14,6 +14,8 @@ import de.hdodenhof.circleimageview.CircleImageView
 object ConstVal {
 
 
+    val Getlat: String = "getlat"
+    const val getData="getData"
     val fristLoginYes: String="firstLoginyes"
 
 

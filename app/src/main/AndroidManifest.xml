@@ -38,6 +38,7 @@
 
         <activity
             android:name=".View.activity.MapsActivity"
+            android:theme="@style/Splash_Theme"
             android:label="@string/title_activity_maps"/>
         <activity
             android:name=".View.activity.Splash_Screen"

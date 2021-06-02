@@ -165,6 +165,8 @@
     <string name="deleteAcount">پاک کردن حساب کاربری</string>
     <string name="WaitToUpadteAndSendPicProduct">لطفا برای ارسال  مشخصات کالا منتظر بمانید </string>
     <string name="English">English</string>
+    <string name="The_displaye_location_is_correct">مکان من </string>
+    <string name="findlocation">Find My location</string>
 
 
 </resources>

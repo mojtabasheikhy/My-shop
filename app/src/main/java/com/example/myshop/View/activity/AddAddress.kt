@@ -2,7 +2,6 @@ package com.example.myshop.View.activity
 
 import android.Manifest
 import android.app.Activity
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.TextUtils
@@ -20,12 +19,18 @@ import com.example.myshop.model.AddressDataClass
 class AddAddress : Basic(), View.OnClickListener {
     var addaddressbind: ActivityAddAddressBinding? = null
     var getExteraDetail: AddressDataClass? = null
+    var activityResultContracts_location = registerForActivityResult(MapsActivity.resulatBack()) {
+        val city = it.arrayList[1]
+        val country = it.arrayList[2]
+        val postalCode = it.arrayList[3]
+        addaddressbind?.AddadsAddress?.setText(country+city)
+        addaddressbind?.addadsZipcode?.setText(postalCode)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         addaddressbind = DataBindingUtil.setContentView(this, R.layout.activity_add_address)
         setonclickListener()
-
-
         actionbarSetup()
     }
 
@@ -47,26 +52,33 @@ class AddAddress : Basic(), View.OnClickListener {
             }
 
         }
-        addaddressbind?.AddadsLytAds?.setEndIconOnClickListener{
-              CheckLocationPermisson()
+        addaddressbind?.AddadsLytAds?.setEndIconOnClickListener {
+            CheckLocationPermisson()
 
         }
 
     }
 
     private fun CheckLocationPermisson() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
             GiveLocation()
         } else {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), ConstVal.requestCode_AccessLocation)
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                ConstVal.requestCode_AccessLocation
+            )
         }
     }
 
     private fun GiveLocation() {
-     startActivity(Intent(this,MapsActivity::class.java))
-
+        activityResultContracts_location.launch(SuccessGettingLocation())
     }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -81,7 +93,6 @@ class AddAddress : Basic(), View.OnClickListener {
             }
         }
     }
-
 
 
     fun successUpdate() {
@@ -180,7 +191,7 @@ class AddAddress : Basic(), View.OnClickListener {
                     SendDataAddress()
                 }
             }
-            R.id.Addads_lyt_ads ->{
+            R.id.Addads_lyt_ads -> {
 
             }
         }

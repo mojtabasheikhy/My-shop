@@ -116,6 +116,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/addads_lyt_aditional"
+                    android:paddingBottom="3dp"
                     style="@style/parent">
 
                     <com.google.android.material.textfield.TextInputEditText
