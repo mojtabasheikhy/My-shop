@@ -35,7 +35,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, View.OnClickListen
         map_Binding = DataBindingUtil.setContentView(this, R.layout.activity_maps)
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         map_Binding?.MapFindLocation?.setOnClickListener(this)
-
         mapFragment.getMapAsync(this)
     }
 
@@ -51,13 +50,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, View.OnClickListen
         mMap.isMyLocationEnabled=true
         val locationServices = LocationServices.getFusedLocationProviderClient(this)
         val task = locationServices.lastLocation
-        task.addOnSuccessListener {
-            buyyersydney = LatLng(it.latitude, it.longitude)
+        task.addOnSuccessListener {Location ->
+            buyyersydney = LatLng(Location.latitude, Location.longitude)
             mMap.addMarker(MarkerOptions().position(buyyersydney).title("Marker in Sydney").draggable(true))
-                .setIcon(
-                    BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)
-                )
-
+                .setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(buyyersydney,250f))
         }
     }
@@ -96,6 +92,5 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, View.OnClickListen
     }
 
 }
-
 class SuccessGettingLocation() {}
 class outputAddress(var success: Boolean, var message: String, var arrayList: java.util.ArrayList<String>)

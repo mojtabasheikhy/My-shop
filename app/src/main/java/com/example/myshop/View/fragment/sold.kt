@@ -13,6 +13,9 @@ import com.example.myshop.R
 import com.example.myshop.adapter.SoldAdapter
 import com.example.myshop.databinding.FragmentSoldBinding
 import com.example.myshop.model.SoldDataClass
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class sold : Fragment() {
@@ -25,10 +28,12 @@ class sold : Fragment() {
         // Inflate the layout for this fragment
         soldBinding = FragmentSoldBinding.inflate(layoutInflater, container, false)
         soldBinding.soldSwip.setOnRefreshListener {
-            var random=(0..5).random()
-            var color= arrayOf(R.color.Golden,R.color.blue,R.color.pink,R.color.green,R.color.orange,R.color.teal_700)
+            val random=(0..5).random()
+            val color= arrayOf(R.color.Golden,R.color.blue,R.color.pink,R.color.green,R.color.orange,R.color.teal_700)
             soldBinding.soldSwip.setColorSchemeResources(color[random])
-            GetallSoldItem()
+            CoroutineScope(Dispatchers.IO).launch {
+                GetallSoldItem()
+            }
             showShimer()
             soldBinding.soldRecycler.visibility=View.VISIBLE
             soldBinding.SoldNodataAnim.visibility=View.GONE
@@ -43,8 +48,9 @@ class sold : Fragment() {
         GetallSoldItem()
     }
     fun GetallSoldItem(){
-        FireStore().GetAllSoldMyProduct(this)
-
+        CoroutineScope(Dispatchers.IO).launch {
+            FireStore().GetAllSoldMyProduct(this@sold)
+        }
     }
     fun failedgetAllsoldOwnList(){
         soldBinding.soldSwip.isRefreshing=false

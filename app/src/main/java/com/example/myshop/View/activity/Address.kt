@@ -2,7 +2,6 @@ package com.example.myshop.View.activity
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
@@ -18,7 +17,9 @@ import com.example.myshop.databinding.ActivityAddressBinding
 import com.example.myshop.model.AddressDataClass
 import com.myshoppal.utils.SwipeToDeleteCallback
 import com.myshoppal.utils.SwipeToEditCallback
-import java.sql.RowId
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class Address : Basic(), View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     lateinit var addressBinding:ActivityAddressBinding
@@ -27,7 +28,9 @@ class Address : Basic(), View.OnClickListener, SwipeRefreshLayout.OnRefreshListe
         super.onCreate(savedInstanceState)
 
         addressBinding=DataBindingUtil.setContentView(this,R.layout.activity_address)
-        GetAllAddress()
+        CoroutineScope(Dispatchers.IO).launch {
+            GetAllAddress()
+        }
 
         setSupportActionBar(addressBinding.AddressToolbar)
         val actionbar_history = supportActionBar
@@ -62,14 +65,17 @@ class Address : Basic(), View.OnClickListener, SwipeRefreshLayout.OnRefreshListe
     }
     fun GetAllAddress(){
         showShimmer()
-        FireStore().GetAllAdressOwn(this)
+        CoroutineScope(Dispatchers.IO).launch {
+            FireStore().GetAllAdressOwn(this@Address)
+        }
     }
 
 
     fun  successDelete(){
         HideDialog()
         ShowSnackbar(resources.getString(R.string.deletedSuccessFully),true)
-        GetAllAddress()
+
+        CoroutineScope(Dispatchers.IO).launch {  GetAllAddress()}
     }
     fun failedDelete(){
         HideDialog()
@@ -88,7 +94,8 @@ class Address : Basic(), View.OnClickListener, SwipeRefreshLayout.OnRefreshListe
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode==ConstVal.ActivityStartCode_selectAddress){
             if (resultCode== Activity.RESULT_OK){
-                GetAllAddress()
+
+                CoroutineScope(Dispatchers.IO).launch {  GetAllAddress() }
             }
         }
     }

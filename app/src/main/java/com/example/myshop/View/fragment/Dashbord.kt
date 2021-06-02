@@ -5,11 +5,8 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.myshop.FireStore.FireStore
 import com.example.myshop.R
 import com.example.myshop.Utils.ConstVal
@@ -17,11 +14,11 @@ import com.example.myshop.View.activity.DetailProduct
 import com.example.myshop.View.activity.Settings
 import com.example.myshop.View.activity.cartlist
 import com.example.myshop.adapter.DashbordAdapter
-import com.example.myshop.adapter.Product_adapter
-import com.example.myshop.databinding.AlertDialogWaitingBindingImpl
 import com.example.myshop.databinding.FragmentDashbordBinding
-import com.example.myshop.databinding.ItemProductBinding
 import com.example.myshop.model.ProductDataClass
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 
 class Dashbord : Fragment() {
     lateinit var pref:SharedPreferences
@@ -63,11 +60,9 @@ class Dashbord : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.dashbord_menu_settings -> {
-
                    val intent = Intent(activity, Settings::class.java)
                    startActivity(intent)
                    return true
-
             }
             R.id.dashbord_menu_cart -> {
                     val intent_cart = Intent(activity, cartlist::class.java)
@@ -79,9 +74,11 @@ class Dashbord : Fragment() {
 
     }
 
-    fun GetAllProduct() {
+     fun GetAllProduct() {
         showshimer()
-        FireStore().GetAllProduct(this)
+        CoroutineScope(IO).launch {
+            FireStore().GetAllProduct(this@Dashbord)
+        }
     }
 
     fun successGetAllProductFromFireStore(AllProductList: ArrayList<ProductDataClass>) {

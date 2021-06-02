@@ -14,6 +14,9 @@ import com.example.myshop.Utils.ConstVal
 import com.example.myshop.databinding.ActivityDetailProductBinding
 import com.example.myshop.model.CartDataClass
 import com.example.myshop.model.ProductDataClass
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DetailProduct : Basic(), View.OnClickListener {
     lateinit var detailProductBinding: ActivityDetailProductBinding
@@ -27,7 +30,9 @@ class DetailProduct : Basic(), View.OnClickListener {
 
         detailProductBinding.DetailAddtocart.setOnClickListener(this)
         detailProductBinding.DetailGotocart.setOnClickListener(this)
-        GetDetailFromProduct()
+        CoroutineScope(Dispatchers.IO).launch {
+            GetDetailFromProduct()
+        }
         actionbarSetup()
     }
 
