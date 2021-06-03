@@ -7,10 +7,11 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.myshop.FireStore.FireStore
@@ -25,7 +26,11 @@ class AddProduct : Basic(), View.OnClickListener{
     var videouri_addproduct:Uri?=null
     var downloadAble_Image_uri:String?=null
     var downloadAble_video_uri:String?=null
-
+    var newRequestPermissionChosepic =  registerForActivityResult(ActivityResultContracts.RequestPermission()){
+        if (it) {
+            chooseImageOrvideo()
+        }
+    }
     var flag_chose_vide_or_pic:Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,21 +89,22 @@ class AddProduct : Basic(), View.OnClickListener{
 
     private fun SendDataAddProductToFireStore() {
         ShowDialog(resources.getString(R.string.WaitToUpadteAndSendPicProduct))
-        if (videouri_addproduct!=null&&imageuri_addproduct==null){
+        Toast.makeText(this,videouri_addproduct.toString()+imageuri_addproduct.toString(),Toast.LENGTH_SHORT).show()
+        if (videouri_addproduct!=null && imageuri_addproduct==null){
+            Toast.makeText(this,"videoo",Toast.LENGTH_SHORT).show()
             FireStore().UploadvideoToCloudStore(this, videouri_addproduct!!,ConstVal.AddProductVideo)
             Toast.makeText(this,videouri_addproduct.toString(),Toast.LENGTH_SHORT).show()
         }
         if (imageuri_addproduct!=null && videouri_addproduct==null){
+            Toast.makeText(this,"image",Toast.LENGTH_SHORT).show()
             FireStore().UploadImageToCloudStore(this, imageuri_addproduct!!,ConstVal.AddProductImage)
 
         }
         if (videouri_addproduct==null && imageuri_addproduct==null){
+            Toast.makeText(this,"not",Toast.LENGTH_SHORT).show()
             SendProductDetial()
         }
-        if (videouri_addproduct!=null && imageuri_addproduct!=null){
-            FireStore().UploadvideoToCloudStore(this, videouri_addproduct!!,ConstVal.AddProductVideo)
-            FireStore().UploadImageToCloudStore(this, imageuri_addproduct!!,ConstVal.AddProductImage)
-        }
+
     }
 
     fun checkpermission() {
@@ -106,21 +112,21 @@ class AddProduct : Basic(), View.OnClickListener{
         ) {
             chooseImageOrvideo()
         } else {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                ConstVal.RequestCode_Permission
-            )
+            newRequestPermissionChosepic.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
         }
     }
 
-    fun chooseImageOrvideo(){
-        if (flag_chose_vide_or_pic){
-            ConstVal.choseVideoFromgallery(this)
-        }
-        else{
-            ConstVal.ChoseImageFromGallery(this)}
+    fun chooseImageOrvideo() {
+        if (flag_chose_vide_or_pic) {
+            var videointent = Intent()
+            videointent.type = "video/*"
+            videointent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(videointent, ConstVal.RequestCode_Pick_Video_from_Gallery)
 
+        } else {
+            val GalleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(GalleryIntent, ConstVal.RequestCode_Gallery)
+        }
     }
 
     fun Validation(): Boolean {
@@ -216,13 +222,13 @@ class AddProduct : Basic(), View.OnClickListener{
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == ConstVal.RequestCode_Gallery) {
-
                 if (data != null) {
                     try {
 
                         addproductBinding?.addproductIvAddpic?.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_edit))
                         addproductBinding?.textView5?.visibility=View.GONE
                         addproductBinding?.addProductChangeToPic?.visibility=View.GONE
+                        Toast.makeText(this, data.data.toString(), Toast.LENGTH_SHORT).show()
                         imageuri_addproduct = data.data
                         // Compelte_profile.CompleteIvUserprofile.setImageURI(Uri.parse(SelectedImage))
                         imageuri_addproduct?.let {
@@ -245,6 +251,8 @@ class AddProduct : Basic(), View.OnClickListener{
                 if (data!=null) {
                     try {
                         addproductBinding?.addProductVideoView?.visibility = View.VISIBLE
+                        Toast.makeText(this, data.data.toString(), Toast.LENGTH_SHORT).show()
+
                         addproductBinding?.addproductIvShow?.visibility = View.GONE
                         addproductBinding?.changeVideBtn?.visibility = View.VISIBLE
                         addproductBinding?.addProductChangeToPic?.visibility = View.VISIBLE
@@ -269,7 +277,6 @@ class AddProduct : Basic(), View.OnClickListener{
     }
 
     fun UploadVideoSuccess(uri: Uri?) {
-        Toast.makeText(this,"1",Toast.LENGTH_SHORT).show()
         if(uri!=null) {
             downloadAble_video_uri = uri.toString()
 

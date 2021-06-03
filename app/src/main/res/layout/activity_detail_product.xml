@@ -33,6 +33,16 @@
             android:background="@color/white"
             app:cardCornerRadius="15dp"
             >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_downward_24"
+                android:layout_gravity="end"
+                android:elevation="20dp"
+                android:layout_marginTop="10dp"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:layout_marginEnd="10dp"
+                android:id="@+id/detail_Product_download"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -58,15 +68,13 @@
                     android:textAlignment="center"
                     android:textColor="@color/second_text_color" />
 
+
                 <com.github.chrisbanes.photoview.PhotoView
                     android:id="@+id/detail_iv_product"
                     android:layout_width="match_parent"
-                    android:scaleType="fitCenter"
                     android:layout_height="0dp"
-                    android:layout_weight="15" />
-
-
-
+                    android:layout_weight="15"
+                    android:scaleType="fitCenter" />
 
                 <TextView
                     android:id="@+id/detail_title"

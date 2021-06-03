@@ -142,12 +142,7 @@ class FireStore {
 
     fun UploadImageToCloudStore(activity: Activity, imageExtension: Uri, ImageType: String) {
 
-        val sref = FirebaseStorage.getInstance().reference.child(
-            ImageType + System.currentTimeMillis() + "." + ConstVal.GetFileExtention(
-                activity,
-                imageExtension
-            )
-        )
+        val sref = FirebaseStorage.getInstance().reference.child(ImageType + System.currentTimeMillis() + "." + ConstVal.GetFileExtention(activity, imageExtension))
         sref.putFile(imageExtension)
 
             .addOnSuccessListener {
@@ -682,6 +677,7 @@ class FireStore {
                 soldfragment.failedgetAllsoldOwnList()
             }
     }
+
 
 
 }

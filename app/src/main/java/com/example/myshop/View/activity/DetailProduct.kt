@@ -1,6 +1,7 @@
 package com.example.myshop.View.activity
 
 import android.annotation.SuppressLint
+import android.app.DownloadManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -14,25 +15,24 @@ import com.example.myshop.Utils.ConstVal
 import com.example.myshop.databinding.ActivityDetailProductBinding
 import com.example.myshop.model.CartDataClass
 import com.example.myshop.model.ProductDataClass
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class DetailProduct : Basic(), View.OnClickListener {
     lateinit var detailProductBinding: ActivityDetailProductBinding
     var userId_seller: String? = null
     var product_id: String? = null
+    var DownloadURL:String?=null
     var productDetailGetsuccess: ProductDataClass? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        detailProductBinding =
-            DataBindingUtil.setContentView(this, R.layout.activity_detail_product)
+        detailProductBinding = DataBindingUtil.setContentView(
+            this,
+            R.layout.activity_detail_product
+        )
 
         detailProductBinding.DetailAddtocart.setOnClickListener(this)
         detailProductBinding.DetailGotocart.setOnClickListener(this)
-        CoroutineScope(Dispatchers.IO).launch {
-            GetDetailFromProduct()
-        }
+        detailProductBinding.detailProductDownload.setOnClickListener(this)
+         GetDetailFromProduct()
         actionbarSetup()
     }
 
@@ -51,8 +51,9 @@ class DetailProduct : Basic(), View.OnClickListener {
         }
     }
 
-    fun GetDetailFromProduct() {
+fun GetDetailFromProduct() {
         ShowDialog(resources.getString(R.string.wait))
+
         if (intent.hasExtra(ConstVal.putExtera_detail_product)) {
             product_id = intent.getStringExtra(ConstVal.putExtera_detail_product)
         }
@@ -92,14 +93,17 @@ class DetailProduct : Basic(), View.OnClickListener {
             detailProductBinding.detailQuantityValue.text = it.product_quantity.toString()
             if (productDetailGetsuccess!!.product_Video.isNotEmpty()) {
                 productDetailGetsuccess!!.product_Video.let {
+                    detailProductBinding.detailProductDownload.visibility=View.VISIBLE
                     detailProductBinding.detailIvProduct.visibility = View.GONE
                     detailProductBinding.detailProductVideoView.visibility = View.VISIBLE
+                    DownloadURL=productDetailGetsuccess!!.product_Video
                     setvideo_to_view(it)
                 }
             }
             if (product.product_image.isEmpty() && product.product_Video.isEmpty()) {
                 detailProductBinding.detailNopicTv.visibility = View.VISIBLE
                 detailProductBinding.detailIvProduct.visibility = View.VISIBLE
+                detailProductBinding.detailProductDownload.visibility=View.GONE
                 detailProductBinding.detailProductVideoView.visibility = View.GONE
                 detailProductBinding.detailIvProduct.setImageDrawable(
                     ContextCompat.getDrawable(
@@ -116,16 +120,14 @@ class DetailProduct : Basic(), View.OnClickListener {
             }
 
             if (product.product_image.isNotEmpty() && product.product_Video.isEmpty()) {
+                detailProductBinding.detailProductDownload.visibility=View.VISIBLE
+                DownloadURL=productDetailGetsuccess!!.product_image
                 ConstVal.LoadPicByGlide_noCircle(
                     this,
                     it.product_image,
                     detailProductBinding.detailIvProduct
                 )
             }
-
-
-
-
 
             if (it.product_quantity == 0) {
                 HideDialog()
@@ -172,7 +174,29 @@ class DetailProduct : Basic(), View.OnClickListener {
                 val intent = Intent(this, cartlist::class.java)
                 startActivity(intent)
             }
+            R.id.detail_Product_download -> {
+                if (DownloadURL!!.isNotEmpty()) {
+                    download_pic_video(DownloadURL!!)
+                }
+            }
         }
+    }
+
+    private fun download_pic_video(filepath:String){
+         try {
+             val downloadmanager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+             val uri = Uri.parse(filepath)
+             val request = DownloadManager.Request(uri)
+
+             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+             downloadmanager.enqueue(request)
+         }
+         catch (e:Exception){
+             Toast.makeText(this@DetailProduct, e.message.toString(),Toast.LENGTH_SHORT).show()
+         }
+
+
     }
 
     fun AddCartSuccess() {

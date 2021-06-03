@@ -104,6 +104,7 @@ object ConstVal {
         videointent.type="video/*"
         videointent.action=Intent.ACTION_GET_CONTENT
         activity.startActivityForResult(videointent,RequestCode_Pick_Video_from_Gallery)
+
     }
 
     fun LoadPicByGlide(context: Context, ImageUri: Any, imageView: CircleImageView) {
