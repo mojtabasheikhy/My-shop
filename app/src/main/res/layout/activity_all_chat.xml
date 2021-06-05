@@ -16,6 +16,19 @@
             android:layout_width="match_parent"
             android:id="@+id/AllChat_recycler"
             android:layout_height="match_parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No message Yet!!"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:id="@+id/allchat_no_message"
+            />
+
+
+
+
 
 
     </FrameLayout>

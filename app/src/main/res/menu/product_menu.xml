@@ -2,8 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
  <item
+     android:id="@+id/recived_chat"
+     android:title="chat"
+     app:showAsAction="always"
+     android:icon="@drawable/chat_ic"
+     android:iconTint="@color/white"/>
+
+ <item
      android:title="@string/add_product"
      app:showAsAction="ifRoom"
      android:icon="@drawable/ic_add_product"
      android:id="@+id/product_add_new"/>
+
+
 </menu>

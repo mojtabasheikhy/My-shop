@@ -10,6 +10,7 @@ import com.example.myshop.FireStore.FireStore
 import com.example.myshop.R
 import com.example.myshop.View.BasicFragment
 import com.example.myshop.View.activity.AddProduct
+import com.example.myshop.View.activity.All_chat
 import com.example.myshop.adapter.Product_adapter
 import com.example.myshop.databinding.FragmentProductBinding
 import com.example.myshop.model.ProductDataClass
@@ -56,6 +57,11 @@ class ProductFragment : BasicFragment() {
             R.id.product_add_new -> {
                 var intent_addnew = Intent(activity, AddProduct::class.java)
                 startActivity(intent_addnew)
+                return true
+            }
+            R.id.recived_chat -> {
+                var intent_recived = Intent(activity, All_chat::class.java)
+                startActivity(intent_recived)
                 return true
             }
 

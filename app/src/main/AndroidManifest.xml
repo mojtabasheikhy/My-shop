@@ -21,7 +21,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Myshop">
-        <activity android:name=".View.activity.All_chat"></activity>
+        <activity android:name=".View.activity.All_chat"
+            android:screenOrientation="portrait"
+            android:theme="@style/Splash_Theme"
+            ></activity>
         <activity
             android:name=".View.activity.Chat"
             android:screenOrientation="portrait"

@@ -680,7 +680,6 @@ class FireStore {
     fun chat_get_detailUser_sender(activity: All_chat,userid:ArrayList<String>){
         for ( id in userid) {
             var userDetail=ArrayList<Users>()
-
             myFirestore.collection(ConstVal.Collection_Users).document(id).get()
                 .addOnSuccessListener {
                     var userSender=it.toObject(Users::class.java)
