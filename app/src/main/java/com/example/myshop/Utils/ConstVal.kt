@@ -14,8 +14,8 @@ import de.hdodenhof.circleimageview.CircleImageView
 object ConstVal {
 
 
-    val Getlat: String = "getlat"
-    const val getData="getData"
+    const val putExteraUserIdSeller: String ="userIdSeller"
+    const val putExteraUserSellerProfileImageUri: String="userSellerImage"
     val fristLoginYes: String="firstLoginyes"
 
 

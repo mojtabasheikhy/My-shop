@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+            <variable
+                name="Chatdata"
+                type="com.example.myshop.model.Chat_DataClass" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layoutDirection="inherit"
+        android:layout_marginBottom="12dp">
+
+        <TextView
+            android:id="@+id/textview_from_recived"
+            android:layout_width="wrap_content"
+           android:layout_gravity="start"
+            android:textColor="@color/white"
+            android:background="@drawable/chat_background_recived"
+            android:layout_height="wrap_content"
+            android:text="@{Chatdata.meessage}"
+            android:maxWidth="240dp"
+            android:padding="16dp" />
+        <TextView
+            android:id="@+id/textview_from_sender"
+            android:layout_width="wrap_content"
+            android:layout_gravity="end"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginStart="8dp"
+            android:text="@{Chatdata.meessage}"
+            android:background="@drawable/chat_background"
+            android:maxWidth="240dp"
+            android:padding="16dp" />
+
+
+    </FrameLayout>
+</layout>

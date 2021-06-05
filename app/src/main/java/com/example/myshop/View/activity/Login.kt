@@ -16,7 +16,7 @@ import com.example.myshop.FireStore.FireStore
 import com.example.myshop.R
 import com.example.myshop.Utils.ConstVal
 import com.example.myshop.databinding.ActivityLoginBinding
-import com.example.myshop.model.user
+import com.example.myshop.model.Users
 import com.facebook.*
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -148,24 +148,24 @@ class Login : Basic(), View.OnClickListener, AdapterView.OnItemClickListener {
         }
     }
 
-    fun UserLoginSuccess(user: user) {
+    fun UserLoginSuccess(Users: Users) {
 
         val pref = getSharedPreferences(ConstVal.MySharePref, Context.MODE_PRIVATE)
         val editor = pref.edit()
-        editor.putString(ConstVal.UserNameKeyPref, user.FirstName)
+        editor.putString(ConstVal.UserNameKeyPref, Users.FirstName)
         editor.apply()
 
 
         if (!this@Login.isFinishing) {
             HideDialog()
         }
-        if (user.profile_Compelete == 0) {
+        if (Users.profile_Compelete == 0) {
             val intent_com = Intent(this, CompleteProfile::class.java)
-            intent_com.putExtra(ConstVal.PutExtra_UserDetail, user)
+            intent_com.putExtra(ConstVal.PutExtra_UserDetail, Users)
             intent_com.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent_com)
 
-        } else if (user.profile_Compelete == 1) {
+        } else if (Users.profile_Compelete == 1) {
             val intent_dashbord = Intent(this, Main::class.java)
             intent_dashbord.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent_dashbord)
@@ -214,7 +214,7 @@ class Login : Basic(), View.OnClickListener, AdapterView.OnItemClickListener {
                     val user = auth.currentUser
                     Log.e("face", auth.currentUser?.displayName.toString())
 
-                    val userdetail = com.example.myshop.model.user(
+                    val userdetail = com.example.myshop.model.Users(
                         user!!.uid,
                         user.displayName.toString(),
                         "",
@@ -269,7 +269,7 @@ class Login : Basic(), View.OnClickListener, AdapterView.OnItemClickListener {
 
     }
 
-    fun successRegsiterByfaceBook(userinf: user) {
+    fun successRegsiterByfaceBook(userinf: Users) {
 
         if (userinf.profile_Compelete == 0) {
             val intent_com = Intent(this, CompleteProfile::class.java)
@@ -317,7 +317,7 @@ class Login : Basic(), View.OnClickListener, AdapterView.OnItemClickListener {
                     // Sign in success, update UI with the signed-in user's information
                     var user = auth.getCurrentUser()
 
-                    val userdetail = user(
+                    val userdetail = Users(
                         user!!.uid,
                         user.displayName.toString(),
                         "",

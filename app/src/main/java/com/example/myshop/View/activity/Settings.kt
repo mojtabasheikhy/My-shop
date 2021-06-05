@@ -10,11 +10,11 @@ import com.example.myshop.FireStore.FireStore
 import com.example.myshop.R
 import com.example.myshop.Utils.ConstVal
 import com.example.myshop.databinding.ActivitySettingsBinding
-import com.example.myshop.model.user
+import com.example.myshop.model.Users
 import com.google.firebase.auth.FirebaseAuth
 
 class Settings : Basic(), View.OnClickListener {
-    var User_Gave:user?=null
+    var users_Gave:Users?=null
     lateinit var settings_bind:ActivitySettingsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,21 +51,21 @@ class Settings : Basic(), View.OnClickListener {
 
     }
 
-    fun GetUserDetailSettingsSuccess(user: user) {
+    fun GetUserDetailSettingsSuccess(Users: Users) {
         HideDialog()
-        User_Gave = user
+        users_Gave = Users
 
-        if (User_Gave!=null) {
-            ConstVal.LoadPicByGlide(this,user.Image,settings_bind.settingsIvProfile)
-            settings_bind.settingsTvEmail.text = user.Email
-            settings_bind.settingsTvName.text = user.FirstName
-            if (user.Mobile.equals("null")){
+        if (users_Gave!=null) {
+            ConstVal.LoadPicByGlide(this,Users.Image,settings_bind.settingsIvProfile)
+            settings_bind.settingsTvEmail.text = Users.Email
+            settings_bind.settingsTvName.text = Users.FirstName
+            if (Users.Mobile.equals("null")){
                 settings_bind.settingsTvPhone.setText(resources.getString(R.string.Enter_phone))
             }
             else {
-                settings_bind.settingsTvPhone.text = user.Mobile
+                settings_bind.settingsTvPhone.text = Users.Mobile
             }
-            if (user.gender == ConstVal.Male) {
+            if (Users.gender == ConstVal.Male) {
                 settings_bind.settingsIvGender.setImageDrawable(
                     ContextCompat.getDrawable(
                         this,
@@ -100,7 +100,7 @@ class Settings : Basic(), View.OnClickListener {
              }
             R.id.settings_btn_edit ->{
                 val intent=Intent(this,CompleteProfile::class.java)
-                intent.putExtra(ConstVal.PutExtra_UserDetail,User_Gave)
+                intent.putExtra(ConstVal.PutExtra_UserDetail,users_Gave)
                 startActivity(intent)
             }
             R.id.settings_Edt_addressList ->{

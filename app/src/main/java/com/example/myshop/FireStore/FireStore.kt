@@ -33,7 +33,7 @@ class FireStore {
     }
 
 
-    fun RegisterUserToFireStore(activity: Activity, userinfo: user) {
+    fun RegisterUserToFireStore(activity: Activity, userinfo: Users) {
         myFirestore.collection(ConstVal.Collection_Users)
             .document(userinfo.user_id)
             .set(userinfo, SetOptions.merge())
@@ -79,7 +79,7 @@ class FireStore {
             .get()
             .addOnCompleteListener {
                 it.addOnSuccessListener {
-                    val user = it.toObject(user::class.java)
+                    val user = it.toObject(Users::class.java)
                     when (activity) {
                         is Login -> {
                             if (user != null) {
@@ -676,6 +676,23 @@ class FireStore {
             .addOnFailureListener {
                 soldfragment.failedgetAllsoldOwnList()
             }
+    }
+    fun chat_get_detailUser_sender(activity: All_chat,userid:ArrayList<String>){
+        for ( id in userid) {
+            var userDetail=ArrayList<Users>()
+
+            myFirestore.collection(ConstVal.Collection_Users).document(id).get()
+                .addOnSuccessListener {
+                    var userSender=it.toObject(Users::class.java)
+                      userSender.let { userDetail.add(userSender!!) }
+
+                       activity.successGettingInfo(userDetail)
+                }
+                .addOnFailureListener {
+                       Log.e("er",it.toString())
+                    activity.HideDialog()
+                }
+        }
     }
 
 

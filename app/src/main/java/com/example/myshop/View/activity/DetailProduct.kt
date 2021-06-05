@@ -19,6 +19,7 @@ import com.example.myshop.model.ProductDataClass
 class DetailProduct : Basic(), View.OnClickListener {
     lateinit var detailProductBinding: ActivityDetailProductBinding
     var userId_seller: String? = null
+    var userseller_image:String?=null
     var product_id: String? = null
     var DownloadURL:String?=null
     var productDetailGetsuccess: ProductDataClass? = null
@@ -32,6 +33,7 @@ class DetailProduct : Basic(), View.OnClickListener {
         detailProductBinding.DetailAddtocart.setOnClickListener(this)
         detailProductBinding.DetailGotocart.setOnClickListener(this)
         detailProductBinding.detailProductDownload.setOnClickListener(this)
+        detailProductBinding.detailChat.setOnClickListener(this)
          GetDetailFromProduct()
         actionbarSetup()
     }
@@ -54,14 +56,17 @@ class DetailProduct : Basic(), View.OnClickListener {
 fun GetDetailFromProduct() {
         ShowDialog(resources.getString(R.string.wait))
 
+
         if (intent.hasExtra(ConstVal.putExtera_detail_product)) {
             product_id = intent.getStringExtra(ConstVal.putExtera_detail_product)
+
         }
         if (intent.hasExtra(ConstVal.PutExtera_detail_userid)) {
             userId_seller = intent.getStringExtra(ConstVal.PutExtera_detail_userid)
         }
         if (FireStore().GetCurrentUserID() == userId_seller) {
             detailProductBinding.DetailAddtocart.setText(resources.getString(R.string.ownproduct))
+            detailProductBinding.detailChat.visibility=View.GONE
             detailProductBinding.DetailAddtocart.setBackgroundColor(
                 ContextCompat.getColor(
                     this,
@@ -128,6 +133,9 @@ fun GetDetailFromProduct() {
                     detailProductBinding.detailIvProduct
                 )
             }
+            if (productDetailGetsuccess?.profImge_Seller!=null){
+                userseller_image=productDetailGetsuccess?.product_image
+            }
 
             if (it.product_quantity == 0) {
                 HideDialog()
@@ -178,6 +186,14 @@ fun GetDetailFromProduct() {
                 if (DownloadURL!!.isNotEmpty()) {
                     download_pic_video(DownloadURL!!)
                 }
+            }
+            R.id.detail_chat ->{
+                var intent=Intent(this,Chat::class.java)
+                intent.putExtra(ConstVal.putExteraUserIdSeller,userId_seller)
+                if (productDetailGetsuccess?.profImge_Seller!=null) {
+                intent.putExtra(ConstVal.putExteraUserSellerProfileImageUri,productDetailGetsuccess?.profImge_Seller)
+                }
+                startActivity(intent)
             }
         }
     }

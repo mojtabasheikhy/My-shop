@@ -11,7 +11,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.myshop.FireStore.FireStore
 import com.example.myshop.R
 import com.example.myshop.databinding.ActivityRegisterBinding
-import com.example.myshop.model.user
+import com.example.myshop.model.Users
 import com.google.firebase.auth.FirebaseAuth
 
 class Register : Basic(), View.OnClickListener, CompoundButton.OnCheckedChangeListener {
@@ -98,7 +98,7 @@ class Register : Basic(), View.OnClickListener, CompoundButton.OnCheckedChangeLi
                         val name = register_binding.RegisterEdtName.text.toString().trim()
                         val emai_user = register_binding.RegisterEdtEmail.text.toString().trim()
                         val phone = register_binding.RegisterEdtPhone.text.toString().trim()
-                        val user = it.result?.user?.let { it1 -> user(it1.uid, name, "", emai_user, phone, "", 0, "")
+                        val user = it.result?.user?.let { it1 -> Users(it1.uid, name, "", emai_user, phone, "", 0, "")
                         }
                         user?.let { it1 -> FireStore().RegisterUserToFireStore(this, it1) }
 

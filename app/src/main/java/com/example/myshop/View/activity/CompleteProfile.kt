@@ -14,7 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.myshop.FireStore.FireStore
-import com.example.myshop.model.user
+import com.example.myshop.model.Users
 import com.example.myshop.R
 import com.example.myshop.Utils.ConstVal
 import com.example.myshop.databinding.ActivityCompleteProfileBinding
@@ -25,7 +25,7 @@ class CompleteProfile : Basic(), View.OnClickListener {
     var actionbar_complete: androidx.appcompat.app.ActionBar? = null
     var ImageUriSelected: Uri? = null
     var downloadAble: String? = null
-    var UserDetail: user? = null
+    var usersDetail: Users? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Complete_profile = DataBindingUtil.setContentView(this, R.layout.activity_complete_profile)
@@ -57,27 +57,27 @@ class CompleteProfile : Basic(), View.OnClickListener {
 
         val Intent_GetUser_Detail = intent
         if (Intent_GetUser_Detail.hasExtra(ConstVal.PutExtra_UserDetail)) {
-            UserDetail =
-                Intent_GetUser_Detail.getParcelableExtra<user>(ConstVal.PutExtra_UserDetail)
+            usersDetail =
+                Intent_GetUser_Detail.getParcelableExtra<Users>(ConstVal.PutExtra_UserDetail)
 
-            if (UserDetail != null) {
-                if (UserDetail?.profile_Compelete == 0) {
+            if (usersDetail != null) {
+                if (usersDetail?.profile_Compelete == 0) {
                     Disable_Edt_Which_HasData()
                     Complete_profile.CompleteRdGenderFemale.isChecked = true
                     actionbar_complete?.setTitle(resources.getString(R.string.Compeleteprofile))
-                    if (UserDetail?.Image!!.isNotEmpty()){
-                        ConstVal.LoadPicByGlide(this,UserDetail!!.Image,Complete_profile.CompleteIvUserprofile)
+                    if (usersDetail?.Image!!.isNotEmpty()){
+                        ConstVal.LoadPicByGlide(this,usersDetail!!.Image,Complete_profile.CompleteIvUserprofile)
                     }
 
                 } else {
                     Complete_profile.completeEdtEmail.isEnabled = false
                     actionbar_complete?.setTitle(resources.getString(R.string.edit))
-                    if (UserDetail?.Image != null) {
-                        Load_Pic_Profile(UserDetail!!.Image)
+                    if (usersDetail?.Image != null) {
+                        Load_Pic_Profile(usersDetail!!.Image)
                     }
-                    Complete_profile.completeEdtLastName.setText(UserDetail?.lastName)
+                    Complete_profile.completeEdtLastName.setText(usersDetail?.lastName)
 
-                    val gender = UserDetail?.gender
+                    val gender = usersDetail?.gender
                     if (gender == ConstVal.Male) {
                         Complete_profile.CompleteRdGenderMale.isChecked = true
                     } else {
@@ -87,7 +87,7 @@ class CompleteProfile : Basic(), View.OnClickListener {
             }
 
         }
-        SetDataToEdtGiveBefore(UserDetail)
+        SetDataToEdtGiveBefore(usersDetail)
         Complete_profile.compeleteToolbar.setNavigationIcon(R.drawable.ic_back)
         Complete_profile.compeleteToolbar.setNavigationOnClickListener {
             onBackPressed()
@@ -95,20 +95,20 @@ class CompleteProfile : Basic(), View.OnClickListener {
         }
     }
 
-    private fun SetDataToEdtGiveBefore(userDetail: user?) {
-        Complete_profile.completeEdtEmail.setText(userDetail?.Email)
-        Complete_profile.CompleteEdtName.setText(userDetail?.FirstName)
-        if (userDetail?.Mobile.equals("null")){
+    private fun SetDataToEdtGiveBefore(usersDetail: Users?) {
+        Complete_profile.completeEdtEmail.setText(usersDetail?.Email)
+        Complete_profile.CompleteEdtName.setText(usersDetail?.FirstName)
+        if (usersDetail?.Mobile.equals("null")){
             Complete_profile.completeEdtPhoneNumber.setText("")
             Complete_profile.completeEdtPhoneNumber.isEnabled=true
         }
         else{
-            Complete_profile.completeEdtPhoneNumber.setText(userDetail?.Mobile.toString())
+            Complete_profile.completeEdtPhoneNumber.setText(usersDetail?.Mobile.toString())
         }
 
 
-        if (userDetail?.profile_Compelete == 1) {
-            Complete_profile.completeEdtLastName.setText(userDetail.lastName)
+        if (usersDetail?.profile_Compelete == 1) {
+            Complete_profile.completeEdtLastName.setText(usersDetail.lastName)
         }
     }
 
@@ -146,16 +146,16 @@ class CompleteProfile : Basic(), View.OnClickListener {
 
 
 
-        if (firstname.isNotEmpty() && firstname != UserDetail?.FirstName) {
+        if (firstname.isNotEmpty() && firstname != usersDetail?.FirstName) {
             UserHashMap[ConstVal.name] = firstname
         }
-        if (mobile.isNotEmpty() && mobile != UserDetail?.Mobile.toString()) {
+        if (mobile.isNotEmpty() && mobile != usersDetail?.Mobile.toString()) {
             UserHashMap[ConstVal.phonenumber] = mobile.toLong()
         }
-        if (LastName.isNotEmpty() && LastName != UserDetail?.lastName) {
+        if (LastName.isNotEmpty() && LastName != usersDetail?.lastName) {
             UserHashMap[ConstVal.Lastname] = LastName
         }
-        if (downloadAble != null && !downloadAble.equals(UserDetail?.Image)) {
+        if (downloadAble != null && !downloadAble.equals(usersDetail?.Image)) {
             UserHashMap[ConstVal.imageColumn] = downloadAble.toString()
         }
 
@@ -166,7 +166,7 @@ class CompleteProfile : Basic(), View.OnClickListener {
         }
 
 
-        if (gender.isNotEmpty() && gender != UserDetail?.gender) {
+        if (gender.isNotEmpty() && gender != usersDetail?.gender) {
             UserHashMap[ConstVal.gender] = gender
         }
 
@@ -264,17 +264,17 @@ class CompleteProfile : Basic(), View.OnClickListener {
         if (!this@CompleteProfile.isFinishing) {
             HideDialog()
         }
-        if (UserDetail != null) {
-            if (UserDetail?.profile_Compelete == 0) {
+        if (usersDetail != null) {
+            if (usersDetail?.profile_Compelete == 0) {
                 Toast.makeText(
                     this,
-                    resources.getString(R.string.welcome) + UserDetail?.FirstName,
+                    resources.getString(R.string.welcome) + usersDetail?.FirstName,
                     Toast.LENGTH_LONG
                 ).show()
                 startActivity(Intent(this, Main::class.java))
                 finish()
             }
-            if (UserDetail?.profile_Compelete == 1) {
+            if (usersDetail?.profile_Compelete == 1) {
                 Toast.makeText(
                     this,
                     resources.getString(R.string.SuccessWhenUpadteData),
