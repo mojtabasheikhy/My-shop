@@ -13,6 +13,7 @@ import com.example.myshop.R
 import com.example.myshop.Utils.ConstVal
 import com.example.myshop.databinding.ActivityChatBinding
 import com.example.myshop.model.Chat_DataClass
+import com.example.myshop.model.Users
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -25,25 +26,40 @@ class Chat : AppCompatActivity(), View.OnClickListener {
     var sellerUserid:String?=null
     var messagelist:ArrayList<Chat_DataClass>? = null
     var buyerUserId:String?=null
-    lateinit var database:FirebaseDatabase
+    var database:FirebaseDatabase? = null
     var data:ArrayList<Chat_DataClass>?=null
     var pathSend:String? = null
     var pathRecived:String? = null
     var userprofSeller:String?=null
+    var useridsender:String?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
          activityChatBinding=DataBindingUtil.setContentView(this, R.layout.activity_chat)
 
+        pathSend = "/User_Message/send/$buyerUserId/$sellerUserid"
+        pathRecived = "/User_Message/recived/$sellerUserid/$buyerUserId"
 
          database = FirebaseDatabase.getInstance()
          buyerUserId=FireStore().GetCurrentUserID()
-         getUserSellerInfo()
-         pathSend="/User_Message/send/$buyerUserId/$sellerUserid"
-         pathRecived="/User_Message/recived/$sellerUserid/$buyerUserId"
-         setonclickListener()
-         Getmessage()
+        if (intent.hasExtra(ConstVal.putExteraChatDetail)){
+            var userdetail=intent.getParcelableExtra<Users>(ConstVal.putExteraChatDetail)
+            useridsender = userdetail?.user_id
+            var userProfileimage=userdetail?.Image
+            var username=userdetail?.FirstName
+            activityChatBinding?.chatUsername?.text=username
+            if (userProfileimage != null) {
+                ConstVal.LoadPicByGlide(this,userProfileimage,activityChatBinding!!.chatUserProfImage)
+            }
+            Getmessage_recived()
 
 
+        }
+        else {
+            getUserSellerInfo()
+            Getmessage()
+        }
+
+        setonclickListener()
 
 
     }
@@ -58,7 +74,7 @@ class Chat : AppCompatActivity(), View.OnClickListener {
                 ConstVal.LoadPicByGlide(
                     this,
                     userprofSeller!!,
-                    activityChatBinding!!.circleImageView2
+                    activityChatBinding!!.chatUserProfImage
                 )
             }
         }
@@ -69,8 +85,8 @@ class Chat : AppCompatActivity(), View.OnClickListener {
     }
 
     fun chat(buyerId: String, SellerId: String, message: String){
-        var myRef = database.getReference(pathSend!!)
-        if (myRef.key!=null){
+        var myRef = database?.getReference(pathSend!!)
+        if (myRef?.key!=null){
         var chatDataClass=Chat_DataClass(myRef.key!!, buyerId, SellerId, message, System.currentTimeMillis().toString() ?: "")
             var sending=myRef.push()
             sending.setValue(chatDataClass).addOnSuccessListener {
@@ -80,8 +96,8 @@ class Chat : AppCompatActivity(), View.OnClickListener {
                     Log.e("E", it.message.toString())
                 }
         }
-        var myRefRecieved = database.getReference(pathRecived!!)
-        if (myRefRecieved.key!=null){
+        var myRefRecieved = database?.getReference(pathRecived!!)
+        if (myRefRecieved?.key!=null){
             var chatDataClass=Chat_DataClass(myRefRecieved.key!!, buyerId, SellerId, message, System.currentTimeMillis().toString() ?: "")
             var sending=myRefRecieved.push()
             sending.setValue(chatDataClass).addOnSuccessListener {
@@ -112,6 +128,26 @@ class Chat : AppCompatActivity(), View.OnClickListener {
                     }
                 })
     }
+    fun Getmessage_recived(){
+        var ListenNewMessage=FirebaseDatabase.getInstance().getReference(pathRecived!!)
+        messagelist = ArrayList<Chat_DataClass>()
+        ListenNewMessage.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                messagelist!!.clear()
+                for (snapshot1 in snapshot.children) {
+                    var message= snapshot1.getValue(Chat_DataClass::class.java)
+                    message?.messageKey = snapshot1.key.toString()
+                    if (message != null) {
+                        messagelist!!.add(message)
+                    }
+                }
+                recyclerviewChat()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
 
     fun recyclerviewChat(){
         if (messagelist!=null) {
@@ -133,11 +169,20 @@ class Chat : AppCompatActivity(), View.OnClickListener {
         when(v?.id) {
             R.id.chat_send_message_btn -> {
                 Toast.makeText(this, "send", Toast.LENGTH_SHORT).show()
-                chat(
-                    FireStore().GetCurrentUserID(),
-                    sellerUserid!!,
-                    activityChatBinding!!.chatMessageEdt.text.toString()
-                )
+               if (intent.hasExtra(ConstVal.putExteraChatDetail)){
+                   chat(
+                       FireStore().GetCurrentUserID(),
+                       useridsender!!,
+                       activityChatBinding!!.chatMessageEdt.text.toString()
+                   )
+               }
+                else {
+                   chat(
+                       FireStore().GetCurrentUserID(),
+                       sellerUserid!!,
+                       activityChatBinding!!.chatMessageEdt.text.toString()
+                   )
+               }
 
             }
         }

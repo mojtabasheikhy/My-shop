@@ -14,6 +14,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 object ConstVal {
 
 
+    const val putExteraChatDetail: String ="userDetailSenderMessage"
     const val putExteraUserIdSeller: String ="userIdSeller"
     const val putExteraUserSellerProfileImageUri: String="userSellerImage"
     val fristLoginYes: String="firstLoginyes"
@@ -137,6 +138,9 @@ object ConstVal {
     fun GetFileExtention(activity: Activity, uri: Uri?): String {
         return MimeTypeMap.getSingleton().getExtensionFromMimeType(uri?.let { activity.contentResolver.getType(it) })!!
     }
+
+
+
 
 
 }

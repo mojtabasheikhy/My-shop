@@ -684,7 +684,6 @@ class FireStore {
                 .addOnSuccessListener {
                     var userSender=it.toObject(Users::class.java)
                       userSender.let { userDetail.add(userSender!!) }
-
                        activity.successGettingInfo(userDetail)
                 }
                 .addOnFailureListener {

@@ -23,6 +23,7 @@ class All_chat : Basic() {
         super.onCreate(savedInstanceState)
         allChatBinding = DataBindingUtil.setContentView(this, R.layout.activity_all_chat)
         getAllmessage()
+        getAllmessageSend()
 
     }
 
@@ -44,15 +45,49 @@ class All_chat : Basic() {
                         }
                     }
                 }
-
                 if (UserS_sender_id.size==0){
                     HideDialog()
                     allChatBinding?.allchatNoMessage?.visibility = View.VISIBLE
                 }
                 if (UserS_sender_id.size >0 ){
-
                     allChatBinding?.allchatNoMessage?.visibility = View.GONE
                     FireStore().chat_get_detailUser_sender(this@All_chat,UserS_sender_id)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+    fun getAllmessageSend() {
+        userid_reciver = FireStore().GetCurrentUserID()
+        var pathReciver = "/User_Message/send/$userid_reciver"
+        var ListenNewMessage = FirebaseDatabase.getInstance().getReference(pathReciver)
+        var UserS_sender_id = ArrayList<String>()
+        ListenNewMessage.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                UserS_sender_id.clear()
+                if (!snapshot.equals(null)) {
+                    for (snapshot1 in snapshot.children) {
+                        var UseridSender = snapshot1.key
+                        if (UseridSender != null) {
+                            UserS_sender_id.add(UseridSender)
+                            Log.e("e",UseridSender)
+                        }
+                    }
+                }
+                if (UserS_sender_id==null){
+                    HideDialog()
+                }
+                if (UserS_sender_id.size==0){
+                    HideDialog()
+                    allChatBinding?.allchatNoMessage?.visibility = View.VISIBLE
+                }
+                if (UserS_sender_id.size >0 ){
+                    HideDialog()
+                    allChatBinding?.allchatNoMessage?.visibility = View.GONE
+                    FireStore().chat_get_detailUser_sender(this@All_chat,UserS_sender_id)
+
                 }
             }
 
@@ -66,7 +101,7 @@ class All_chat : Basic() {
         if (usersDetail.isNotEmpty()) {
             allChatBinding?.AllChatRecycler?.apply {
                 layoutManager = LinearLayoutManager(this@All_chat, RecyclerView.VERTICAL, false)
-                adapter = AllChat_adapter(usersDetail)
+                adapter = AllChat_adapter(this@All_chat,usersDetail)
             }
         }
     }
