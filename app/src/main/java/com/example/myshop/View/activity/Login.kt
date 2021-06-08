@@ -54,16 +54,12 @@ class Login : Basic(), View.OnClickListener, AdapterView.OnItemClickListener {
 
         var getlangues=getSharedPreferences(ConstVal.MySharePref, Context.MODE_PRIVATE)
         var languagesValues=getlangues.getString(ConstVal.Language,"en")
-        Toast.makeText(this, languagesValues, Toast.LENGTH_SHORT).show()
+
         if (languagesValues.equals("en")){
-            loadLanguage("en")
-
-
-        }
+            loadLanguage("en") }
         else{
             loadLanguage("fa")
             login_binding.loginChoseLan.completionHint = language!![1]
-
 
         }
     }
@@ -75,6 +71,11 @@ class Login : Basic(), View.OnClickListener, AdapterView.OnItemClickListener {
         login_binding.LoginEdtForgotPassword.setOnClickListener(this)
         login_binding.LoginIvGoogle.setOnClickListener(this)
         login_binding.LoginIvFacebook.setOnClickListener(this)
+        login_binding.headerTitleTv.setOnClickListener {
+           // Custom_Toast(this,)
+            Custom_Toast(this, resources.getString(R.string.welcome),R.drawable.ic_checkbox_icon,R.color.text_color)
+
+        }
 
     }
 

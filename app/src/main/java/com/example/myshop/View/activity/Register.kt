@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.widget.CompoundButton
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.myshop.FireStore.FireStore
@@ -112,17 +111,17 @@ class Register : Basic(), View.OnClickListener, CompoundButton.OnCheckedChangeLi
     }
 
     fun RegisterSuccess() {
-        Toast.makeText(this, resources.getString(R.string.success_register), Toast.LENGTH_SHORT).show()
+        //Custom_Toast(this,resources.getString(R.string.success_register))
         if (!this.isFinishing) {
             HideDialog()
         }
-        var intent=Intent(this, Login::class.java)
-        startActivity(intent)
-        finish()
+        val intent_login=Intent(this, Login::class.java)
+        startActivity(intent_login)
         FirebaseAuth.getInstance().signOut()
         if (!this.isFinishing) {
             HideDialog()
         }
+        finish()
     }
 
     fun RegisterFailed() {

@@ -1,16 +1,19 @@
 package com.example.myshop.View.activity
 
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.myshop.R
 import com.example.myshop.databinding.AlertDialogWaitingBinding
 import com.google.android.material.snackbar.Snackbar
+import es.dmoral.toasty.Toasty
 
 open class Basic : AppCompatActivity() {
      var alertDialog:Dialog? = null
@@ -62,6 +65,16 @@ open class Basic : AppCompatActivity() {
                 .show()
             DoubleBackClickToExit = System.currentTimeMillis()
         }
+    }
+    fun Custom_Toast(context:Context,message: String,icon:Int?,color:Int){
+        val typeface_Toast =Typeface.createFromAsset(assets,"fonts/"+"iranyekanweblight2.ttf")
+        Toasty.Config.getInstance()
+            .setToastTypeface(typeface_Toast) // optional
+            .setTextSize(12) // optional
+            .allowQueue(true) // optional (prevents several Toastys from queuing)
+            .apply()
+       var toast= Toasty.custom(context,message, icon!!, color,Toast.LENGTH_SHORT,true,true).show()
+
     }
 
 

@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import com.example.myshop.FireStore.FireStore
@@ -17,43 +16,45 @@ import com.example.myshop.databinding.ActivityCompleteProfileBinding
 import com.example.myshop.model.Users
 
 class CompleteProfile : Basic(), View.OnClickListener {
-    lateinit var Complete_profile: ActivityCompleteProfileBinding
+    var Complete_profile_binding: ActivityCompleteProfileBinding? = null
     var actionbar_complete: androidx.appcompat.app.ActionBar? = null
     var ImageUriSelected: Uri? = null
     var downloadAble: String? = null
     var usersDetail: Users? = null
-    var CheckPermision_for_chose_image = registerForActivityResult(ActivityResultContracts.RequestPermission()){ granted->
-        if (granted){
-            val GalleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            GalleryIntent.setAction(Intent.ACTION_GET_CONTENT)
-            resulat_back_when_chose_image.launch( GalleryIntent)
+    var CheckPermision_for_chose_image =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+            if (granted) {
+                val GalleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                GalleryIntent.setAction(Intent.ACTION_GET_CONTENT)
+                resulat_back_when_chose_image.launch(GalleryIntent)
+            } else {
+                ShowSnackbar(resources.getString(R.string.pleaseAllowPermision), false)
+            }
+
         }
-        else{
-            ShowSnackbar(resources.getString(R.string.pleaseAllowPermision), false)
+    var resulat_back_when_chose_image = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == RESULT_OK) {
+                if (it.data != null) {
+                    try {
+                        ImageUriSelected = it.data!!.data
+                        // Complete_profile.CompleteIvUserprofile.setImageURI(Uri.parse(SelectedImage))
+                        ImageUriSelected?.let {
+                            Load_Pic_Profile(it)
+                            ShowSnackbar(resources.getString(R.string.alerttouploadpic), true)
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        ShowSnackbar(resources.getString(R.string.faildSelectedImage), false)
+
+                    }
+                }
+            }
         }
 
-    }
-    var resulat_back_when_chose_image = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-                 if (it.resultCode== RESULT_OK){
-                     if (it.data!=null){
-                         try {
-                             ImageUriSelected = it.data!!.data
-                             // Complete_profile.CompleteIvUserprofile.setImageURI(Uri.parse(SelectedImage))
-                             ImageUriSelected?.let {
-                                 Load_Pic_Profile(it)
-                                 ShowSnackbar(resources.getString(R.string.alerttouploadpic), true)
-                             }
-                         } catch (e: Exception) {
-                             e.printStackTrace()
-                             ShowSnackbar(resources.getString(R.string.faildSelectedImage), false)
-
-                         }
-                     }
-                 }
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Complete_profile = DataBindingUtil.setContentView(this, R.layout.activity_complete_profile)
+        Complete_profile_binding =
+            DataBindingUtil.setContentView(this, R.layout.activity_complete_profile)
         setUpActionbar()
         GetUserDetailFromRegister()
         SetOnClickListener()
@@ -61,25 +62,24 @@ class CompleteProfile : Basic(), View.OnClickListener {
     }
 
     fun setUpActionbar() {
-        setSupportActionBar(Complete_profile.compeleteToolbar)
+        setSupportActionBar(Complete_profile_binding?.compeleteToolbar)
         actionbar_complete?.setDisplayHomeAsUpEnabled(true)
         actionbar_complete = supportActionBar
     }
 
     private fun Disable_Edt_Which_HasData() {
-        Complete_profile.CompleteEdtName.isEnabled = false
-        Complete_profile.completeEdtPhoneNumber.isEnabled = false
-        Complete_profile.completeEdtEmail.isEnabled = false
+        Complete_profile_binding?.CompleteEdtName?.isEnabled = false
+        Complete_profile_binding?.completeEdtPhoneNumber?.isEnabled = false
+        Complete_profile_binding?.completeEdtEmail?.isEnabled = false
 
     }
 
     fun SetOnClickListener() {
-        Complete_profile.CompleteIvUserprofile.setOnClickListener(this)
-        Complete_profile.CompleteBtnSave.setOnClickListener(this)
+        Complete_profile_binding?.CompleteIvUserprofile?.setOnClickListener(this)
+        Complete_profile_binding?.CompleteBtnSave?.setOnClickListener(this)
     }
 
     private fun GetUserDetailFromRegister() {
-
         val Intent_GetUser_Detail = intent
         if (Intent_GetUser_Detail.hasExtra(ConstVal.PutExtra_UserDetail)) {
             usersDetail =
@@ -88,52 +88,53 @@ class CompleteProfile : Basic(), View.OnClickListener {
             if (usersDetail != null) {
                 if (usersDetail?.profile_Compelete == 0) {
                     Disable_Edt_Which_HasData()
-                    Complete_profile.CompleteRdGenderFemale.isChecked = true
+                    Complete_profile_binding?.CompleteRdGenderFemale?.isChecked = true
                     actionbar_complete?.setTitle(resources.getString(R.string.Compeleteprofile))
-                    if (usersDetail?.Image!!.isNotEmpty()){
-                        ConstVal.LoadPicByGlide(this,usersDetail!!.Image,Complete_profile.CompleteIvUserprofile)
+                    if (usersDetail?.Image!!.isNotEmpty()) {
+                        ConstVal.LoadPicByGlide(
+                            this,
+                            usersDetail!!.Image,
+                            Complete_profile_binding!!.CompleteIvUserprofile
+                        )
                     }
 
                 } else {
-                    Complete_profile.completeEdtEmail.isEnabled = false
+                    Complete_profile_binding?.completeEdtEmail?.isEnabled = false
                     actionbar_complete?.setTitle(resources.getString(R.string.edit))
                     if (usersDetail?.Image != null) {
                         Load_Pic_Profile(usersDetail!!.Image)
                     }
-                    Complete_profile.completeEdtLastName.setText(usersDetail?.lastName)
+                    Complete_profile_binding?.completeEdtLastName?.setText(usersDetail?.lastName)
 
                     val gender = usersDetail?.gender
                     if (gender == ConstVal.Male) {
-                        Complete_profile.CompleteRdGenderMale.isChecked = true
+                        Complete_profile_binding?.CompleteRdGenderMale?.isChecked = true
                     } else {
-                        Complete_profile.CompleteRdGenderFemale.isChecked = true
+                        Complete_profile_binding?.CompleteRdGenderFemale?.isChecked = true
                     }
                 }
             }
 
         }
         SetDataToEdtGiveBefore(usersDetail)
-        Complete_profile.compeleteToolbar.setNavigationIcon(R.drawable.ic_back)
-        Complete_profile.compeleteToolbar.setNavigationOnClickListener {
+        Complete_profile_binding?.compeleteToolbar?.setNavigationIcon(R.drawable.ic_back)
+        Complete_profile_binding?.compeleteToolbar?.setNavigationOnClickListener {
             onBackPressed()
             finish()
         }
     }
 
     private fun SetDataToEdtGiveBefore(usersDetail: Users?) {
-        Complete_profile.completeEdtEmail.setText(usersDetail?.Email)
-        Complete_profile.CompleteEdtName.setText(usersDetail?.FirstName)
-        if (usersDetail?.Mobile.equals("null")){
-            Complete_profile.completeEdtPhoneNumber.setText("")
-            Complete_profile.completeEdtPhoneNumber.isEnabled=true
+        Complete_profile_binding?.completeEdtEmail?.setText(usersDetail?.Email)
+        Complete_profile_binding?.CompleteEdtName?.setText(usersDetail?.FirstName)
+        if (usersDetail?.Mobile.equals("null")) {
+            Complete_profile_binding?.completeEdtPhoneNumber?.setText("")
+            Complete_profile_binding?.completeEdtPhoneNumber?.isEnabled = true
+        } else {
+            Complete_profile_binding?.completeEdtPhoneNumber?.setText(usersDetail?.Mobile.toString())
         }
-        else{
-            Complete_profile.completeEdtPhoneNumber.setText(usersDetail?.Mobile.toString())
-        }
-
-
         if (usersDetail?.profile_Compelete == 1) {
-            Complete_profile.completeEdtLastName.setText(usersDetail.lastName)
+            Complete_profile_binding?.completeEdtLastName?.setText(usersDetail.lastName)
         }
     }
 
@@ -164,9 +165,9 @@ class CompleteProfile : Basic(), View.OnClickListener {
     }
 
     private fun UpdateUsersDetail() {
-        val LastName = Complete_profile.completeEdtLastName.text.toString()
-        val firstname = Complete_profile.CompleteEdtName.text.toString()
-        val mobile = Complete_profile.completeEdtPhoneNumber.text.toString()
+        val LastName = Complete_profile_binding?.completeEdtLastName?.text.toString()
+        val firstname = Complete_profile_binding?.CompleteEdtName?.text.toString()
+        val mobile = Complete_profile_binding?.completeEdtPhoneNumber?.text.toString()
         val UserHashMap = HashMap<String, Any>()
 
 
@@ -175,7 +176,7 @@ class CompleteProfile : Basic(), View.OnClickListener {
             UserHashMap[ConstVal.name] = firstname
         }
         if (mobile.isNotEmpty() && mobile != usersDetail?.Mobile.toString()) {
-            UserHashMap[ConstVal.phonenumber] = mobile.toLong()
+            UserHashMap[ConstVal.phonenumber] = mobile
         }
         if (LastName.isNotEmpty() && LastName != usersDetail?.lastName) {
             UserHashMap[ConstVal.Lastname] = LastName
@@ -184,7 +185,7 @@ class CompleteProfile : Basic(), View.OnClickListener {
             UserHashMap[ConstVal.imageColumn] = downloadAble.toString()
         }
 
-        val gender = if (Complete_profile.CompleteRdGenderFemale.isChecked) {
+        val gender = if (Complete_profile_binding?.CompleteRdGenderFemale!!.isChecked) {
             ConstVal.Female
         } else {
             ConstVal.Male
@@ -204,7 +205,8 @@ class CompleteProfile : Basic(), View.OnClickListener {
     private fun ValidationLastName(): Boolean {
         return when {
             TextUtils.isEmpty(
-                Complete_profile.completeEdtLastName.text.toString().trim { it <= ' ' }) -> {
+                Complete_profile_binding?.completeEdtLastName?.text.toString()
+                    .trim { it <= ' ' }) -> {
                 ShowSnackbar(resources.getString(R.string.Enter_lastname), false)
                 false
             }
@@ -215,29 +217,29 @@ class CompleteProfile : Basic(), View.OnClickListener {
     private fun CheckPermission() {
         //this  ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
 
-     /*  if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-        ) {
-            ConstVal.ChoseImageFromGallery(this@CompleteProfile)
-        } else {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                ConstVal.RequestCode_Permission
-            )
-        }*/
+        /*  if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+           ) {
+               ConstVal.ChoseImageFromGallery(this@CompleteProfile)
+           } else {
+               ActivityCompat.requestPermissions(
+                   this,
+                   arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                   ConstVal.RequestCode_Permission
+               )
+           }*/
         CheckPermision_for_chose_image.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE)
     }
 
     fun Load_Pic_Profile(image: Any) {
-        ConstVal.LoadPicByGlide(this, image, Complete_profile.CompleteIvUserprofile)
+        ConstVal.LoadPicByGlide(this, image, Complete_profile_binding!!.CompleteIvUserprofile)
     }
-    fun uploadImageSuccess(it: Uri?) {
-        /**ارسال ادرس عکس آپلود شده به دیتا بیس*/
-        if (it!=null) {
-            downloadAble = it.toString()
+
+    fun uploadImageSuccess(download_able_uri_of_image: Uri?) {
+        if (download_able_uri_of_image != null) {
+            downloadAble = download_able_uri_of_image.toString()
             val pref = getSharedPreferences(ConstVal.MySharePref, Context.MODE_PRIVATE)
             val editor = pref.edit()
-            editor.putString(ConstVal.userImageuri, it.toString())
+            editor.putString(ConstVal.userImageuri, download_able_uri_of_image.toString())
             editor.apply()
         }
         UpdateUsersDetail()
@@ -250,24 +252,20 @@ class CompleteProfile : Basic(), View.OnClickListener {
         }
         if (usersDetail != null) {
             if (usersDetail?.profile_Compelete == 0) {
-                Toast.makeText(
-                    this,
-                    resources.getString(R.string.welcome) + usersDetail?.FirstName,
-                    Toast.LENGTH_LONG
-                ).show()
+                Custom_Toast(this, resources.getString(R.string.welcome) + usersDetail?.FirstName.toString(),R.drawable.ic_checkbox_icon,R.color.text_color)
                 startActivity(Intent(this, Main::class.java))
                 finish()
             }
             if (usersDetail?.profile_Compelete == 1) {
-                Toast.makeText(
-                    this,
-                    resources.getString(R.string.SuccessWhenUpadteData),
-                    Toast.LENGTH_LONG
-                ).show()
+                Custom_Toast(this, resources.getString(R.string.SuccessWhenUpadteData),R.drawable.ic_checkbox_icon,R.color.text_color)
+                finish()
             }
         }
+    }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        Complete_profile_binding = null
     }
 
 
