@@ -7,29 +7,87 @@
 
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".View.activity.All_chat">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/Allchat_toolabr"
             android:layout_width="match_parent"
-            android:id="@+id/AllChat_recycler"
-            android:layout_height="match_parent" />
+            android:layout_height="45dp"
+            app:titleTextColor="@color/white"
+            app:title="@string/Messages"
+            app:navigationIconTint="@color/white"
+            android:background="@drawable/main_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
+            <com.github.ybq.android.spinkit.SpinKitView
+                android:id="@+id/Allchat_spin_kit"
+                style="@style/SpinKitView.Circle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
+                android:layout_margin="6dp"
+                app:SpinKit_Color="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent" />
+        </com.google.android.material.appbar.MaterialToolbar>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:layout_width="match_parent"
+            android:id="@+id/Allchat_swip"
+                app:layout_constraintTop_toBottomOf="@+id/Allchat_toolabr"
+                android:layout_height="0dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/AllChat_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
         <TextView
+            android:id="@+id/allchat_no_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:text="No message Yet!!"
-            android:visibility="gone"
-            android:layout_gravity="center"
             android:textSize="18sp"
-            android:id="@+id/allchat_no_message"
-            />
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/allchat_anim_nodata"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Allchat_swip" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/allchat_anim_nodata"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_below="@id/allchat_no_message"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/Allchat_swip"
+            app:layout_constraintEnd_toEndOf="@+id/allchat_no_message"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/allchat_no_message"
+            app:layout_constraintTop_toBottomOf="@+id/allchat_no_message"
+            app:layout_constraintVertical_bias="0.0"
+            app:lottie_autoPlay="true"
+            app:lottie_repeatCount="10"
+            app:lottie_rawRes="@raw/message" />
 
 
-
-
-
-
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

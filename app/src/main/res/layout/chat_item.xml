@@ -18,7 +18,7 @@
         <TextView
             android:id="@+id/textview_from_recived"
             android:layout_width="wrap_content"
-           android:layout_gravity="start"
+           android:layout_gravity="left"
             android:textColor="@color/white"
             android:background="@drawable/chat_background_recived"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         <TextView
             android:id="@+id/textview_from_sender"
             android:layout_width="wrap_content"
-            android:layout_gravity="end"
+            android:layout_gravity="right"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:layout_marginStart="8dp"

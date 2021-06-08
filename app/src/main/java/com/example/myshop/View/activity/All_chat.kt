@@ -22,13 +22,32 @@ class All_chat : Basic() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         allChatBinding = DataBindingUtil.setContentView(this, R.layout.activity_all_chat)
+        ToolbarSetup()
         getAllmessage()
+        Swip_Setup()
         getAllmessageSend()
 
     }
 
+    fun ToolbarSetup(){
+        setSupportActionBar(allChatBinding?.AllchatToolabr)
+        val actionbar_history = supportActionBar
+        actionbar_history?.setDisplayHomeAsUpEnabled(true)
+        allChatBinding?.AllchatToolabr?.setTitle(resources.getString(R.string.Messages))
+        allChatBinding?.AllchatToolabr?.setNavigationIcon(R.drawable.ic_back)
+        allChatBinding?.AllchatToolabr?.setNavigationOnClickListener {
+            onBackPressed()
+            finish()
+        }
+    }
+    fun Swip_Setup(){
+        allChatBinding?.AllchatSwip?.setOnRefreshListener {
+            getAllmessage()
+            getAllmessageSend()
+        }
+    }
     fun getAllmessage() {
-        ShowDialog(resources.getString(R.string.wait))
+        allChatBinding?.AllchatSpinKit?.visibility=View.VISIBLE
         userid_reciver = FireStore().GetCurrentUserID()
         var pathReciver = "/User_Message/recived/$userid_reciver"
         var ListenNewMessage = FirebaseDatabase.getInstance().getReference(pathReciver)
@@ -46,7 +65,7 @@ class All_chat : Basic() {
                     }
                 }
                 if (UserS_sender_id.size==0){
-                    HideDialog()
+                    allChatBinding?.AllchatSpinKit?.visibility=View.GONE
                     allChatBinding?.allchatNoMessage?.visibility = View.VISIBLE
                 }
                 if (UserS_sender_id.size >0 ){
@@ -55,12 +74,16 @@ class All_chat : Basic() {
                 }
             }
 
+
             override fun onCancelled(error: DatabaseError) {
             }
         })
+
     }
     fun getAllmessageSend() {
         userid_reciver = FireStore().GetCurrentUserID()
+        allChatBinding?.allchatAnimNodata?.visibility=View.VISIBLE
+
         var pathReciver = "/User_Message/send/$userid_reciver"
         var ListenNewMessage = FirebaseDatabase.getInstance().getReference(pathReciver)
         var UserS_sender_id = ArrayList<String>()
@@ -72,19 +95,22 @@ class All_chat : Basic() {
                         var UseridSender = snapshot1.key
                         if (UseridSender != null) {
                             UserS_sender_id.add(UseridSender)
-                            Log.e("e",UseridSender)
+
                         }
                     }
                 }
                 if (UserS_sender_id==null){
-                    HideDialog()
+
+
                 }
                 if (UserS_sender_id.size==0){
-                    HideDialog()
+                    allChatBinding?.AllchatSpinKit?.visibility=View.GONE
+                    allChatBinding?.allchatAnimNodata?.visibility=View.VISIBLE
                     allChatBinding?.allchatNoMessage?.visibility = View.VISIBLE
                 }
                 if (UserS_sender_id.size >0 ){
-                    HideDialog()
+                    allChatBinding?.AllchatSpinKit?.visibility=View.GONE
+                    allChatBinding?.allchatAnimNodata?.visibility=View.GONE
                     allChatBinding?.allchatNoMessage?.visibility = View.GONE
                     FireStore().chat_get_detailUser_sender(this@All_chat,UserS_sender_id)
 
@@ -94,18 +120,20 @@ class All_chat : Basic() {
             override fun onCancelled(error: DatabaseError) {
             }
         })
-    }
 
+    }
     fun successGettingInfo(usersDetail: java.util.ArrayList<Users>) {
         HideDialog()
         if (usersDetail.isNotEmpty()) {
+            allChatBinding?.AllchatSwip?.isRefreshing=false
             allChatBinding?.AllChatRecycler?.apply {
                 layoutManager = LinearLayoutManager(this@All_chat, RecyclerView.VERTICAL, false)
                 adapter = AllChat_adapter(this@All_chat,usersDetail)
             }
         }
+        allChatBinding?.AllchatSwip?.isRefreshing=false
+        allChatBinding?.AllchatSpinKit?.visibility=View.GONE
     }
-
     override fun onDestroy() {
         super.onDestroy()
         allChatBinding = null

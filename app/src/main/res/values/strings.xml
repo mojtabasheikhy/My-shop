@@ -176,6 +176,7 @@
     <string name="title_activity_maps">Map</string>
     <string name="The_displaye_location_is_correct">location is correct</string>
     <string name="findlocation">Find My location</string>
+    <string name="Messages">Messages</string>
 
 
 </resources>
