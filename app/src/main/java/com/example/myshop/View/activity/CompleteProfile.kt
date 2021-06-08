@@ -1,24 +1,20 @@
 package com.example.myshop.View.activity
 
-import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import com.example.myshop.FireStore.FireStore
-import com.example.myshop.model.Users
 import com.example.myshop.R
 import com.example.myshop.Utils.ConstVal
 import com.example.myshop.databinding.ActivityCompleteProfileBinding
-import java.lang.Exception
+import com.example.myshop.model.Users
 
 class CompleteProfile : Basic(), View.OnClickListener {
     lateinit var Complete_profile: ActivityCompleteProfileBinding
@@ -26,6 +22,35 @@ class CompleteProfile : Basic(), View.OnClickListener {
     var ImageUriSelected: Uri? = null
     var downloadAble: String? = null
     var usersDetail: Users? = null
+    var CheckPermision_for_chose_image = registerForActivityResult(ActivityResultContracts.RequestPermission()){ granted->
+        if (granted){
+            val GalleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            GalleryIntent.setAction(Intent.ACTION_GET_CONTENT)
+            resulat_back_when_chose_image.launch( GalleryIntent)
+        }
+        else{
+            ShowSnackbar(resources.getString(R.string.pleaseAllowPermision), false)
+        }
+
+    }
+    var resulat_back_when_chose_image = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+                 if (it.resultCode== RESULT_OK){
+                     if (it.data!=null){
+                         try {
+                             ImageUriSelected = it.data!!.data
+                             // Complete_profile.CompleteIvUserprofile.setImageURI(Uri.parse(SelectedImage))
+                             ImageUriSelected?.let {
+                                 Load_Pic_Profile(it)
+                                 ShowSnackbar(resources.getString(R.string.alerttouploadpic), true)
+                             }
+                         } catch (e: Exception) {
+                             e.printStackTrace()
+                             ShowSnackbar(resources.getString(R.string.faildSelectedImage), false)
+
+                         }
+                     }
+                 }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Complete_profile = DataBindingUtil.setContentView(this, R.layout.activity_complete_profile)
@@ -189,64 +214,23 @@ class CompleteProfile : Basic(), View.OnClickListener {
 
     private fun CheckPermission() {
         //this  ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED
+
+     /*  if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
         ) {
-            ConstVal.ChoseImageFromGallery(this)
+            ConstVal.ChoseImageFromGallery(this@CompleteProfile)
         } else {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
                 ConstVal.RequestCode_Permission
             )
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == ConstVal.RequestCode_Gallery) {
-                if (data != null) {
-                    try {
-                        ImageUriSelected = data.data
-                        // Complete_profile.CompleteIvUserprofile.setImageURI(Uri.parse(SelectedImage))
-                        ImageUriSelected?.let {
-                            Load_Pic_Profile(it)
-                            ShowSnackbar(resources.getString(R.string.alerttouploadpic), true)
-                        }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        ShowSnackbar(resources.getString(R.string.faildSelectedImage), false)
-
-                    }
-
-                }
-            }
-        }
+        }*/
+        CheckPermision_for_chose_image.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE)
     }
 
     fun Load_Pic_Profile(image: Any) {
         ConstVal.LoadPicByGlide(this, image, Complete_profile.CompleteIvUserprofile)
     }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == ConstVal.RequestCode_Permission) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                ConstVal.ChoseImageFromGallery(this)
-            } else {
-                ShowSnackbar(resources.getString(R.string.pleaseAllowPermision), false)
-            }
-        }
-    }
-
-
     fun uploadImageSuccess(it: Uri?) {
         /**ارسال ادرس عکس آپلود شده به دیتا بیس*/
         if (it!=null) {

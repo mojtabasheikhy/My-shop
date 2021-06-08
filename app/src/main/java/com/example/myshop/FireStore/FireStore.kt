@@ -79,6 +79,7 @@ class FireStore {
             .get()
             .addOnCompleteListener {
                 it.addOnSuccessListener {
+                    if (it!=null){
                     val user = it.toObject(Users::class.java)
                     when (activity) {
                         is Login -> {
@@ -92,7 +93,7 @@ class FireStore {
                             }
                         }
                     }
-                }
+                }}
             }
             .addOnFailureListener {
                 when (activity) {

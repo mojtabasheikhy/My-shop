@@ -3,7 +3,6 @@ package com.example.myshop.View.activity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -64,33 +63,46 @@ class Chat : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    override fun onClick(v: View?) {
+        when(v?.id) {
+            R.id.chat_send_message_btn -> {
+                if (intent.hasExtra(ConstVal.putExteraChatDetail)){
+                    chat(
+                        FireStore().GetCurrentUserID(),
+                        useridsender!!,
+                        activityChatBinding!!.chatMessageEdt.text.toString()
+                    )
+                }
+                else {
+                    chat(
+                        FireStore().GetCurrentUserID(),
+                        sellerUserid!!,
+                        activityChatBinding!!.chatMessageEdt.text.toString()
+                    )
+                }
+
+            }
+        }
+    }
     private fun getUserSellerInfo() {
         if (intent.hasExtra(ConstVal.putExteraUserIdSeller)){
             sellerUserid=intent.getStringExtra(ConstVal.putExteraUserIdSeller)
             }
         if (intent.hasExtra(ConstVal.putExteraUserSellerProfileImageUri)){
             userprofSeller=intent.getStringExtra(ConstVal.putExteraUserSellerProfileImageUri)
-            if (sellerUserid!=null) {
-                ConstVal.LoadPicByGlide(
-                    this,
-                    userprofSeller!!,
-                    activityChatBinding!!.chatUserProfImage
-                )
-            }
+            if (userprofSeller!=null) { ConstVal.LoadPicByGlide(this, userprofSeller!!, activityChatBinding!!.chatUserProfImage) }
         }
     }
-
     fun setonclickListener(){
         activityChatBinding?.chatSendMessageBtn?.setOnClickListener(this)
     }
-
     fun chat(buyerId: String, SellerId: String, message: String){
         var myRef = database?.getReference(pathSend!!)
         if (myRef?.key!=null){
         var chatDataClass=Chat_DataClass(myRef.key!!, buyerId, SellerId, message, System.currentTimeMillis().toString() ?: "")
             var sending=myRef.push()
             sending.setValue(chatDataClass).addOnSuccessListener {
-                Toast.makeText(this, "sd", Toast.LENGTH_SHORT).show()
+                activityChatBinding?.chatMessageEdt?.setText("")
             }
                 .addOnFailureListener {
                     Log.e("E", it.message.toString())
@@ -101,7 +113,7 @@ class Chat : AppCompatActivity(), View.OnClickListener {
             var chatDataClass=Chat_DataClass(myRefRecieved.key!!, buyerId, SellerId, message, System.currentTimeMillis().toString() ?: "")
             var sending=myRefRecieved.push()
             sending.setValue(chatDataClass).addOnSuccessListener {
-                Toast.makeText(this, "sd", Toast.LENGTH_SHORT).show()
+                activityChatBinding?.chatMessageEdt?.setText("")
             }
                 .addOnFailureListener {
                     Log.e("E", it.message.toString())
@@ -148,7 +160,6 @@ class Chat : AppCompatActivity(), View.OnClickListener {
             }
         })
     }
-
     fun recyclerviewChat(){
         if (messagelist!=null) {
             if (messagelist!!.size> 0) {
@@ -159,32 +170,8 @@ class Chat : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
-
     override fun onDestroy() {
         super.onDestroy()
         activityChatBinding=null
-    }
-
-    override fun onClick(v: View?) {
-        when(v?.id) {
-            R.id.chat_send_message_btn -> {
-                Toast.makeText(this, "send", Toast.LENGTH_SHORT).show()
-               if (intent.hasExtra(ConstVal.putExteraChatDetail)){
-                   chat(
-                       FireStore().GetCurrentUserID(),
-                       useridsender!!,
-                       activityChatBinding!!.chatMessageEdt.text.toString()
-                   )
-               }
-                else {
-                   chat(
-                       FireStore().GetCurrentUserID(),
-                       sellerUserid!!,
-                       activityChatBinding!!.chatMessageEdt.text.toString()
-                   )
-               }
-
-            }
-        }
     }
 }

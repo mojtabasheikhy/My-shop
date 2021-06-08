@@ -25,11 +25,10 @@ class Settings : Basic(), View.OnClickListener {
     }
     fun Actionbar_Setup(){
         setSupportActionBar(settings_bind.settingsToolbar)
-        val actionbar_history = supportActionBar
-        if (actionbar_history != null) {
-            actionbar_history.setDisplayHomeAsUpEnabled(true)
-            actionbar_history.title=resources.getString(R.string.settings)
-
+        val actionbar_Settings = supportActionBar
+        if (actionbar_Settings != null) {
+            actionbar_Settings.setDisplayHomeAsUpEnabled(true)
+            actionbar_Settings.title=resources.getString(R.string.settings)
         }
         settings_bind.settingsToolbar.setNavigationIcon(R.drawable.ic_back)
         settings_bind.settingsToolbar.setNavigationOnClickListener {

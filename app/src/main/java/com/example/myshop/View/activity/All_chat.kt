@@ -26,7 +26,6 @@ class All_chat : Basic() {
         getAllmessage()
         Swip_Setup()
         getAllmessageSend()
-
     }
 
     fun ToolbarSetup(){
