@@ -23,7 +23,7 @@
             <FrameLayout
                 android:id="@+id/settings_frame"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="200dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
@@ -35,18 +35,17 @@
                 android:layout_height="0dp"
                 android:layout_above="@+id/settings_iv_profile"
                 android:layout_below="@id/settings_toolbar"
+                android:layout_marginBottom="30dp"
                 android:layout_centerHorizontal="true"
-                android:scaleX="1.3"
-                android:scaleY="1.18"
                 app:lottie_autoPlay="true"
                 app:lottie_rawRes="@raw/profile_user_card"
-                app:lottie_repeatCount="5"
+                app:lottie_repeatCount="3"
                 app:tint="@color/white" />
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/settings_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="40dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
@@ -72,13 +71,14 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/settings_btn_edit"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="match_parent"
+                android:layout_width="190dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/settings_iv_profile"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="60dp"
+                android:layout_alignStart="@+id/settings_iv_profile"
+                android:layout_alignEnd="@+id/settings_iv_profile"
+
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="60dp"
+
                 android:backgroundTint="@color/white"
                 android:fontFamily="@font/iranyekanwebbold"
                 android:insetBottom="0dp"
@@ -100,9 +100,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_below="@id/settings_btn_edit"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="15dp"
                 app:cardCornerRadius="10dp">
 
                 <LinearLayout
@@ -120,8 +120,8 @@
 
                         <ImageView
                             android:id="@+id/settings_iv_gender"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
 
                             android:src="@drawable/ic_man" />
 
@@ -166,8 +166,8 @@
 
                         <ImageView
                             android:id="@+id/settings_iv_email"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:src="@drawable/ic_circle_icons_mail" />
 
                         <TextView
@@ -210,8 +210,8 @@
 
                         <ImageView
                             android:id="@+id/settings_iv_phone"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:src="@drawable/ic_phone" />
                         <TextView
                             android:layout_width="wrap_content"
@@ -254,8 +254,8 @@
 
                         <ImageView
                             android:id="@+id/settings_iv_deleteAcout"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:src="@drawable/ic_delete" />
                         <TextView
                             android:layout_width="wrap_content"
@@ -265,6 +265,66 @@
                             android:layout_marginStart="6dp"
                             android:layout_gravity="center_vertical"
                             android:textSize="13sp"/>
+
+
+                    </LinearLayout>
+                    <View
+                        android:id="@+id/settings_devider_below_languaes"
+                        android:layout_width="match_parent"
+                        android:layout_height=".3dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/second_text_color" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp">
+
+
+                        <ImageView
+                            android:id="@+id/settings_iv_choseLanguages"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/ic_languages" />
+                        <RadioGroup
+                            android:id="@+id/settings_lan_group"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+
+                            <RadioButton
+                                android:id="@+id/settings_english"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_weight="1"
+                                android:padding="3dp"
+                                android:layout_marginEnd="3dp"
+                                android:background="@drawable/gender_selector"
+                                android:button="@null"
+                                android:fontFamily="@font/iranyekanwebbold"
+                                android:text="@string/English"
+                                android:textAlignment="center"
+                                android:textColor="@color/gender_selector_text_color" />
+
+                            <RadioButton
+                                android:id="@+id/settings_persian"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginStart="3dp"
+                                android:layout_weight="1"
+                                android:padding="3dp"
+                                android:background="@drawable/gender_selector"
+                                android:button="@null"
+                                android:fontFamily="@font/iranyekanwebbold"
+                                android:text="@string/farsi"
+                                android:textAlignment="center"
+                                android:textColor="@color/gender_selector_text_color" />
+                        </RadioGroup>
+
 
 
                     </LinearLayout>
@@ -279,7 +339,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="15dp"
                         android:background="@drawable/background_price"
-                        android:drawableEnd="@drawable/ic_location"
+                        android:drawableEnd="@drawable/ic_back_forward"
                         android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:padding="8dp"
                         android:text="@string/addressList"
@@ -298,15 +358,16 @@
         android:layout_height="wrap_content"
 
         android:layout_centerHorizontal="true"
-
+        app:iconPadding="20dp"
+        app:icon="@drawable/ic_exit"
+        app:iconGravity="end"
         android:background="@drawable/main_background"
-        android:drawableEnd="@drawable/ic_exit"
         android:drawablePadding="3dp"
         android:drawableTint="@color/white"
         android:fontFamily="@font/iranyekanwebbold"
         android:gravity="start"
         android:layout_alignParentBottom="true"
-        android:padding="5dp"
+        android:padding="8dp"
         android:text="@string/logout"
         android:textColor="@color/white"
         app:backgroundTint="@null"

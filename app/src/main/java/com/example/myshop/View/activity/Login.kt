@@ -41,8 +41,6 @@ class Login : Basic(), View.OnClickListener, AdapterView.OnItemClickListener {
         login_binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
         setOnClickListener()
-        chose_languages()
-
     }
 
 
@@ -52,14 +50,13 @@ class Login : Basic(), View.OnClickListener, AdapterView.OnItemClickListener {
         login_binding.loginChoseLan.setAdapter(arrayadapter)
         login_binding.loginChoseLan.setOnItemClickListener(this)
 
-        var getlangues=getSharedPreferences(ConstVal.MySharePref, Context.MODE_PRIVATE)
-        var languagesValues=getlangues.getString(ConstVal.Language,"en")
+        val getlangues=getSharedPreferences(ConstVal.MySharePref, Context.MODE_PRIVATE)
+        val languagesValues=getlangues.getString(ConstVal.Language,"en")
 
         if (languagesValues.equals("en")){
             loadLanguage("en") }
         else{
             loadLanguage("fa")
-            login_binding.loginChoseLan.completionHint = language!![1]
 
         }
     }
@@ -123,13 +120,6 @@ class Login : Basic(), View.OnClickListener, AdapterView.OnItemClickListener {
                 }
         }
     }
-
-    fun chose_languages() {
-
-
-
-    }
-
 
     fun Validation_login(): Boolean {
         val Email_Edt = login_binding.LoginEdtEmail
@@ -204,7 +194,6 @@ class Login : Basic(), View.OnClickListener, AdapterView.OnItemClickListener {
         super.onResume()
 
     }
-
 
     private fun handleFacebookAccessToken(token: AccessToken) {
         val credential = FacebookAuthProvider.getCredential(token.token)
@@ -316,7 +305,7 @@ class Login : Basic(), View.OnClickListener, AdapterView.OnItemClickListener {
                 if (it.isSuccessful()) {
                     Log.e("sd", "5")
                     // Sign in success, update UI with the signed-in user's information
-                    var user = auth.getCurrentUser()
+                    val user = auth.getCurrentUser()
 
                     val userdetail = Users(
                         user!!.uid,

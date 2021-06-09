@@ -135,11 +135,6 @@ class FireStore {
             }
     }
 
-    //TODO Call when change profile in edit actvity
-    fun UpdateProductImageProfileWhenchange(userid: String, hashMap: HashMap<String, Any>) {
-        myFirestore.collection(ConstVal.Collection_product).document(ConstVal.user_id)
-            .update(hashMap)
-    }
 
     fun UploadImageToCloudStore(activity: Activity, imageExtension: Uri, ImageType: String) {
 

@@ -27,7 +27,7 @@ import java.util.*
 @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, View.OnClickListener {
 
-    private lateinit var mMap: GoogleMap
+    var mMap: GoogleMap? = null
     var buyyersydney: LatLng? = null
     var map_Binding: ActivityMapsBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,20 +41,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, View.OnClickListen
     @SuppressLint("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        mMap.uiSettings.apply {
+        mMap?.uiSettings?.apply {
             isMapToolbarEnabled = true
             isMyLocationButtonEnabled = true
             isZoomControlsEnabled = true
             isTiltGesturesEnabled = true
         }
-        mMap.isMyLocationEnabled=true
+        mMap?.isMyLocationEnabled=true
         val locationServices = LocationServices.getFusedLocationProviderClient(this)
         val task = locationServices.lastLocation
         task.addOnSuccessListener {Location ->
             buyyersydney = LatLng(Location.latitude, Location.longitude)
-            mMap.addMarker(MarkerOptions().position(buyyersydney).title("Marker in Sydney").draggable(true))
-                .setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(buyyersydney,250f))
+            mMap?.addMarker(MarkerOptions().position(buyyersydney).title("Marker in Sydney").draggable(true))
+                ?.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(buyyersydney,250f))
         }
     }
 

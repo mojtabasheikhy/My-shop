@@ -35,6 +35,14 @@ class Settings : Basic(), View.OnClickListener {
             onBackPressed()
             finish()
         }
+        val preferencesload_languages=getSharedPreferences(ConstVal.MySharePref, MODE_PRIVATE)
+        val lan=preferencesload_languages.getString(ConstVal.Language,"en")
+        if (lan.equals("en")){
+            settings_bind.settingsEnglish.isSelected=true
+        }
+        else{
+            settings_bind.settingsPersian.isSelected=true
+        }
     }
 
     private fun SetOnClickListener() {

@@ -164,10 +164,12 @@
     <string name="sds">585661446368-fehf19ukfh8omc564khpap26ar4jgbha.apps.googleusercontent.com</string>
     <string name="deleteAcount">پاک کردن حساب کاربری</string>
     <string name="WaitToUpadteAndSendPicProduct">لطفا برای ارسال  مشخصات کالا منتظر بمانید </string>
-    <string name="English">English</string>
+    <string name="English">انگلیسی</string>
     <string name="The_displaye_location_is_correct">مکان من </string>
     <string name="findlocation">پیدا کردن مکان من</string>
     <string name="Messages">پیام ها</string>
+    <string name="lanquages">زبان</string>
+    <string name="farsi">فارسی</string>
 
 
 </resources>
