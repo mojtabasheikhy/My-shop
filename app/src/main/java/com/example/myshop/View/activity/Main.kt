@@ -19,9 +19,15 @@ import com.example.myshop.databinding.ActivityMymainBinding
 import com.example.myshop.model.OrderDataClass
 import com.example.myshop.model.ProductDataClass
 import com.example.myshop.model.SoldDataClass
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt.PromptStateChangeListener
 import uk.co.samuelwall.materialtaptargetprompt.extras.focals.RectanglePromptFocal
@@ -40,38 +46,33 @@ class Main : Basic(), BottomNavigationView.OnNavigationItemSelectedListener {
         super.onCreate(savedInstanceState)
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_mymain)
         pref = getSharedPreferences(ConstVal.fristLogin, Context.MODE_PRIVATE)
+        setup_toolbar()
 
-        supportActionBar?.setBackgroundDrawable(
-            ContextCompat.getDrawable(
-                this,
-                R.drawable.main_background
-            )
-        )
+       lifecycleScope.launch(Dispatchers.IO){
+        admob()
+        }
 
-        var appbar_configurration =
-            AppBarConfiguration(
-                setOf(
-                    R.id.navigation_product,
-                    R.id.navigation_home,
-                    R.id.navigation_order,
-                    R.id.navigation_sold
-                )
-            )
-
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
-
-        navController = findNavController(R.id.nav_host_fragment)
-        setupActionBarWithNavController(navController!!, appbar_configurration)
-
-
-
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-
-
-        navView.setOnNavigationItemSelectedListener(this)
         TourGuide()
+        lifecycleScope.launch {
+            FireStore().getAllorderMain(this@Main)
+            FireStore().GetMyProductmain(this@Main)
+            FireStore().GetAllSoldMyProductmain(this@Main)
+        }
+        notifiactionbottomAppbar()
+    }
+    suspend fun admob() {
+          var adRequest:AdRequest?=null
+          MobileAds.initialize(this) {}
+          val adView = AdView(this)
+          adView.adSize = AdSize.BANNER
+          adView.adUnitId = "ca-app-pub-3940256099942544/6300978111"
+          lifecycleScope.launch(Dispatchers.IO){
+          adRequest = AdRequest.Builder().build()
+              withContext(Dispatchers.Main){mainBinding?.adView?.loadAd(adRequest)}
+          }
 
+    }
+    fun notifiactionbottomAppbar(){
         badageDrawable_order = mainBinding?.navView!!.getOrCreateBadge(R.id.navigation_order)
         badageDrawable_sold = mainBinding?.navView!!.getOrCreateBadge(R.id.navigation_sold)
         badageDrawable_ownproduct = mainBinding?.navView!!.getOrCreateBadge(R.id.navigation_product)
@@ -89,22 +90,33 @@ class Main : Basic(), BottomNavigationView.OnNavigationItemSelectedListener {
         badageDrawable_order?.setVisible(false)
         badageDrawable_ownproduct?.setVisible(false)
 
-        lifecycleScope.launch {
-            FireStore().getAllorderMain(this@Main)
-            FireStore().GetMyProductmain(this@Main)
-            FireStore().GetAllSoldMyProductmain(this@Main)
-        }
-
-
-
-
 
     }
+    fun setup_toolbar(){
+        supportActionBar?.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                this,
+                R.drawable.main_background
+            )
+        )
 
+        var appbar_configurration =
+            AppBarConfiguration(
+                setOf(
+                    R.id.navigation_product,
+                    R.id.navigation_home,
+                    R.id.navigation_order,
+                    R.id.navigation_sold
+                )
+            )
+        val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        navController = findNavController(R.id.nav_host_fragment)
+        setupActionBarWithNavController(navController!!, appbar_configurration)
+        navView.setOnNavigationItemSelectedListener(this)
+    }
     override fun onBackPressed() {
         CheckDoubleBackToExit(mainBinding!!.navView)
     }
-
     fun showpromt_addproduct() {
         MaterialTapTargetPrompt.Builder(this)
             .setTarget(R.id.product_add_new)
@@ -122,7 +134,6 @@ class Main : Basic(), BottomNavigationView.OnNavigationItemSelectedListener {
             })
             .show()
     }
-
     fun TourGuide() {
 
         if (!pref.getBoolean(ConstVal.fristLoginYes, false)) {
@@ -143,7 +154,6 @@ class Main : Basic(), BottomNavigationView.OnNavigationItemSelectedListener {
                 .show()
         }
     }
-
     fun showpromt_product() {
 
         MaterialTapTargetPrompt.Builder(this)
@@ -164,7 +174,6 @@ class Main : Basic(), BottomNavigationView.OnNavigationItemSelectedListener {
             })
             .show()
     }
-
     fun showpromt_order() {
 
         MaterialTapTargetPrompt.Builder(this)
@@ -185,10 +194,7 @@ class Main : Basic(), BottomNavigationView.OnNavigationItemSelectedListener {
             })
             .show()
     }
-
     fun showpromt_sold() {
-
-
         MaterialTapTargetPrompt.Builder(this)
             .setTarget(R.id.navigation_sold)
             .setFocalColour(ContextCompat.getColor(this, R.color.pink))
@@ -210,7 +216,6 @@ class Main : Basic(), BottomNavigationView.OnNavigationItemSelectedListener {
             })
             .show()
     }
-
     private fun showpromt_profile() {
         MaterialTapTargetPrompt.Builder(this)
             .setTarget(R.id.dashbord_menu_settings)
@@ -228,7 +233,6 @@ class Main : Basic(), BottomNavigationView.OnNavigationItemSelectedListener {
             })
             .show()
     }
-
     private fun showpromt_cart() {
         MaterialTapTargetPrompt.Builder(this)
             .setTarget(R.id.dashbord_menu_cart)
@@ -248,13 +252,10 @@ class Main : Basic(), BottomNavigationView.OnNavigationItemSelectedListener {
             .setPromptFocal(RectanglePromptFocal())
             .show()
     }
-
     override fun onDestroy() {
         super.onDestroy()
         mainBinding = null
     }
-
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navigation_order -> {
@@ -289,9 +290,6 @@ class Main : Basic(), BottomNavigationView.OnNavigationItemSelectedListener {
             }
         }
     }
-
-
-
     fun successGetAllOrder(myorderlist: ArrayList<OrderDataClass>) {
         if (myorderlist.size==0){
             badageDrawable_order?.setVisible(false)
@@ -301,12 +299,9 @@ class Main : Basic(), BottomNavigationView.OnNavigationItemSelectedListener {
             badageDrawable_order?.number = myorderlist.size
         }
     }
-
-
     fun failedGetAllorder() {
             Log.e("faild","failed to get all order")
     }
-
     fun successGetMyProductFromFireStore(myProductList: ArrayList<ProductDataClass>) {
         if (myProductList.size==0){
             badageDrawable_ownproduct?.setVisible(false)
@@ -316,11 +311,9 @@ class Main : Basic(), BottomNavigationView.OnNavigationItemSelectedListener {
             badageDrawable_ownproduct?.number = myProductList.size
         }
     }
-
     fun failedgetproduct() {
         Log.e("faild","failed to get your product")
     }
-
     fun successgetAllproductSold(myproductSoldList: ArrayList<SoldDataClass>) {
         if (myproductSoldList.size==0){
             badageDrawable_sold?.setVisible(false)
@@ -330,7 +323,6 @@ class Main : Basic(), BottomNavigationView.OnNavigationItemSelectedListener {
             badageDrawable_sold?.number = myproductSoldList.size
         }
     }
-
     fun failedgetAllsoldOwnList() {
         Log.e("faild","failed to get your sold")
     }
